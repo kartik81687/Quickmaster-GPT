@@ -69,15 +69,6 @@ export function ChatItem(props: {
                 <img className="w-[16.84px] h-[16.83px] mr-[-7.01px] ml-[3px]" alt="Frame" src="/images/message.svg" />
                 <span className="absolute left-[25px] [font-family:'Mulish-Bold',Helvetica] font-bold text-[#353535] text-[12.8px] tracking-[0] leading-[normal]" title={props.title}>{props.title.slice(0,15)+"..."}</span>
               </div>
-              {/* <div className={styles["chat-item-title"]}>{props.title}</div> */}
-              {/* <div className={styles["chat-item-info"]}>
-                <div className={styles["chat-item-count"]}>
-                  {Locale.ChatItem.ChatItemCount(props.count)}
-                </div>
-                <div className={styles["chat-item-date"]}>
-                  {new Date(props.time).toLocaleString()}
-                </div>
-              </div> */}
             </div>
           )}
 
