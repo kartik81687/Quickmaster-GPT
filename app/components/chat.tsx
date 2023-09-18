@@ -1011,7 +1011,7 @@ export function Chat() {
   });
 
   return (
-    <div className="bg-[#ebebeb] flex flex-row justify-center w-full">
+    <div className="bg-[#ebebeb] flex-row justify-center w-full h-screen flex items-center">
       <SideBar/>
       <div className="w-4/5 p-3">
         <div className="rounded-[10px] bg-white">
