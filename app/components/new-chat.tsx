@@ -1,8 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { Path, SlotID } from "../constant";
 import { IconButton } from "./button";
-import { EmojiAvatar } from "./emoji";
-import styles from "./new-chat.module.scss";
 
 import LeftIcon from "../icons/left.svg";
 import LightningIcon from "../icons/lightning.svg";
@@ -29,9 +27,9 @@ function getIntersectionArea(aRect: DOMRect, bRect: DOMRect) {
 
 function MaskItem(props: { mask: Mask; onClick?: () => void }) {
   return (
-    <div className={styles["mask"]} onClick={props.onClick}>
+    <div onClick={props.onClick}>
       <MaskAvatar mask={props.mask} />
-      <div className={styles["mask-name"] + " one-line"}>{props.mask.name}</div>
+      <div>{props.mask.name}</div>
     </div>
   );
 }
@@ -129,66 +127,73 @@ export function NewChat() {
             ></IconButton>
           </div>
           <div>
-          <div className="w-[269px] h-[288px] pt-[100px]">
-            <div className="w-[269px] h-[148px] top-0 left-0">
-              <div className="relative h-[148px]">
-                <div className="absolute w-[269px] h-[148px] top-0 left-0">
-                  <div className="relative h-[148px]">
-                    <div className="w-[84px] h-[110px] top-[29px] left-[13px] rotate-[-15.00deg] absolute bg-white rounded-[10px] border border-solid border-[#18bb4e78]" />
-                    <div className="w-[84px] h-[110px] top-[29px] left-[172px] rotate-[15.00deg] absolute bg-white rounded-[10px] border border-solid border-[#18bb4e78]" />
-                    <div className="w-[108px] h-[142px] top-0 left-[81px] absolute bg-white rounded-[10px] border border-solid border-[#18bb4e78]" />
+            <div className="w-[269px] h-[288px] pt-[100px]">
+              <div className="w-[269px] h-[148px] top-0 left-0">
+                <div className="relative h-[148px]">
+                  <div className="absolute w-[269px] h-[148px] top-0 left-0">
+                    <div className="relative h-[148px]">
+                      <div className="w-[84px] h-[110px] top-[29px] left-[13px] rotate-[-15.00deg] absolute bg-white rounded-[10px] border border-solid border-[#18bb4e78]" />
+                      <div className="w-[84px] h-[110px] top-[29px] left-[172px] rotate-[15.00deg] absolute bg-white rounded-[10px] border border-solid border-[#18bb4e78]" />
+                      <div className="w-[108px] h-[142px] top-0 left-[81px] absolute bg-white rounded-[10px] border border-solid border-[#18bb4e78]" />
+                    </div>
                   </div>
+                  <img
+                    className="w-[64px] h-[64px] top-[39px] left-[103px] absolute object-cover"
+                    alt="Image"
+                    src="/images/mask (2).png"
+                  />
+                  <img
+                    className="w-[43px] h-[43px] top-[60px] left-[193px] absolute object-cover"
+                    alt="Image"
+                    src="/images/mask (3).png"
+                  />
+                  <img
+                    className="w-[40px] h-[40px] top-[60px] left-[35px] absolute object-cover"
+                    alt="Image"
+                    src="/images/mask (1).png"
+                  />
                 </div>
-                <img
-                  className="w-[64px] h-[64px] top-[39px] left-[103px] absolute object-cover"
-                  alt="Image"
-                  src="/images/mask (2).png"
-                />
-                <img
-                  className="w-[43px] h-[43px] top-[60px] left-[193px] absolute object-cover"
-                  alt="Image"
-                  src="/images/mask (3).png"
-                />
-                <img
-                  className="w-[40px] h-[40px] top-[60px] left-[35px] absolute object-cover"
-                  alt="Image"
-                  src="/images/mask (1).png"
-                />
               </div>
             </div>
-          </div>
 
-          <div className="[font-family:'Mulish-ExtraBold',Helvetica] font-extrabold text-[#353535] text-[38px] tracking-[0] leading-[normal]">{Locale.NewChat.Title}</div>
-          <div className=" [font-family:'Mulish-ExtraBold',Helvetica] text-[#353535] tracking-[0] leading-[normal]">{Locale.NewChat.SubTitle}</div>
+            <div className="[font-family:'Mulish-ExtraBold',Helvetica] font-extrabold text-[#353535] text-[38px] tracking-[0] leading-[normal]">
+              {Locale.NewChat.Title}
+            </div>
+            <div className=" [font-family:'Mulish-ExtraBold',Helvetica] text-[#353535] tracking-[0] leading-[normal]">
+              {Locale.NewChat.SubTitle}
+            </div>
 
-          <div className="flex pt-5">
-            <IconButton
-              text={Locale.NewChat.More}
-              onClick={() => navigate(Path.Masks)}
-              icon={<EyeIcon />}
-              bordered
-              shadow
-            />
+            <div className="flex pt-5">
+              <IconButton
+                text={Locale.NewChat.More}
+                onClick={() => navigate(Path.Masks)}
+                icon={<EyeIcon />}
+                bordered
+                shadow
+              />
 
-            <button
-              onClick={() => startChat()}
-              className="bg-[#69A606] text-white flex items-center p-2 rounded-[8px] pl-4 pr-4"
-            >{<LightningIcon />}{Locale.NewChat.Skip}</button>
-          </div>
+              <button
+                onClick={() => startChat()}
+                className="bg-[#69A606] text-white flex items-center p-2 rounded-[8px] pl-4 pr-4"
+              >
+                {<LightningIcon />}
+                {Locale.NewChat.Skip}
+              </button>
+            </div>
 
-          <div className={styles["masks"]} ref={maskRef}>
-            {groups.map((masks, i) => (
-              <div key={i} className={styles["mask-row"]}>
-                {masks.map((mask, index) => (
-                  <MaskItem
-                    key={index}
-                    mask={mask}
-                    onClick={() => startChat(mask)}
-                  />
-                ))}
-              </div>
-            ))}
-          </div>
+            <div ref={maskRef}>
+              {groups.map((masks, i) => (
+                <div key={i}>
+                  {masks.map((mask, index) => (
+                    <MaskItem
+                      key={index}
+                      mask={mask}
+                      onClick={() => startChat(mask)}
+                    />
+                  ))}
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </div>

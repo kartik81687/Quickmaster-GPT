@@ -68,6 +68,7 @@ export function Register() {
   const [password, setPassword] = useState("");
   const [comfirmedPassword, setComfirmedPassword] = useState("");
   const [captchaInput, setCaptchaInput] = useState("");
+  const authRegister = useAuthStore().register;
   const currentUrl = "http://chat.dogai.com/#/login";
   const serverUrl = "http://my.dogai.com";
   const wechatRedirectUrl = encodeURIComponent(
@@ -114,13 +115,9 @@ export function Register() {
         setEmailCodeSending(false);
       });
   }
-  function register() {
+  async function register() {
     if (name === null || name === "") {
       showToast(Locale.RegisterPage.Toast.NameEmpty);
-      return;
-    }
-    if (username === null || username === "") {
-      showToast(Locale.RegisterPage.Toast.UsernameEmpty);
       return;
     }
     if (email === null || email == "") {
@@ -131,67 +128,9 @@ export function Register() {
       showToast(Locale.RegisterPage.Toast.PasswordEmpty);
       return;
     }
-
-    if (
-      registerType == REG_TYPE_ONLY_USERNAME ||
-      registerType == REG_TYPE_USERNAME_WITH_CAPTCHA
-    ) {
-      if (password != comfirmedPassword) {
-        showToast(Locale.RegisterPage.Toast.PasswordNotTheSame);
-        return;
-      }
-      if (registerType == REG_TYPE_USERNAME_WITH_CAPTCHA) {
-        if (captchaInput === null || captchaInput.length === 0) {
-          showToast(Locale.RegisterPage.CaptchaIsEmpty);
-          return;
-        } else if (captchaInput.length !== 4) {
-          showToast(Locale.RegisterPage.CaptchaLengthError);
-          return;
-        }
-      }
-    }
-    setLoadingUsage(true);
-    showToast(Locale.RegisterPage.Toast.Registering);
-    // authStore
-    //   .register(
-    //     name,
-    //     username,
-    //     email,
-    //     password,
-    //   )
-    const data = new FormData();
-    data.append("name", name);
-    data.append("username", username);
-    data.append("email", email);
-    data.append("password", password);
-    data.append("signup_from", "chatgpt");
-    const requestOptions = {
-      method: "POST",
-      body: data,
-    };
-
-    fetch("https://my.dogai.com/api/signup", requestOptions)
-      .then((response) => response.json())
-      .then((result: any) => {
-        console.log("result", result);
-        if (!result) {
-          showToast(Locale.RegisterPage.Toast.Failed);
-          return;
-        }
-        if (result.status) {
-          showToast(Locale.RegisterPage.Toast.Redirect);
-          // localStorage.setItem("userId", result.data.id);
-          navigate(Path.Login);
-        } else {
-          showToast(Locale.RegisterPage.Toast.Failed + " " + result.message);
-        }
-      })
-      .catch((error) => {
-        console.error("Fetch error:", error);
-      })
-      .finally(() => {
-        setLoadingUsage(false);
-      });
+    const data = await authRegister(name, email, password);
+    if (data.res) navigate(Path.Login);
+    else showToast(data.msg);
   }
   function getRegisterCaptcha(captchaId: string) {
     // console.log('getRegisterCaptcha', captchaId)
@@ -213,67 +152,110 @@ export function Register() {
   return (
     <ErrorBoundary>
       <div className="flex flex-row justify-center bg-[url('/images/background.png')] w-full md:h-[1080px] sm:h-screen bg-cover">
-      <div className="absolute bg-white w-[790px] h-[986px] border-[1px] top-[55px] rounded-[30px]">
-        <div className="relative">
-          <img src="/images/group.svg" className="top-[34px] left-[287px] w-[66.07px] h-[48.15px] relative"/>
-          <span className="top-[10px] left-[317px] text-lime-600 text-[44px] font-bold font-['Inter'] tracking-tight relative">QuickAsk</span>
-        </div>
-        <div className="text-neutral-700 text-4xl font-extrabold font-['Mulish'] uppercase top-[37px] left-[136px] relative">REGISTER</div>
-        <div className="opacity-80 text-neutral-700 text-base font-medium font-['Mulish'] leading-relaxed top-[37px] left-[136px] relative">Free quota after registeration</div>
-        <div className="text-neutral-700 text-lg font-semibold font-['Mulish'] leading-relaxed top-[67px] left-[136px] relative">Full Name</div>
-        <div className="w-[521px] h-[60px] relative top-[67px] left-[136px] bg-[#c6c6c673] rounded-[10px] border border-solid border-[#ffffff3b] backdrop-blur-[20px] backdrop-brightness-[100%] [-webkit-backdrop-filter:blur(20px)_brightness(100%)]">
-          <input className="absolute h-[58px] w-[470px] bg-[#c6c6c600] left-[46px] right-[46px] [font-family:'Mulish-Regular',Helvetica] font-normal text-[#353535] text-[16px] pl-4 tracking-[0] leading-[26px] whitespace-nowrap" placeholder="Please enter your full name" value={name} 
-            onChange={(e) => setName(e.currentTarget.value)} />
-          <img className="absolute w-[15px] h-[19px] top-[20px] left-[20px]" alt="Group" src="/images/user.svg" />
-        </div>
-        <div className="text-neutral-700 text-lg font-semibold font-['Mulish'] leading-relaxed top-[87px] left-[136px] relative">User Name</div>
-        <div className="w-[521px] h-[60px] relative top-[87px] left-[136px] bg-[#c6c6c673] rounded-[10px] border border-solid border-[#ffffff3b] backdrop-blur-[20px] backdrop-brightness-[100%] [-webkit-backdrop-filter:blur(20px)_brightness(100%)]">
-          <input className="absolute h-[58px] w-[470px] bg-[#c6c6c600] left-[46px] right-[46px] [font-family:'Mulish-Regular',Helvetica] font-normal text-[#353535] text-[16px] pl-4 tracking-[0] leading-[26px] whitespace-nowrap" placeholder="Please enter your user name" value={username} 
-            onChange={(e) => setUsername(e.currentTarget.value)} />
-          <img className="absolute w-[15px] h-[19px] top-[20px] left-[20px]" alt="Group" src="/images/user.svg" />
-        </div>
-        <div className="text-neutral-700 text-lg font-semibold font-['Mulish'] leading-relaxed top-[107px] left-[136px] relative">Email Address</div>
-        <div className="w-[521px] h-[60px] relative top-[107px] left-[136px] bg-[#c6c6c673] rounded-[10px] border border-solid border-[#ffffff3b] backdrop-blur-[20px] backdrop-brightness-[100%] [-webkit-backdrop-filter:blur(20px)_brightness(100%)]">
-          <input className="absolute h-[58px] w-[470px] bg-[#c6c6c600] left-[46px] right-[46px] [font-family:'Mulish-Regular',Helvetica] font-normal text-[#353535] text-[16px] pl-4 tracking-[0] leading-[26px] whitespace-nowrap" placeholder="Please enter your email address" value={email} 
-            onChange={(e) => setEmail(e.currentTarget.value)} />
-          <img className="absolute w-[15px] h-[19px] top-[20px] left-[20px]" alt="Group" src="/images/user.svg" />
-        </div>
-        <div className="text-neutral-700 text-lg font-semibold font-['Mulish'] leading-relaxed top-[127px] left-[136px] relative">Password</div>
-        <div className="w-[521px] h-[60px] relative top-[127px] left-[136px] bg-[#c6c6c673] rounded-[10px] border border-solid border-[#ffffff3b] backdrop-blur-[20px] backdrop-brightness-[100%] [-webkit-backdrop-filter:blur(20px)_brightness(100%)]">
-          <input className="absolute h-[58px] w-[470px] bg-[#c6c6c600] left-[46px] right-[46px] [font-family:'Mulish-Regular',Helvetica] font-normal text-[#353535] text-[16px] pl-4 tracking-[0] leading-[26px] whitespace-nowrap" placeholder="Please enter your password" type="password" value={password} 
-            onChange={(e) => setPassword(e.currentTarget.value)} />
-          <img className="absolute w-[15px] h-[19px] top-[20px] left-[20px]" alt="Group" src="/images/lock.svg" />
-          <img className="absolute w-[15px] h-[19px] top-[20px] right-[20px]" alt="Eye-Off" src="/images/eye-off.svg" />
-        </div>
-        <button className="w-[519px] h-[60px] relative top-[167px] left-[136px] bg-[#69a506] rounded-[10px] [font-family:'Mulish-Bold',Helvetica] font-bold text-white text-[18px] text-center tracking-[0] leading-[normal]" 
-          onClick={() => register()}>
-          REGISTER
-        </button>
-        <div className="w-[519px] h-[60px] relative top-[192px] left-[136px]">
-          <button className="w-[239px] h-[60px] mr-[41px] rounded-[10px] border border-solid border-[#353535] [font-family:'Mulish-Bold',Helvetica] font-bold text-[#353535] text-[18px] text-center tracking-[0] leading-[normal]"
+        <div className="absolute bg-white w-[790px] h-[966px] border-[1px] top-[55px] rounded-[30px]">
+          <div className="relative">
+            <img
+              src="/images/group.svg"
+              className="top-[34px] left-[287px] w-[66.07px] h-[48.15px] relative"
+            />
+            <span className="top-[10px] left-[317px] text-lime-600 text-[44px] font-bold font-['Inter'] tracking-tight relative">
+              QuickAsk
+            </span>
+          </div>
+          <div className="text-neutral-700 text-4xl font-extrabold font-['Mulish'] uppercase top-[37px] left-[136px] relative">
+            REGISTER
+          </div>
+          <div className="opacity-80 text-neutral-700 text-base font-medium font-['Mulish'] leading-relaxed top-[37px] left-[136px] relative">
+            Free quota after registeration
+          </div>
+          <div className="text-neutral-700 text-lg font-semibold font-['Mulish'] leading-relaxed top-[67px] left-[136px] relative">
+            Full Name
+          </div>
+          <div className="w-[521px] h-[60px] relative top-[67px] left-[136px] bg-[#c6c6c673] rounded-[10px] border border-solid border-[#ffffff3b] backdrop-blur-[20px] backdrop-brightness-[100%] [-webkit-backdrop-filter:blur(20px)_brightness(100%)]">
+            <input
+              className="absolute h-[58px] w-[470px] bg-[#c6c6c600] left-[46px] right-[46px] [font-family:'Mulish-Regular',Helvetica] font-normal text-[#353535] text-[16px] pl-4 tracking-[0] leading-[26px] whitespace-nowrap"
+              placeholder="Please enter your full name"
+              value={name}
+              onChange={(e) => setName(e.currentTarget.value)}
+            />
+            <img
+              className="absolute w-[15px] h-[19px] top-[20px] left-[20px]"
+              alt="Group"
+              src="/images/user.svg"
+            />
+          </div>
+          <div className="text-neutral-700 text-lg font-semibold font-['Mulish'] leading-relaxed top-[87px] left-[136px] relative">
+            Email Address
+          </div>
+          <div className="w-[521px] h-[60px] relative top-[87px] left-[136px] bg-[#c6c6c673] rounded-[10px] border border-solid border-[#ffffff3b] backdrop-blur-[20px] backdrop-brightness-[100%] [-webkit-backdrop-filter:blur(20px)_brightness(100%)]">
+            <input
+              className="absolute h-[58px] w-[470px] bg-[#c6c6c600] left-[46px] right-[46px] [font-family:'Mulish-Regular',Helvetica] font-normal text-[#353535] text-[16px] pl-4 tracking-[0] leading-[26px] whitespace-nowrap"
+              placeholder="Please enter your email address"
+              value={email}
+              onChange={(e) => setEmail(e.currentTarget.value)}
+            />
+            <img
+              className="absolute w-[15px] h-[19px] top-[20px] left-[20px]"
+              alt="Group"
+              src="/images/user.svg"
+            />
+          </div>
+          <div className="text-neutral-700 text-lg font-semibold font-['Mulish'] leading-relaxed top-[107px] left-[136px] relative">
+            Password
+          </div>
+          <div className="w-[521px] h-[60px] relative top-[107px] left-[136px] bg-[#c6c6c673] rounded-[10px] border border-solid border-[#ffffff3b] backdrop-blur-[20px] backdrop-brightness-[100%] [-webkit-backdrop-filter:blur(20px)_brightness(100%)]">
+            <input
+              className="absolute h-[58px] w-[470px] bg-[#c6c6c600] left-[46px] right-[46px] [font-family:'Mulish-Regular',Helvetica] font-normal text-[#353535] text-[16px] pl-4 tracking-[0] leading-[26px] whitespace-nowrap"
+              placeholder="Please enter your password"
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.currentTarget.value)}
+            />
+            <img
+              className="absolute w-[15px] h-[19px] top-[20px] left-[20px]"
+              alt="Group"
+              src="/images/lock.svg"
+            />
+            <img
+              className="absolute w-[15px] h-[19px] top-[20px] right-[20px]"
+              alt="Eye-Off"
+              src="/images/eye-off.svg"
+            />
+          </div>
+          <button
+            className="w-[519px] h-[60px] relative top-[147px] left-[136px] bg-[#69a506] rounded-[10px] [font-family:'Mulish-Bold',Helvetica] font-bold text-white text-[18px] text-center tracking-[0] leading-[normal]"
+            onClick={() => register()}
+          >
+            REGISTER
+          </button>
+          <div className="w-[519px] h-[60px] relative top-[172px] left-[136px]">
+            <button
+              className="w-[519px] h-[60px] mr-[41px] rounded-[10px] border border-solid border-[#353535] [font-family:'Mulish-Bold',Helvetica] font-bold text-[#353535] text-[18px] text-center tracking-[0] leading-[normal]"
+              onClick={() => {
+                window.location.href = wechatLoginUrl;
+              }}
+            >
+              GOOGLE LOGIN
+            </button>
+          </div>
+          <div
+            className="w-[519px] h-[60px] relative top-[232px] left-[136px] text-center"
             onClick={() => {
-              window.location.href = wechatLoginUrl;
-            }} >
-            WECHAT LOGIN
-          </button>
-          <button className="w-[239px] h-[60px] rounded-[10px] border border-solid border-[#353535] [font-family:'Mulish-Bold',Helvetica] font-bold text-[#353535] text-[18px] text-center tracking-[0] leading-[normal]" >
-            ALIPAY LOGIN
-          </button>
-        </div>
-        <div className="w-[519px] h-[60px] relative top-[252px] left-[136px] text-center" 
-          onClick={() => {
-            window.location.href = alipayLoginUrl;
-          }} >
-          <span className="top-0 left-10 [font-family:'Mulish-Medium',Helvetica] font-medium text-[#353535] text-[18px] text-center tracking-[0] leading-[26px] whitespace-nowrap mr-10">
-            ALREADY HAVE AN ACCOUNT?
-          </span>
-          <span className="top-0 [font-family:'Mulish-Bold',Helvetica] font-bold text-[#69a506] text-[18px] text-center tracking-[0] leading-[26px] whitespace-nowrap" 
-            onClick={() => navigate(Path.Login)}>
-            LOGIN
-          </span>
+              window.location.href = alipayLoginUrl;
+            }}
+          >
+            <span className="top-0 left-10 [font-family:'Mulish-Medium',Helvetica] font-medium text-[#353535] text-[18px] text-center tracking-[0] leading-[26px] whitespace-nowrap mr-10">
+              ALREADY HAVE AN ACCOUNT?
+            </span>
+            <span
+              className="top-0 [font-family:'Mulish-Bold',Helvetica] font-bold text-[#69a506] text-[18px] text-center tracking-[0] leading-[26px] whitespace-nowrap"
+              onClick={() => navigate(Path.Login)}
+            >
+              LOGIN
+            </span>
+          </div>
         </div>
       </div>
-    </div>
       {/* <div className="window-header" data-tauri-drag-region>
         <div className="window-header-title">
           <div className="window-header-main-title">

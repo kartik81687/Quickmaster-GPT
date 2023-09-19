@@ -84,12 +84,14 @@ export function Login() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [modalState, setModalState] = useState(false);
 
-  function login() {
-    if (username === "") {
+  const auth = useAuthStore().login;
+
+  async function login() {
+    if (email === "") {
       showToast(Locale.LoginPage.Toast.EmptyUserName);
       return;
     }
@@ -100,98 +102,9 @@ export function Login() {
     setLoadingUsage(true);
     showToast(Locale.LoginPage.Toast.Logining);
 
-    const data = new FormData();
-    data.append("username", username);
-    data.append("password", password);
-    const requestOptions = {
-      method: "POST",
-      body: data,
-    };
-
-    fetch("https://my.dogai.com/api/login", requestOptions)
-      .then((response) => response.json())
-      .then((loginResult) => {
-        if (loginResult.status) {
-          const subscriptionData = new FormData();
-          subscriptionData.append("user_id", loginResult.data.id);
-          const subsOptions = {
-            method: "POST",
-            body: subscriptionData,
-          };
-
-          fetch("https://my.dogai.com/api/check-subscription", subsOptions)
-            .then((response) => response.json())
-            .then((result) => {
-              if (result.status) {
-                const expiryDate = new Date(result.data["expiry date"]);
-                const currentDate = new Date();
-                currentDate.setHours(0, 0, 0, 0);
-                console.log(
-                  "qweqwe",
-                  !isNaN(result.data.membership) &&
-                    expiryDate >= currentDate &&
-                    Number(loginResult.data.used_words) <
-                      loginResult.data.ai_words_limit,
-                );
-                if (result.data.membership === "free") {
-                  if (
-                    Number(loginResult.data.used_words) <
-                    loginResult.data.ai_words_limit
-                  ) {
-                    showToast(Locale.LoginPage.Toast.Success);
-                    localStorage.setItem("userId", loginResult.data.id);
-                    localStorage.setItem(
-                      "ai_words_limit",
-                      loginResult.data.ai_words_limit,
-                    );
-                    navigate(Path.Chat);
-                  } else {
-                    setModalState(true);
-                    console.log("Subscription Expired");
-                  }
-                } else if (
-                  result.data.membership === "trial" ||
-                  result.data.membership === "paid"
-                ) {
-                  if (
-                    expiryDate >= currentDate &&
-                    Number(loginResult.data.used_words) <
-                      loginResult.data.ai_words_limit
-                  ) {
-                    showToast(Locale.LoginPage.Toast.Success);
-                    localStorage.setItem("userId", loginResult.data.id);
-                    localStorage.setItem(
-                      "ai_words_limit",
-                      loginResult.data.ai_words_limit,
-                    );
-                    navigate(Path.Chat);
-                  }
-                } else if (
-                  !isNaN(result.data.membership) &&
-                  expiryDate >= currentDate &&
-                  Number(loginResult.data.used_words) <
-                    loginResult.data.ai_words_limit
-                ) {
-                  console.log("Inside else `");
-                  showToast(Locale.LoginPage.Toast.Success);
-                  localStorage.setItem("userId", loginResult.data.id);
-                  localStorage.setItem(
-                    "ai_words_limit",
-                    loginResult.data.ai_words_limit,
-                  );
-                  navigate(Path.Chat);
-                } else {
-                  showToast(Locale.Store.Error);
-                }
-              }
-            });
-        } else if (loginResult && loginResult.message) {
-          showToast(loginResult.message);
-        }
-      })
-      .finally(() => {
-        setLoadingUsage(false);
-      });
+    const data = await auth(email, password);
+    if (data.res) navigate(Path.Chat);
+    else showToast(data.msg);
   }
   function logout() {
     setTimeout(() => authStore.logout(), 500);
@@ -216,67 +129,106 @@ export function Login() {
 
   return (
     <ErrorBoundary>
-    <div className="flex flex-row justify-center bg-[url('/images/background.png')] w-full md:h-[1080px] sm:h-screen bg-cover">
-      <div className="absolute bg-white w-[790px] h-[847px] border-[1px] top-[124px] rounded-[30px]">
-        <div className="relative">
-          <img src="/images/group.svg" className="top-[34px] left-[287px] w-[66.07px] h-[48.15px] relative"/>
-          <span className="top-[10px] left-[317px] text-lime-600 text-[44px] font-bold font-['Inter'] tracking-tight relative">QuickAsk</span>
-        </div>
-        <div className="text-neutral-700 text-4xl font-extrabold font-['Mulish'] uppercase top-[37px] left-[136px] relative">LOGIN</div>
-        <div className="opacity-80 text-neutral-700 text-base font-medium font-['Mulish'] leading-relaxed top-[37px] left-[136px] relative">After Logging in, you can communicate with AI</div>
-        <div className="text-neutral-700 text-lg font-semibold font-['Mulish'] leading-relaxed top-[98px] left-[136px] relative">User name / Email</div>
-        <div className="w-[521px] h-[60px] relative top-[98px] left-[136px] bg-[#c6c6c673] rounded-[10px] border border-solid border-[#ffffff3b] backdrop-blur-[20px] backdrop-brightness-[100%] [-webkit-backdrop-filter:blur(20px)_brightness(100%)]">
-          <input className="absolute h-[58px] w-[470px] bg-[#c6c6c600] left-[46px] right-[46px] [font-family:'Mulish-Regular',Helvetica] font-normal text-[#353535] text-[16px] pl-4 tracking-[0] leading-[26px] whitespace-nowrap" placeholder="Sheraz Ahmed" value={username} 
-            onChange={(e) => setUsername(e.currentTarget.value)} />
-          <img className="absolute w-[15px] h-[19px] top-[20px] left-[20px]" alt="Group" src="/images/user.svg" />
-        </div>
-        <div className="text-neutral-700 text-lg font-semibold font-['Mulish'] leading-relaxed top-[114px] left-[136px] relative">Password</div>
-        <div className="w-[521px] h-[60px] relative top-[114px] left-[136px] bg-[#c6c6c673] rounded-[10px] border border-solid border-[#ffffff3b] backdrop-blur-[20px] backdrop-brightness-[100%] [-webkit-backdrop-filter:blur(20px)_brightness(100%)]">
-          <input className="absolute h-[58px] w-[470px] bg-[#c6c6c600] left-[46px] right-[46px] [font-family:'Mulish-Regular',Helvetica] font-normal text-[#353535] text-[16px] pl-4 tracking-[0] leading-[26px] whitespace-nowrap" placeholder="************" type="password" value={password} 
-            onChange={(e) => setPassword(e.currentTarget.value)} />
-          <img className="absolute w-[15px] h-[19px] top-[20px] left-[20px]" alt="Group" src="/images/lock.svg" />
-          <img className="absolute w-[15px] h-[19px] top-[20px] right-[20px]" alt="Eye-Off" src="/images/eye-off.svg" />
-        </div>
-        <div className="top-[135px] left-[136px] h-[60px] relative">
-          <input type="checkbox" id="checkbox-1" className="absolute top-2"/>
-          <span className="left-5 absolute">Remember me</span> 
-          <span className="left-[370px] absolute" 
+      <div className="flex flex-row justify-center bg-[url('/images/background.png')] w-full md:h-[1080px] sm:h-screen bg-cover">
+        <div className="absolute bg-white w-[790px] h-[847px] border-[1px] top-[124px] rounded-[30px]">
+          <div className="relative">
+            <img
+              src="/images/group.svg"
+              className="top-[34px] left-[287px] w-[66.07px] h-[48.15px] relative"
+            />
+            <span className="top-[10px] left-[317px] text-lime-600 text-[44px] font-bold font-['Inter'] tracking-tight relative">
+              QuickAsk
+            </span>
+          </div>
+          <div className="text-neutral-700 text-4xl font-extrabold font-['Mulish'] uppercase top-[37px] left-[136px] relative">
+            LOGIN
+          </div>
+          <div className="opacity-80 text-neutral-700 text-base font-medium font-['Mulish'] leading-relaxed top-[37px] left-[136px] relative">
+            After Logging in, you can communicate with AI
+          </div>
+          <div className="text-neutral-700 text-lg font-semibold font-['Mulish'] leading-relaxed top-[98px] left-[136px] relative">
+            Email
+          </div>
+          <div className="w-[521px] h-[60px] relative top-[98px] left-[136px] bg-[#c6c6c673] rounded-[10px] border border-solid border-[#ffffff3b] backdrop-blur-[20px] backdrop-brightness-[100%] [-webkit-backdrop-filter:blur(20px)_brightness(100%)]">
+            <input
+              className="absolute h-[58px] w-[470px] bg-[#c6c6c600] left-[46px] right-[46px] [font-family:'Mulish-Regular',Helvetica] font-normal text-[#353535] text-[16px] pl-4 tracking-[0] leading-[26px] whitespace-nowrap"
+              placeholder="sherazahmedofficial@gmail.com"
+              value={email}
+              onChange={(e) => setEmail(e.currentTarget.value)}
+            />
+            <img
+              className="absolute w-[15px] h-[19px] top-[20px] left-[20px]"
+              alt="Group"
+              src="/images/user.svg"
+            />
+          </div>
+          <div className="text-neutral-700 text-lg font-semibold font-['Mulish'] leading-relaxed top-[114px] left-[136px] relative">
+            Password
+          </div>
+          <div className="w-[521px] h-[60px] relative top-[114px] left-[136px] bg-[#c6c6c673] rounded-[10px] border border-solid border-[#ffffff3b] backdrop-blur-[20px] backdrop-brightness-[100%] [-webkit-backdrop-filter:blur(20px)_brightness(100%)]">
+            <input
+              className="absolute h-[58px] w-[470px] bg-[#c6c6c600] left-[46px] right-[46px] [font-family:'Mulish-Regular',Helvetica] font-normal text-[#353535] text-[16px] pl-4 tracking-[0] leading-[26px] whitespace-nowrap"
+              placeholder="************"
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.currentTarget.value)}
+            />
+            <img
+              className="absolute w-[15px] h-[19px] top-[20px] left-[20px]"
+              alt="Group"
+              src="/images/lock.svg"
+            />
+            <img
+              className="absolute w-[15px] h-[19px] top-[20px] right-[20px]"
+              alt="Eye-Off"
+              src="/images/eye-off.svg"
+            />
+          </div>
+          <div className="top-[135px] left-[136px] h-[60px] relative">
+            <input type="checkbox" id="checkbox-1" className="absolute top-2" />
+            <span className="left-5 absolute">Remember me</span>
+            <span
+              className="left-[370px] absolute"
+              onClick={() => {
+                navigate(Path.ForgetPassword);
+              }}
+            >
+              {" "}
+              Forgot password?{" "}
+            </span>
+          </div>
+          <button
+            className="w-[519px] h-[60px] relative top-[160px] left-[136px] bg-[#69a506] rounded-[10px] [font-family:'Mulish-Bold',Helvetica] font-bold text-white text-[18px] text-center tracking-[0] leading-[normal]"
             onClick={() => {
-              navigate(Path.ForgetPassword);
-            }}> Forgot password? </span> 
-        </div>
-        <button className="w-[519px] h-[60px] relative top-[160px] left-[136px] bg-[#69a506] rounded-[10px] [font-family:'Mulish-Bold',Helvetica] font-bold text-white text-[18px] text-center tracking-[0] leading-[normal]" 
-          onClick={() => {
-            if (authStore.token) logout();
-            else login();
-          }}>
-          LOGIN
-        </button>
-        <div className="w-[519px] h-[60px] relative top-[185px] left-[136px]">
-          <button className="w-[239px] h-[60px] mr-[41px] rounded-[10px] border border-solid border-[#353535] [font-family:'Mulish-Bold',Helvetica] font-bold text-[#353535] text-[18px] text-center tracking-[0] leading-[normal]" 
-            onClick={() => {
-              window.location.href = wechatLoginUrl;
-            }} >
-            WECHAT LOGIN
+              if (authStore.session) logout();
+              else login();
+            }}
+          >
+            LOGIN
           </button>
-          <button className="w-[239px] h-[60px] rounded-[10px] border border-solid border-[#353535] [font-family:'Mulish-Bold',Helvetica] font-bold text-[#353535] text-[18px] text-center tracking-[0] leading-[normal]" 
-            onClick={() => {
-              window.location.href = alipayLoginUrl;
-            }} >
-            ALIPAY LOGIN
-          </button>
-        </div>
-        <div className="w-[519px] h-[60px] relative top-[245px] left-[136px] text-center">
-          <span className="top-0 left-10 [font-family:'Mulish-Medium',Helvetica] font-medium text-[#353535] text-[18px] text-center tracking-[0] leading-[26px] whitespace-nowrap mr-10">
-            DON’T HAVE AN ACCOUNT?
-          </span>
-          <span className="top-0 [font-family:'Mulish-Bold',Helvetica] font-bold text-[#69a506] text-[18px] text-center tracking-[0] leading-[26px] whitespace-nowrap" 
-            onClick={() => navigate(Path.Register)}>
-            REGISTER
-          </span>
+          <div className="w-[519px] h-[60px] relative top-[185px] left-[136px]">
+            <button
+              className="w-[519px] h-[60px] mr-[41px] rounded-[10px] border border-solid border-[#353535] [font-family:'Mulish-Bold',Helvetica] font-bold text-[#353535] text-[18px] text-center tracking-[0] leading-[normal]"
+              onClick={() => {
+                window.location.href = wechatLoginUrl;
+              }}
+            >
+              GOOGLE LOGIN
+            </button>
+          </div>
+          <div className="w-[519px] h-[60px] relative top-[245px] left-[136px] text-center">
+            <span className="top-0 left-10 [font-family:'Mulish-Medium',Helvetica] font-medium text-[#353535] text-[18px] text-center tracking-[0] leading-[26px] whitespace-nowrap mr-10">
+              DON’T HAVE AN ACCOUNT?
+            </span>
+            <span
+              className="top-0 [font-family:'Mulish-Bold',Helvetica] font-bold text-[#69a506] text-[18px] text-center tracking-[0] leading-[26px] whitespace-nowrap"
+              onClick={() => navigate(Path.Register)}
+            >
+              REGISTER
+            </span>
+          </div>
         </div>
       </div>
-    </div>
       {/* <div className="window-header" data-tauri-drag-region>
         <div className="window-header-title">
           <div className="window-header-main-title">
