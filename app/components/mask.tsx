@@ -314,10 +314,10 @@ export function MaskPage() {
 
   return (
     <ErrorBoundary>
-      <div className="bg-[#ebebeb] flex flex-row justify-center w-full">
+      <div className="bg-[#ebebeb] dark:bg-neutral-800 flex flex-row justify-center w-full">
         <SideBar />
         <div className="w-4/5 p-3">
-          <div className="rounded-[10px] bg-white">
+          <div className="rounded-[10px] bg-white dark:bg-neutral-950">
             <div className="window-header">
               <div className="window-header-title pt-5 pl-3">
                 <div className="text-neutral-700 text-[28px] font-extrabold font-['Mulish']">
@@ -390,7 +390,9 @@ export function MaskPage() {
                     const createdMask = maskStore.create();
                     setEditingMaskId(createdMask.id);
                   }}
-                >{Locale.Mask.Page.Create}</button>
+                >
+                  {Locale.Mask.Page.Create}
+                </button>
               </div>
 
               <div>
@@ -463,7 +465,7 @@ export function MaskPage() {
 
       {editingMask && (
         <div className="fixed top-0 left-0 h-screen w-screen bg-black bg-opacity-50 flex items-center justify-center z-50">
-          <div className="fixed bg-white h-[400px] w-[800px] rounded-[10px]">
+          <div className="fixed bg-white dark:bg-neutral-950 h-[400px] w-[800px] rounded-[10px]">
             <Modal
               title={Locale.Mask.EditModal.Title(editingMask?.builtin)}
               onClose={closeMaskModal}

@@ -25,6 +25,7 @@ import { getCSSVar, useMobileScreen } from "../utils";
 import dynamic from "next/dynamic";
 
 import styles from "./home.module.scss";
+import { ThemeProvider } from "next-themes";
 
 export function Loading(props: { noLogo?: boolean }) {
   return (
@@ -116,29 +117,31 @@ function Screen() {
   }, []);
 
   return (
-    <Routes>
-      {/* Public Routes */}
-      <Route path="/login" element={<Login />} />
-      <Route path="/register" element={<Register />} />
-      <Route path="/register-phone" element={<RegisterPhone />} />
-      <Route path="/forget-password" element={<ForgetPassword />} />
+    <ThemeProvider attribute="class">
+      <Routes>
+        {/* Public Routes */}
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/register-phone" element={<RegisterPhone />} />
+        <Route path="/forget-password" element={<ForgetPassword />} />
 
-      {/* Private Routes */}
-      {userId ? (
-        <>
-          <Route path={Path.Home} element={<Chat />} />
-          <Route path={Path.NewChat} element={<NewChat />} />
-          <Route path={Path.Guide} element={<Guide />} />
-          <Route path={Path.Masks} element={<MaskPage />} />
-          <Route path={Path.Chat} element={<Chat />} />
-          <Route path={Path.Settings} element={<Settings />} />
-        </>
-      ) : (
-        <>
-          <Route path="*" element={<Navigate to="/login" />} />
-        </>
-      )}
-    </Routes>
+        {/* Private Routes */}
+        {userId ? (
+          <>
+            <Route path={Path.Home} element={<Chat />} />
+            <Route path={Path.NewChat} element={<NewChat />} />
+            <Route path={Path.Guide} element={<Guide />} />
+            <Route path={Path.Masks} element={<MaskPage />} />
+            <Route path={Path.Chat} element={<Chat />} />
+            <Route path={Path.Settings} element={<Settings />} />
+          </>
+        ) : (
+          <>
+            <Route path="*" element={<Navigate to="/login" />} />
+          </>
+        )}
+      </Routes>
+    </ThemeProvider>
     // <div
     //   className={
     //     styles.container +

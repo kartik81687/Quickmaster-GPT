@@ -172,7 +172,7 @@ export function SideBar() {
             src="/images/trash.svg"
           />
           <button
-            className="relative w-fit [font-family:'Mulish-Regular',Helvetica] font-normal text-[#353535] text-[16.8px] tracking-[0] leading-[normal]"
+            className="relative w-fit [font-family:'Mulish-Regular',Helvetica] font-normal dark:text-white text-[16.8px] tracking-[0] leading-[normal]"
             onClick={() => {
               if (confirm(Locale.Home.DeleteChat)) {
                 chatStore.deleteSession(chatStore.currentSessionIndex);
@@ -190,7 +190,7 @@ export function SideBar() {
           />
           <Link
             to={Path.Settings}
-            className="relative w-fit [font-family:'Mulish-Regular',Helvetica] font-normal text-[#353535] text-[16.8px] tracking-[0] leading-[normal]"
+            className="relative w-fit [font-family:'Mulish-Regular',Helvetica] font-normal dark:text-white text-[16.8px] tracking-[0] leading-[normal]"
           >
             Settings
           </Link>
@@ -202,7 +202,7 @@ export function SideBar() {
             src="/images/logout.svg"
           />
           <button
-            className="relative w-fit [font-family:'Mulish-Regular',Helvetica] font-normal text-[#353535] text-[16.8px] tracking-[0] leading-[normal]"
+            className="relative w-fit [font-family:'Mulish-Regular',Helvetica] font-normal dark:text-white text-[16.8px] tracking-[0] leading-[normal]"
             onClick={() => {
               localStorage.clear();
               navigate(Path.Login);
@@ -231,8 +231,8 @@ export function SideBar() {
         <div className="top-1/4 w-full pl-6 pr-6 pt-2">
           <div className="bg-[#d3d3d3] rounded-[10px] flex p-1">
             <button
-              className="bg-[#69A606] text-white rounded-[10px] w-full h-[34px] flex items-center justify-center mr-2"
-              onClick={() => theme}
+              className="bg-[#69A606] dark:bg-neutral-800 text-white dark:text-black rounded-[10px] w-full h-[34px] flex items-center justify-center mr-2"
+              onClick={() => setTheme("light")}
             >
               <img
                 className="w-[20px] h-[20px] mr-2"
@@ -242,7 +242,10 @@ export function SideBar() {
               Light
             </button>
 
-            <button className="bg-[#d3d3d3] rounded-[10px] w-full h-[34px] flex items-center justify-center">
+            <button
+              className="bg-[#d3d3d3] @apply dark:bg-neutral-800 dark:text-white rounded-[10px] w-full h-[34px] flex items-center justify-center"
+              onClick={() => setTheme("dark")}
+            >
               <img
                 className="w-[20px] h-[20px] mr-2"
                 alt="Mask"

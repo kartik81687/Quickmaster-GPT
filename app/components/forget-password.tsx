@@ -167,7 +167,7 @@ export function ForgetPassword() {
   return (
     <ErrorBoundary>
       <div className="flex flex-row justify-center bg-[url('/images/background.png')] w-full md:h-[1080px] sm:h-screen bg-cover">
-        <div className="absolute bg-white w-[790px] h-[547px] border-[1px] top-[124px] rounded-[30px]">
+        <div className="absolute bg-white dark:bg-neutral-950 w-[790px] h-[547px] border-[1px] top-[124px] rounded-[30px]">
           <div className="relative">
             <img
               src="/images/group.svg"
@@ -185,7 +185,7 @@ export function ForgetPassword() {
           </div>
           <div className="w-[521px] h-[60px] relative top-[98px] left-[136px] bg-[#c6c6c673] rounded-[10px] border border-solid border-[#ffffff3b] backdrop-blur-[20px] backdrop-brightness-[100%] [-webkit-backdrop-filter:blur(20px)_brightness(100%)]">
             <input
-              className="absolute h-[58px] w-[470px] bg-[#c6c6c600] left-[46px] right-[46px] [font-family:'Mulish-Regular',Helvetica] font-normal text-[#353535] text-[16px] pl-4 tracking-[0] leading-[26px] whitespace-nowrap"
+              className="absolute h-[58px] w-[470px] bg-[#c6c6c600] left-[46px] right-[46px] [font-family:'Mulish-Regular',Helvetica] font-normal dark:text-white text-[16px] pl-4 tracking-[0] leading-[26px] whitespace-nowrap"
               placeholder="sherazahmedoffcial@gmail.com"
               value={email}
               onChange={(e) => setEmail(e.currentTarget.value)}

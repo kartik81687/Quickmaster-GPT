@@ -69,6 +69,7 @@ export function Register() {
   const [comfirmedPassword, setComfirmedPassword] = useState("");
   const [captchaInput, setCaptchaInput] = useState("");
   const authRegister = useAuthStore().register;
+  const authGoogle = useAuthStore().loginWithGoogle;
   const currentUrl = "http://chat.dogai.com/#/login";
   const serverUrl = "http://my.dogai.com";
   const wechatRedirectUrl = encodeURIComponent(
@@ -115,6 +116,12 @@ export function Register() {
         setEmailCodeSending(false);
       });
   }
+
+  async function googleAuth() {
+    const data = await authGoogle();
+    if (data.res) navigate(Path.Chat);
+    else showToast(data.msg);
+  }
   async function register() {
     if (name === null || name === "") {
       showToast(Locale.RegisterPage.Toast.NameEmpty);
@@ -152,7 +159,7 @@ export function Register() {
   return (
     <ErrorBoundary>
       <div className="flex flex-row justify-center bg-[url('/images/background.png')] w-full md:h-[1080px] sm:h-screen bg-cover">
-        <div className="absolute bg-white w-[790px] h-[966px] border-[1px] top-[55px] rounded-[30px]">
+        <div className="absolute bg-white dark:bg-neutral-950 w-[790px] h-[966px] border-[1px] top-[55px] rounded-[30px]">
           <div className="relative">
             <img
               src="/images/group.svg"
@@ -173,7 +180,7 @@ export function Register() {
           </div>
           <div className="w-[521px] h-[60px] relative top-[67px] left-[136px] bg-[#c6c6c673] rounded-[10px] border border-solid border-[#ffffff3b] backdrop-blur-[20px] backdrop-brightness-[100%] [-webkit-backdrop-filter:blur(20px)_brightness(100%)]">
             <input
-              className="absolute h-[58px] w-[470px] bg-[#c6c6c600] left-[46px] right-[46px] [font-family:'Mulish-Regular',Helvetica] font-normal text-[#353535] text-[16px] pl-4 tracking-[0] leading-[26px] whitespace-nowrap"
+              className="absolute h-[58px] w-[470px] bg-[#c6c6c600] left-[46px] right-[46px] [font-family:'Mulish-Regular',Helvetica] font-normal dark:text-white text-[16px] pl-4 tracking-[0] leading-[26px] whitespace-nowrap"
               placeholder="Please enter your full name"
               value={name}
               onChange={(e) => setName(e.currentTarget.value)}
@@ -189,7 +196,7 @@ export function Register() {
           </div>
           <div className="w-[521px] h-[60px] relative top-[87px] left-[136px] bg-[#c6c6c673] rounded-[10px] border border-solid border-[#ffffff3b] backdrop-blur-[20px] backdrop-brightness-[100%] [-webkit-backdrop-filter:blur(20px)_brightness(100%)]">
             <input
-              className="absolute h-[58px] w-[470px] bg-[#c6c6c600] left-[46px] right-[46px] [font-family:'Mulish-Regular',Helvetica] font-normal text-[#353535] text-[16px] pl-4 tracking-[0] leading-[26px] whitespace-nowrap"
+              className="absolute h-[58px] w-[470px] bg-[#c6c6c600] left-[46px] right-[46px] [font-family:'Mulish-Regular',Helvetica] font-normal dark:text-white text-[16px] pl-4 tracking-[0] leading-[26px] whitespace-nowrap"
               placeholder="Please enter your email address"
               value={email}
               onChange={(e) => setEmail(e.currentTarget.value)}
@@ -205,7 +212,7 @@ export function Register() {
           </div>
           <div className="w-[521px] h-[60px] relative top-[107px] left-[136px] bg-[#c6c6c673] rounded-[10px] border border-solid border-[#ffffff3b] backdrop-blur-[20px] backdrop-brightness-[100%] [-webkit-backdrop-filter:blur(20px)_brightness(100%)]">
             <input
-              className="absolute h-[58px] w-[470px] bg-[#c6c6c600] left-[46px] right-[46px] [font-family:'Mulish-Regular',Helvetica] font-normal text-[#353535] text-[16px] pl-4 tracking-[0] leading-[26px] whitespace-nowrap"
+              className="absolute h-[58px] w-[470px] bg-[#c6c6c600] left-[46px] right-[46px] [font-family:'Mulish-Regular',Helvetica] font-normal dark:text-white text-[16px] pl-4 tracking-[0] leading-[26px] whitespace-nowrap"
               placeholder="Please enter your password"
               type="password"
               value={password}
@@ -230,9 +237,9 @@ export function Register() {
           </button>
           <div className="w-[519px] h-[60px] relative top-[172px] left-[136px]">
             <button
-              className="w-[519px] h-[60px] mr-[41px] rounded-[10px] border border-solid border-[#353535] [font-family:'Mulish-Bold',Helvetica] font-bold text-[#353535] text-[18px] text-center tracking-[0] leading-[normal]"
+              className="w-[519px] h-[60px] mr-[41px] rounded-[10px] border border-solid border-[#353535] [font-family:'Mulish-Bold',Helvetica] font-bold dark:text-white text-[18px] text-center tracking-[0] leading-[normal]"
               onClick={() => {
-                window.location.href = wechatLoginUrl;
+                googleAuth();
               }}
             >
               GOOGLE LOGIN
@@ -244,7 +251,7 @@ export function Register() {
               window.location.href = alipayLoginUrl;
             }}
           >
-            <span className="top-0 left-10 [font-family:'Mulish-Medium',Helvetica] font-medium text-[#353535] text-[18px] text-center tracking-[0] leading-[26px] whitespace-nowrap mr-10">
+            <span className="top-0 left-10 [font-family:'Mulish-Medium',Helvetica] font-medium dark:text-white text-[18px] text-center tracking-[0] leading-[26px] whitespace-nowrap mr-10">
               ALREADY HAVE AN ACCOUNT?
             </span>
             <span
