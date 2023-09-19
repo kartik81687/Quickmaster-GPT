@@ -145,7 +145,9 @@ export function SessionConfigModel(props: { onClose: () => void }) {
             updateMask={(updater) => {
               const mask = { ...session.mask };
               updater(mask);
-              chatStore.updateCurrentSession((session) => (session.mask = mask));
+              chatStore.updateCurrentSession(
+                (session) => (session.mask = mask),
+              );
             }}
             shouldSyncFromGlobal
             extraListItems={
@@ -396,20 +398,19 @@ export function ChatActions(props: {
     stopSpeechSysthesis();
     props.setSpeaking(false);
   };
-  
+
   const [editingMaskId, setEditingMaskId] = useState<number | undefined>();
   const editingMask =
     maskStore.get(editingMaskId) ?? BUILTIN_MASK_STORE.get(editingMaskId);
-  
+
   const updateConfig = (updater: (config: ModelConfig) => void) => {
     const config = { ...editingMask?.modelConfig };
-    if (config)
-      updater(config as ModelConfig);
+    if (config) updater(config as ModelConfig);
     maskStore.update(editingMaskId!, (mask: any) => {
       mask.modelConfig = config;
       // if user changed current session mask, it will disable auto sync
       mask.syncGlobalConfig = false;
-    })
+    });
   };
 
   return (
@@ -503,7 +504,11 @@ export function ChatActions(props: {
         className={`${chatStyle["chat-input-action"]} clickable`}
         onClick={props.onClauding}
       >
-        {props.clauding ? <ClaudeIcon className="w-[16px]" /> : <ClaudeOffIcon className="w-[16px]" />}
+        {props.clauding ? (
+          <ClaudeIcon className="w-[16px]" />
+        ) : (
+          <ClaudeOffIcon className="w-[16px]" />
+        )}
       </div>
 
       <div
@@ -513,27 +518,26 @@ export function ChatActions(props: {
         {props.duckduckgoing ? <DuckDuckGoIcon /> : <DuckDuckGoOffIcon />}
       </div>
 
-      <div
-      >
-      <ListItem className="h-3">
-        <Select
-          value={editingMask?.modelConfig.model}
-          onChange={(e) => {
-            updateConfig(
-              (config) =>
-                (config.model = ModalConfigValidator.model(
-                  e.currentTarget.value,
-                )),
-            );
-          }}
-        >
-          {ALL_MODELS.map((v) => (
-            <option value={v.name} key={v.name} disabled={!v.available}>
-              {v.name}
-            </option>
-          ))}
-        </Select>
-      </ListItem>
+      <div>
+        <ListItem className="h-3">
+          <Select
+            value={editingMask?.modelConfig.model}
+            onChange={(e) => {
+              updateConfig(
+                (config) =>
+                  (config.model = ModalConfigValidator.model(
+                    e.currentTarget.value,
+                  )),
+              );
+            }}
+          >
+            {ALL_MODELS.map((v) => (
+              <option value={v.name} key={v.name} disabled={!v.available}>
+                {v.name}
+              </option>
+            ))}
+          </Select>
+        </ListItem>
       </div>
 
       {/* <div
@@ -668,68 +672,51 @@ export function Chat() {
     if (userInput.trim() === "") return;
     // setIsLoading(true);
 
-    if (
-      Number(remainingWords.used_words) + userInput.length >
-      remainingWords.ai_words_limit
-    ) {
-      showToast(
-        Locale.LoginPage.Modal.limitExceed,
-        {
-          text: Locale.Home.ClickHere,
-          onClick() {
-            // set(() => restoreState);
-          },
-          redirectUrl: "https://my.dogai.com/membership/changeplan",
-        },
-        0,
-      );
-    } else {
-      const payload = new FormData();
-      payload.append("user_id", userId);
-      payload.append("words_count", String(userInput.length));
-      const subsOptions = {
-        method: "POST",
-        body: payload,
-      };
+    const payload = new FormData();
+    payload.append("user_id", userId);
+    payload.append("words_count", String(userInput.length));
+    const subsOptions = {
+      method: "POST",
+      body: payload,
+    };
 
-      fetch("https://my.dogai.com/api/store-words", subsOptions)
-        .then((response) => response.json())
-        .then((result) => {
-          if (result.status) {
-            const wordsUsedUpdated =
-              Number(remainingWords.used_words) + userInput.length;
-            setRemainingWords({
-              ...remainingWords,
-              used_words: wordsUsedUpdated,
+    fetch("https://my.dogai.com/api/store-words", subsOptions)
+      .then((response) => response.json())
+      .then((result) => {
+        if (result.status) {
+          const wordsUsedUpdated =
+            Number(remainingWords.used_words) + userInput.length;
+          setRemainingWords({
+            ...remainingWords,
+            used_words: wordsUsedUpdated,
+          });
+
+          chatStore
+            .onUserInput(
+              userInput,
+              voiceMode,
+              barding,
+              clauding,
+              duckduckgo,
+              onSpeechStart,
+            )
+            .then(() => {
+              setIsLoading(false);
+              if (speechRecognition) {
+                setRecording(false);
+                speechRecognition.stop();
+              } else {
+                setRecording(false);
+                onSpeechError(new Error("not supported"));
+              }
             });
-
-            chatStore
-              .onUserInput(
-                userInput,
-                voiceMode,
-                barding,
-                clauding,
-                duckduckgo,
-                onSpeechStart,
-              )
-              .then(() => {
-                setIsLoading(false);
-                if (speechRecognition) {
-                  setRecording(false);
-                  speechRecognition.stop();
-                } else {
-                  setRecording(false);
-                  onSpeechError(new Error("not supported"));
-                }
-              });
-            localStorage.setItem(LAST_INPUT_KEY, userInput);
-            setUserInput("");
-            setPromptHints([]);
-            if (!isMobileScreen) inputRef.current?.focus();
-            setAutoScroll(true);
-          }
-        });
-    }
+          localStorage.setItem(LAST_INPUT_KEY, userInput);
+          setUserInput("");
+          setPromptHints([]);
+          if (!isMobileScreen) inputRef.current?.focus();
+          setAutoScroll(true);
+        }
+      });
   };
 
   // stop response
@@ -1012,12 +999,18 @@ export function Chat() {
 
   return (
     <div className="bg-[#ebebeb] flex-row justify-center w-full h-screen flex items-center">
-      <SideBar/>
-      <div className="w-4/5 p-3">
+      <SideBar />
+      <div className="w-4/5 p-3 h-[95%]">
         <div className="rounded-[10px] bg-white">
-          <SubAlertModal modalState={modalState} setModalState={setModalState} />
+          <SubAlertModal
+            modalState={modalState}
+            setModalState={setModalState}
+          />
           <div className="pt-5 pl-3">
-            <div className="top-0 left-0 [font-family:'Mulish-ExtraBold',Helvetica] font-extrabold text-[#353535] text-[28px] tracking-[0] leading-[normal]" onClickCapture={renameSession}>
+            <div
+              className="top-0 left-0 [font-family:'Mulish-ExtraBold',Helvetica] font-extrabold text-[#353535] text-[28px] tracking-[0] leading-[normal]"
+              onClickCapture={renameSession}
+            >
               {!session.topic ? DEFAULT_TOPIC : session.topic}
             </div>
             <div className="left-0 [font-family:'Mulish-Medium',Helvetica] font-medium text-[#353535] text-[16px] tracking-[0] leading-[26px] whitespace-nowrap">
@@ -1112,10 +1105,7 @@ export function Chat() {
 
               return (
                 <>
-                  <div
-                    key={i}
-                    className={styles["chat-message"]}
-                  >
+                  <div key={i} className={styles["chat-message"]}>
                     <div className={styles["chat-message-container"]}>
                       <div className={styles["chat-message-avatar"]}>
                         {message.role === "user" ? (
@@ -1196,7 +1186,10 @@ export function Chat() {
           </div>
 
           <div className={styles["chat-input-panel"]}>
-            <PromptHints prompts={promptHints} onPromptSelect={onPromptSelect} />
+            <PromptHints
+              prompts={promptHints}
+              onPromptSelect={onPromptSelect}
+            />
 
             <ChatActions
               showPromptModal={() => setShowPromptModal(true)}

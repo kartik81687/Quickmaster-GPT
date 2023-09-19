@@ -7,21 +7,29 @@ import {
   requestSendEmailCode,
   requestResetPassword,
 } from "../requests";
+import { createClient } from "@supabase/supabase-js";
+
+const supabase = createClient(
+  process.env.SUPABASE_URL ?? "https://jwbuwrzmdqukmribxeya.supabase.co",
+  process.env.SUPABASE_ANON_KEY ??
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imp3YnV3cnptZHF1a21yaWJ4ZXlhIiwicm9sZSI6ImFub24iLCJpYXQiOjE2OTUxMDk2MTIsImV4cCI6MjAxMDY4NTYxMn0.-dC6WBTENapwROw-C27qVDOBeK1UPpqTG5XhumqT70g",
+);
 
 export interface AuthStore {
-  token: string;
-  username: string;
+  session: any;
   email: string;
-  login: (username: string, password: string) => Promise<any>;
+  login: (
+    email: string,
+    password: string,
+  ) => Promise<{ msg: string; res: boolean }>;
   logout: () => void;
   sendEmailCode: (email: string) => Promise<any>;
   sendEmailCodeForResetPassword: (email: string) => Promise<any>;
   register: (
     name: string,
-    username: string,
     password: string,
     email: string,
-  ) => Promise<any>;
+  ) => Promise<{ msg: string; res: boolean }>;
   resetPassword: (
     password: string,
     email: string,
@@ -36,38 +44,31 @@ export const useAuthStore = create<AuthStore>()(
       name: "",
       username: "",
       email: "",
-      token: "",
+      session: null,
 
-      async login(username, password) {
-        // set(() => ({
-        //   username,
-        // }));
-
-        let result = await requestLogin(username, password, {
-          onError: (err) => {
-            console.error(err);
-          },
+      async login(email, password): Promise<{ msg: string; res: boolean }> {
+        const { data } = await supabase.auth.signInWithPassword({
+          email,
+          password,
         });
-        console.log("result", result);
-        if (result && result.code == 0) {
-          set(() => ({
-            username,
-            email: result.data?.userEntity?.email || "",
-            token: result.data?.token || "",
-          }));
-        }
-
-        return result;
+        if (!data.user) return { msg: "Login failed", res: false };
+        if (!data.user.email_confirmed_at)
+          return { msg: "Email not verified", res: false };
+        set(() => ({
+          email: data.user.email,
+          session: data.session,
+        }));
+        localStorage.setItem("userId", email);
+        return { msg: "Successfully logged in", res: true };
       },
       logout() {
         set(() => ({
-          username: "",
           email: "",
-          token: "",
+          session: null,
         }));
       },
       removeToken() {
-        set(() => ({ token: "" }));
+        set(() => ({ session: null }));
       },
       async sendEmailCodeForResetPassword(email) {
         let result = await requestSendEmailCode(email, true, {
@@ -87,32 +88,21 @@ export const useAuthStore = create<AuthStore>()(
       },
       async register(
         name,
-        username,
         email,
         password,
-      ) {
-        let result = await requestRegister(
-          name,
-          username,
+      ): Promise<{ msg: string; res: boolean }> {
+        const { data, error } = await supabase.auth.signUp({
           email,
           password,
-          {
-            onError: (err) => {
-              console.error(err);
+          options: {
+            data: {
+              name,
             },
           },
-        );
-        console.log("result", result);
-        if (result && result.code == 0) {
-          set(() => ({
-            name,
-            username,
-            email: result.data?.userEntity?.email || "",
-            token: result.data?.token || "",
-          }));
-        }
-
-        return result;
+        });
+        if (data.user && !data.session)
+          return { msg: "You need to verify your email", res: false };
+        else return { msg: "", res: true };
       },
       async resetPassword(password, email, code) {
         let result = await requestResetPassword(password, email, code, {

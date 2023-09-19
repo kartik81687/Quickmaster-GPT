@@ -117,12 +117,18 @@ export function SideBar() {
   useHotKey();
 
   return (
-    <div className="w-1/5">
-      <img src="/images/group.svg" className="top-[24px] left-[25px] w-[37px] relative" />
-      <span className="relative top-[14px] left-[35px] text-lime-600 text-[24.89px] font-bold font-['Inter'] tracking-tight">QuikAsk</span>
+    <div className="w-1/5 h-[95%]">
+      <img
+        src="/images/group.svg"
+        className="top-[24px] left-[25px] w-[37px] relative"
+      />
+      <span className="relative top-[14px] left-[35px] text-lime-600 text-[24.89px] font-bold font-['Inter'] tracking-tight">
+        QuikAsk
+      </span>
       <div className="w-full">
         <div className="items-center mx-6 my-6 px-[16.83px] py-[12.02px] relative bg-[#69a506] rounded-[10px] overflow-hidden">
-          <button className="relative w-full mt-[-0.28px] [font-family:'Mulish-Bold',Helvetica] font-bold text-white text-[16.8px] tracking-[0] leading-[normal]"
+          <button
+            className="relative w-full mt-[-0.28px] [font-family:'Mulish-Bold',Helvetica] font-bold text-white text-[16.8px] tracking-[0] leading-[normal]"
             onClick={() => {
               if (config.dontShowMaskSplashScreen) {
                 chatStore.newSession();
@@ -130,7 +136,8 @@ export function SideBar() {
               } else {
                 navigate(Path.NewChat);
               }
-            }}>
+            }}
+          >
             New Chat
           </button>
         </div>
@@ -139,7 +146,7 @@ export function SideBar() {
         <div className="top-1/4 w-full pl-6 pr-6 pt-6">
           <span className="text-[14.4px]">Today</span>
           <div className="w-full pl-1 pr-1 pt-3">
-            <ChatList narrow={shouldNarrow} today={true}/>
+            <ChatList narrow={shouldNarrow} today={true} />
           </div>
         </div>
         <div className="w-full p-4">
@@ -150,7 +157,7 @@ export function SideBar() {
         <div className="top-1/4 w-full pl-6 pr-6 pt-6">
           <span className="text-[14.4px]">Chat List</span>
           <div className="w-full pl-1 pr-1 pt-3">
-            <ChatList narrow={shouldNarrow} today={false}/>
+            <ChatList narrow={shouldNarrow} today={false} />
           </div>
         </div>
         <div className="w-full p-4">
@@ -159,51 +166,88 @@ export function SideBar() {
       </div>
       <div className="w-full p-5">
         <div className="inline-flex items-center gap-[7.21px] relative">
-          <img className="relative w-[28.86px] h-[28.86px]" alt="Trash" src="/images/trash.svg" />
-          <button className="relative w-fit [font-family:'Mulish-Regular',Helvetica] font-normal text-[#353535] text-[16.8px] tracking-[0] leading-[normal]" 
+          <img
+            className="relative w-[28.86px] h-[28.86px]"
+            alt="Trash"
+            src="/images/trash.svg"
+          />
+          <button
+            className="relative w-fit [font-family:'Mulish-Regular',Helvetica] font-normal text-[#353535] text-[16.8px] tracking-[0] leading-[normal]"
             onClick={() => {
               if (confirm(Locale.Home.DeleteChat)) {
                 chatStore.deleteSession(chatStore.currentSessionIndex);
               }
-            }}>
+            }}
+          >
             Clear Conversation
           </button>
         </div>
         <div className="flex items-center gap-[7.21px] relative mt-5">
-          <img className="relative w-[28.86px] h-[28.86px]" alt="Trash" src="/images/settings.svg" />
-          <Link to={Path.Settings} className="relative w-fit [font-family:'Mulish-Regular',Helvetica] font-normal text-[#353535] text-[16.8px] tracking-[0] leading-[normal]">
+          <img
+            className="relative w-[28.86px] h-[28.86px]"
+            alt="Trash"
+            src="/images/settings.svg"
+          />
+          <Link
+            to={Path.Settings}
+            className="relative w-fit [font-family:'Mulish-Regular',Helvetica] font-normal text-[#353535] text-[16.8px] tracking-[0] leading-[normal]"
+          >
             Settings
           </Link>
         </div>
         <div className="flex items-center gap-[7.21px] relative mt-5">
-          <img className="relative w-[28.86px] h-[28.86px]" alt="Trash" src="/images/logout.svg" />
-          <button className="relative w-fit [font-family:'Mulish-Regular',Helvetica] font-normal text-[#353535] text-[16.8px] tracking-[0] leading-[normal]" 
+          <img
+            className="relative w-[28.86px] h-[28.86px]"
+            alt="Trash"
+            src="/images/logout.svg"
+          />
+          <button
+            className="relative w-fit [font-family:'Mulish-Regular',Helvetica] font-normal text-[#353535] text-[16.8px] tracking-[0] leading-[normal]"
             onClick={() => {
               localStorage.clear();
               navigate(Path.Login);
-            }}>
+            }}
+          >
             Log Out
           </button>
         </div>
       </div>
       <div className="w-full bottom-3">
         <div className="top-1/4 w-full pl-6 pr-6">
-          <button className="bg-[#d3d3d3] rounded-[10px] w-full h-[34px] flex items-center justify-center" 
-          onClick={() => navigate(Path.NewChat, { state: { fromHome: true } })}>
-            <img className="w-[20px] h-[20px] mr-2" alt="Mask" src="/images/mask.svg" />
+          <button
+            className="bg-[#d3d3d3] rounded-[10px] w-full h-[34px] flex items-center justify-center"
+            onClick={() =>
+              navigate(Path.NewChat, { state: { fromHome: true } })
+            }
+          >
+            <img
+              className="w-[20px] h-[20px] mr-2"
+              alt="Mask"
+              src="/images/mask.svg"
+            />
             Mask
           </button>
         </div>
         <div className="top-1/4 w-full pl-6 pr-6 pt-2">
           <div className="bg-[#d3d3d3] rounded-[10px] flex p-1">
-            <button className="bg-[#69A606] text-white rounded-[10px] w-full h-[34px] flex items-center justify-center mr-2"
-              onClick={() => theme}>
-              <img className="w-[20px] h-[20px] mr-2" alt="Mask" src="/images/light.svg" />
+            <button
+              className="bg-[#69A606] text-white rounded-[10px] w-full h-[34px] flex items-center justify-center mr-2"
+              onClick={() => theme}
+            >
+              <img
+                className="w-[20px] h-[20px] mr-2"
+                alt="Mask"
+                src="/images/light.svg"
+              />
               Light
             </button>
-            
+
             <button className="bg-[#d3d3d3] rounded-[10px] w-full h-[34px] flex items-center justify-center">
-              <img className="w-[20px] h-[20px] mr-2" alt="Mask" src="/images/dark.svg" />
+              <img
+                className="w-[20px] h-[20px] mr-2"
+                alt="Mask"
+                src="/images/dark.svg"
+              />
               Dark
             </button>
           </div>

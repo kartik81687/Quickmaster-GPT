@@ -13,6 +13,7 @@ import { ErrorBoundary } from "./error";
 import { useLocation, useNavigate } from "react-router-dom";
 import { showToast } from "../components/ui-lib";
 import { useMobileScreen } from "../utils";
+import { useAuthStore } from "../store/auth";
 
 export function ForgetPassword() {
   const config = useAppConfig();
@@ -26,6 +27,34 @@ export function ForgetPassword() {
   const [phoneCodeCountDown, setPhoneCodeCountDown] = useState(60);
   const [phoneCodeBtnText, setPhoneCodeBtnText] = useState("发送验证码");
   const [emailCodeSending, setEmailCodeSending] = useState(false);
+  const [email, setEmail] = useState("");
+  const authStore = useAuthStore();
+  function handleClickSendEmailCode() {
+    if (email === null || email == "") {
+      showToast(Locale.RegisterPage.Toast.EmailIsEmpty);
+      return;
+    }
+    setEmailCodeSending(true);
+    authStore
+      .sendEmailCodeForResetPassword(email)
+      .then((resp) => {
+        if (resp.code == 0) {
+          showToast(Locale.RegisterPage.Toast.EmailCodeSent);
+          return;
+        }
+        if (resp.code == 10121) {
+          showToast(Locale.RegisterPage.Toast.EmailFormatError);
+          return;
+        } else if (resp.code == 10122) {
+          showToast(Locale.RegisterPage.Toast.EmailCodeSentFrequently);
+          return;
+        }
+        showToast(resp.message);
+      })
+      .finally(() => {
+        setEmailCodeSending(false);
+      });
+  }
 
   useEffect(() => {
     const keydownEvent = (e: KeyboardEvent) => {
@@ -137,6 +166,46 @@ export function ForgetPassword() {
 
   return (
     <ErrorBoundary>
+      <div className="flex flex-row justify-center bg-[url('/images/background.png')] w-full md:h-[1080px] sm:h-screen bg-cover">
+        <div className="absolute bg-white w-[790px] h-[547px] border-[1px] top-[124px] rounded-[30px]">
+          <div className="relative">
+            <img
+              src="/images/group.svg"
+              className="top-[34px] left-[287px] w-[66.07px] h-[48.15px] relative"
+            />
+            <span className="top-[10px] left-[317px] text-lime-600 text-[44px] font-bold font-['Inter'] tracking-tight relative">
+              QuickAsk
+            </span>
+          </div>
+          <div className="text-neutral-700 text-4xl font-extrabold font-['Mulish'] uppercase top-[37px] left-[136px] relative">
+            FORGOT PASSWORD
+          </div>
+          <div className="text-neutral-700 text-lg font-semibold font-['Mulish'] leading-relaxed top-[98px] left-[136px] relative">
+            User name / Email
+          </div>
+          <div className="w-[521px] h-[60px] relative top-[98px] left-[136px] bg-[#c6c6c673] rounded-[10px] border border-solid border-[#ffffff3b] backdrop-blur-[20px] backdrop-brightness-[100%] [-webkit-backdrop-filter:blur(20px)_brightness(100%)]">
+            <input
+              className="absolute h-[58px] w-[470px] bg-[#c6c6c600] left-[46px] right-[46px] [font-family:'Mulish-Regular',Helvetica] font-normal text-[#353535] text-[16px] pl-4 tracking-[0] leading-[26px] whitespace-nowrap"
+              placeholder="sherazahmedoffcial@gmail.com"
+              value={email}
+              onChange={(e) => setEmail(e.currentTarget.value)}
+            />
+            <img
+              className="absolute w-[15px] h-[19px] top-[20px] left-[20px]"
+              alt="Group"
+              src="/images/user.svg"
+            />
+          </div>
+          <button
+            className="w-[519px] h-[60px] relative top-[160px] left-[136px] bg-[#69a506] rounded-[10px] [font-family:'Mulish-Bold',Helvetica] font-bold text-white text-[18px] text-center tracking-[0] leading-[normal]"
+            onClick={() => {
+              handleClickSendEmailCode();
+            }}
+          >
+            FORGOT PASSWORD
+          </button>
+        </div>
+      </div>
       <div className="window-header" data-tauri-drag-region>
         <div className="window-header-title">
           <div className="window-header-main-title">
@@ -162,10 +231,10 @@ export function ForgetPassword() {
           )}
         </div>
       </div>
-      <div className={styles["login"]}>
-        <div className={styles["logo"] + " no-dark"}>
+      <div>
+        <div>
           <NextImage src={ChatGptIcon.src} alt="logo" width={50} height={50} />
-          <h4 className={styles["logo-title"]}>AI Chat</h4>
+          <h4>AI Chat</h4>
         </div>
 
         <List>
@@ -175,14 +244,14 @@ export function ForgetPassword() {
                 value={phone}
                 placeholder="请输入中国手机号"
                 onChange={(e) => {
-                  setPhone(e.currentTarget.value);
+                  setEmail(e.currentTarget.value);
                 }}
               />
               <IconButton
                 disabled={emailCodeSending}
                 text={phoneCodeBtnText}
                 onClick={() => {
-                  handleClickSendPhoneCode();
+                  handleClickSendEmailCode();
                 }}
               />
             </div>
