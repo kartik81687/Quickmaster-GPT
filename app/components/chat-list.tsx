@@ -42,7 +42,11 @@ export function ChatItem(props: {
     <Draggable draggableId={`${props.id}`} index={props.index}>
       {(provided) => (
         <div
-          className={props.selected?"bg-white border-black border-2 rounded-[10px] h-8 p-1 m-1":"h-8 p-1 m-1"}
+          className={
+            props.selected
+              ? "bg-white dark:bg-neutral-950 dark:neutral-950 border-black border-2 rounded-[10px] h-8 p-1 m-1"
+              : "h-8 p-1 m-1"
+          }
           onClick={props.onClick}
           ref={(ele) => {
             draggableRef.current = ele;
@@ -66,8 +70,17 @@ export function ChatItem(props: {
           ) : (
             <div className="w-full">
               <div className="flex items-center relative">
-                <img className="w-[16.84px] h-[16.83px] mr-[-7.01px] ml-[3px]" alt="Frame" src="/images/message.svg" />
-                <span className="absolute left-[25px] [font-family:'Mulish-Bold',Helvetica] font-bold text-[#353535] text-[12.8px] tracking-[0] leading-[normal]" title={props.title}>{props.title.slice(0,15)+"..."}</span>
+                <img
+                  className="w-[16.84px] h-[16.83px] mr-[-7.01px] ml-[3px]"
+                  alt="Frame"
+                  src="/images/message.svg"
+                />
+                <span
+                  className="absolute left-[25px] [font-family:'Mulish-Bold',Helvetica] font-bold dark:text-white text-[12.8px] tracking-[0] leading-[normal]"
+                  title={props.title}
+                >
+                  {props.title.slice(0, 15) + "..."}
+                </span>
               </div>
             </div>
           )}
@@ -84,7 +97,7 @@ export function ChatItem(props: {
   );
 }
 
-export function ChatList(props: { narrow?: boolean, today?: boolean }) {
+export function ChatList(props: { narrow?: boolean; today?: boolean }) {
   const [sessions, selectedIndex, selectSession, moveSession] = useChatStore(
     (state) => [
       state.sessions,
@@ -116,37 +129,41 @@ export function ChatList(props: { narrow?: boolean, today?: boolean }) {
     <DragDropContext onDragEnd={onDragEnd}>
       <Droppable droppableId="chat-list">
         {(provided) => (
-          <div
-            ref={provided.innerRef}
-            {...provided.droppableProps}
-          >
-            {sessions.filter((item, i) => {
-              const currentDate = new Date();
-              const lastUpdateDate = new Date(item.lastUpdate);
-              const isToday = (currentDate.getFullYear() === lastUpdateDate.getFullYear()) && (currentDate.getMonth() === lastUpdateDate.getMonth()) && (currentDate.getDay() === lastUpdateDate.getDay())
-              return props.today?(isToday || i === selectedIndex):(!isToday && i !== selectedIndex);
-            }).map((item, i) => (
-              <ChatItem
-                title={item.topic}
-                time={new Date(item.lastUpdate).toLocaleString()}
-                count={item.messages.length}
-                key={item.id}
-                id={item.id}
-                index={i}
-                selected={i === selectedIndex}
-                onClick={() => {
-                  navigate(Path.Chat);
-                  selectSession(i);
-                }}
-                onDelete={() => {
-                  if (!props.narrow || confirm(Locale.Home.DeleteChat)) {
-                    chatStore.deleteSession(i);
-                  }
-                }}
-                narrow={props.narrow}
-                mask={item.mask}
-              />
-            ))}
+          <div ref={provided.innerRef} {...provided.droppableProps}>
+            {sessions
+              .filter((item, i) => {
+                const currentDate = new Date();
+                const lastUpdateDate = new Date(item.lastUpdate);
+                const isToday =
+                  currentDate.getFullYear() === lastUpdateDate.getFullYear() &&
+                  currentDate.getMonth() === lastUpdateDate.getMonth() &&
+                  currentDate.getDay() === lastUpdateDate.getDay();
+                return props.today
+                  ? isToday || i === selectedIndex
+                  : !isToday && i !== selectedIndex;
+              })
+              .map((item, i) => (
+                <ChatItem
+                  title={item.topic}
+                  time={new Date(item.lastUpdate).toLocaleString()}
+                  count={item.messages.length}
+                  key={item.id}
+                  id={item.id}
+                  index={i}
+                  selected={i === selectedIndex}
+                  onClick={() => {
+                    navigate(Path.Chat);
+                    selectSession(i);
+                  }}
+                  onDelete={() => {
+                    if (!props.narrow || confirm(Locale.Home.DeleteChat)) {
+                      chatStore.deleteSession(i);
+                    }
+                  }}
+                  narrow={props.narrow}
+                  mask={item.mask}
+                />
+              ))}
             {provided.placeholder}
           </div>
         )}

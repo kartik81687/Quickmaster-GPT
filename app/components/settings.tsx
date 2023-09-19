@@ -52,7 +52,7 @@ function EditPromptModal(props: { id: number; onClose: () => void }) {
   const prompt = promptStore.get(props.id);
   return prompt ? (
     <div className="fixed top-0 left-0 h-screen w-screen bg-black bg-opacity-50 flex items-center justify-center z-50">
-      <div className="fixed bg-white h-[400px] w-[800px] rounded-[10px]">
+      <div className="fixed bg-white dark:bg-neutral-950 h-[400px] w-[800px] rounded-[10px]">
         <Modal
           title={Locale.Settings.Prompt.EditModal.Title}
           onClose={props.onClose}
@@ -119,7 +119,7 @@ function UserPromptModal(props: { onClose?: () => void }) {
 
   return (
     <div className="fixed top-0 left-0 h-screen w-screen bg-black bg-opacity-50 flex items-center justify-center z-50">
-      <div className="fixed bg-white h-[400px] w-[800px] rounded-[10px]">
+      <div className="fixed bg-white dark:bg-neutral-950 h-[400px] w-[800px] rounded-[10px]">
         <Modal
           title={Locale.Settings.Prompt.Modal.Title}
           onClose={() => props.onClose?.()}
@@ -149,10 +149,15 @@ function UserPromptModal(props: { onClose?: () => void }) {
 
             <div className={styles["user-prompt-list"]}>
               {prompts.map((v, _) => (
-                <div className={styles["user-prompt-item"]} key={v.id ?? v.title}>
+                <div
+                  className={styles["user-prompt-item"]}
+                  key={v.id ?? v.title}
+                >
                   <div className={styles["user-prompt-header"]}>
                     <div className={styles["user-prompt-title"]}>{v.title}</div>
-                    <div className={styles["user-prompt-content"] + " one-line"}>
+                    <div
+                      className={styles["user-prompt-content"] + " one-line"}
+                    >
                       {v.content}
                     </div>
                   </div>
@@ -291,32 +296,40 @@ export function Settings() {
 
   return (
     <ErrorBoundary>
-      <div className="bg-[#ebebeb] flex flex-row justify-center w-full">
-        <SideBar/>
+      <div className="bg-[#ebebeb] dark:bg-neutral-800 flex flex-row justify-center w-full">
+        <SideBar />
         <div className="w-4/5 p-3">
-          <div className="rounded-[10px] bg-white">
+          <div className="rounded-[10px] bg-white dark:bg-neutral-950">
             <div className="window-header">
               <div className="pt-5 pl-3">
-                <div className="top-0 left-0 [font-family:'Mulish-ExtraBold',Helvetica] font-extrabold text-[#353535] text-[28px] tracking-[0] leading-[normal]">
+                <div className="top-0 left-0 [font-family:'Mulish-ExtraBold',Helvetica] font-extrabold dark:text-white text-[28px] tracking-[0] leading-[normal]">
                   {Locale.Settings.Title}
                 </div>
                 <div className="flex justify-between">
-                  <div className="left-0 [font-family:'Mulish-Medium',Helvetica] font-medium text-[#353535] text-[16px] tracking-[0] leading-[26px] whitespace-nowrap">
+                  <div className="left-0 [font-family:'Mulish-Medium',Helvetica] font-medium dark:text-white text-[16px] tracking-[0] leading-[26px] whitespace-nowrap">
                     {Locale.Settings.SubTitle}
                   </div>
                   <div className="flex p-4">
-                    <button className="bg-white [font-family:'Mulish-Bold',Helvetica] font-bold text-[#353535] text-[16px] pr-4" 
+                    <button
+                      className="bg-white dark:bg-neutral-950 [font-family:'Mulish-Bold',Helvetica] font-bold dark:text-white text-[16px] pr-4"
                       onClick={() => {
                         if (confirm(Locale.Settings.Actions.ConfirmResetAll)) {
                           resetConfig();
                         }
-                      }}>Reset All Settings</button>
-                    <button className="bg-[#ececec] p-2 rounded-[10px]" 
+                      }}
+                    >
+                      Reset All Settings
+                    </button>
+                    <button
+                      className="bg-[#ececec] p-2 rounded-[10px]"
                       onClick={() => {
                         if (confirm(Locale.Settings.Actions.ConfirmClearAll)) {
                           chatStore.clearAllData();
                         }
-                      }}><img src="/images/delete.svg"></img></button>
+                      }}
+                    >
+                      <img src="/images/delete.svg"></img>
+                    </button>
                   </div>
                 </div>
               </div>
@@ -355,10 +368,17 @@ export function Settings() {
                 </div>
               </div> */}
             </div>
-            <div className="p-5 bg-white">
-              <div className={"bg-[#ebebeb] overflow-auto rounded-[10px] p-5"}>
+            <div className="p-5 bg-white dark:bg-neutral-950">
+              <div
+                className={
+                  "bg-[#ebebeb] dark:bg-neutral-800 overflow-auto rounded-[10px] p-5"
+                }
+              >
                 <List>
-                  <ListItem title={Locale.Settings.Avatar} className="bg-white p-3 rounded-[10px] mt-2">
+                  <ListItem
+                    title={Locale.Settings.Avatar}
+                    className="bg-white dark:bg-neutral-950 p-3 rounded-[10px] mt-2"
+                  >
                     <Popover
                       onClose={() => setShowEmojiPicker(false)}
                       content={
@@ -380,13 +400,17 @@ export function Settings() {
                     </Popover>
                   </ListItem>
 
-                  <ListItem title={Locale.Settings.SendKey} className="bg-white p-3 rounded-[10px] mt-2">
+                  <ListItem
+                    title={Locale.Settings.SendKey}
+                    className="bg-white dark:bg-neutral-950 p-3 rounded-[10px] mt-2"
+                  >
                     <Select
                       value={config.submitKey}
                       onChange={(e) => {
                         updateConfig(
                           (config) =>
-                            (config.submitKey = e.target.value as any as SubmitKey),
+                            (config.submitKey = e.target
+                              .value as any as SubmitKey),
                         );
                       }}
                     >
@@ -398,12 +422,16 @@ export function Settings() {
                     </Select>
                   </ListItem>
 
-                  <ListItem title={Locale.Settings.Theme} className="bg-white p-3 rounded-[10px] mt-2">
+                  <ListItem
+                    title={Locale.Settings.Theme}
+                    className="bg-white dark:bg-neutral-950 p-3 rounded-[10px] mt-2"
+                  >
                     <Select
                       value={config.theme}
                       onChange={(e) => {
                         updateConfig(
-                          (config) => (config.theme = e.target.value as any as Theme),
+                          (config) =>
+                            (config.theme = e.target.value as any as Theme),
                         );
                       }}
                     >
@@ -415,7 +443,10 @@ export function Settings() {
                     </Select>
                   </ListItem>
 
-                  <ListItem title={Locale.Settings.Lang.Name} className="bg-white p-3 rounded-[10px] mt-2">
+                  <ListItem
+                    title={Locale.Settings.Lang.Name}
+                    className="bg-white dark:bg-neutral-950 p-3 rounded-[10px] mt-2"
+                  >
                     <Select
                       value={getLang()}
                       onChange={(e) => {
@@ -433,7 +464,7 @@ export function Settings() {
                   <ListItem
                     title={Locale.Settings.FontSize.Title}
                     subTitle={Locale.Settings.FontSize.SubTitle}
-                    className="bg-white p-3 rounded-[10px] mt-2"
+                    className="bg-white dark:bg-neutral-950 p-3 rounded-[10px] mt-2"
                   >
                     <InputRange
                       title={`${config.fontSize ?? 16}px`}
@@ -444,7 +475,9 @@ export function Settings() {
                       onChange={(e) =>
                         updateConfig(
                           (config) =>
-                            (config.fontSize = Number.parseInt(e.currentTarget.value)),
+                            (config.fontSize = Number.parseInt(
+                              e.currentTarget.value,
+                            )),
                         )
                       }
                     ></InputRange>
@@ -453,7 +486,7 @@ export function Settings() {
                   <ListItem
                     title={Locale.Settings.SendPreviewBubble.Title}
                     subTitle={Locale.Settings.SendPreviewBubble.SubTitle}
-                    className="bg-white p-3 rounded-[10px] mt-2"
+                    className="bg-white dark:bg-neutral-950 p-3 rounded-[10px] mt-2"
                   >
                     <input
                       type="checkbox"
@@ -461,7 +494,8 @@ export function Settings() {
                       onChange={(e) =>
                         updateConfig(
                           (config) =>
-                            (config.sendPreviewBubble = e.currentTarget.checked),
+                            (config.sendPreviewBubble =
+                              e.currentTarget.checked),
                         )
                       }
                     ></input>
@@ -470,7 +504,7 @@ export function Settings() {
                   <ListItem
                     title={Locale.Settings.Mask.Title}
                     subTitle={Locale.Settings.Mask.SubTitle}
-                    className="bg-white p-3 rounded-[10px] mt-2"
+                    className="bg-white dark:bg-neutral-950 p-3 rounded-[10px] mt-2"
                   >
                     <input
                       type="checkbox"
@@ -491,7 +525,7 @@ export function Settings() {
                     <ListItem
                       title={Locale.Settings.AccessCode.Title}
                       subTitle={Locale.Settings.AccessCode.SubTitle}
-                      className="bg-white p-3 rounded-[10px] mt-2"
+                      className="bg-white dark:bg-neutral-950 p-3 rounded-[10px] mt-2"
                     >
                       <PasswordInput
                         value={accessStore.accessCode}
@@ -510,7 +544,7 @@ export function Settings() {
                     <ListItem
                       title={Locale.Settings.Token.Title}
                       subTitle={Locale.Settings.Token.SubTitle}
-                      className="bg-white p-3 rounded-[10px] mt-2"
+                      className="bg-white dark:bg-neutral-950 p-3 rounded-[10px] mt-2"
                     >
                       <PasswordInput
                         value={accessStore.token}
@@ -535,7 +569,7 @@ export function Settings() {
                             )
                         : Locale.Settings.Usage.NoAccess
                     }
-                    className="bg-white p-3 rounded-[10px] mt-2"
+                    className="bg-white dark:bg-neutral-950 p-3 rounded-[10px] mt-2"
                   >
                     {!showUsage || loadingUsage ? (
                       <div />
@@ -553,7 +587,7 @@ export function Settings() {
                   <ListItem
                     title={Locale.Settings.Prompt.Disable.Title}
                     subTitle={Locale.Settings.Prompt.Disable.SubTitle}
-                    className="bg-white p-3 rounded-[10px] mt-2"
+                    className="bg-white dark:bg-neutral-950 p-3 rounded-[10px] mt-2"
                   >
                     <input
                       type="checkbox"
@@ -561,7 +595,8 @@ export function Settings() {
                       onChange={(e) =>
                         updateConfig(
                           (config) =>
-                            (config.disablePromptHint = e.currentTarget.checked),
+                            (config.disablePromptHint =
+                              e.currentTarget.checked),
                         )
                       }
                     ></input>
@@ -573,7 +608,7 @@ export function Settings() {
                       builtinCount,
                       customCount,
                     )}
-                    className="bg-white p-3 rounded-[10px] mt-2"
+                    className="bg-white dark:bg-neutral-950 p-3 rounded-[10px] mt-2"
                   >
                     <IconButton
                       icon={<EditIcon />}
@@ -589,7 +624,9 @@ export function Settings() {
                     updateConfig={(updater) => {
                       const modelConfig = { ...config.modelConfig };
                       updater(modelConfig);
-                      config.update((config) => (config.modelConfig = modelConfig));
+                      config.update(
+                        (config) => (config.modelConfig = modelConfig),
+                      );
                     }}
                   />
                 </List>

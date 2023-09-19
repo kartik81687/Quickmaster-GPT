@@ -31,7 +31,7 @@ const Markdown = dynamic(async () => (await import("./markdown")).Markdown, {
 export function ExportMessageModal(props: { onClose: () => void }) {
   return (
     <div className="fixed top-0 left-0 h-screen w-screen bg-black bg-opacity-50 flex items-center justify-center z-50">
-      <div className="fixed bg-white h-[400px] w-[800px] rounded-[10px]">
+      <div className="fixed bg-white dark:bg-neutral-950 h-[400px] w-[800px] rounded-[10px]">
         <Modal title={Locale.Export.Title} onClose={props.onClose}>
           <div style={{ minHeight: "40vh" }}>
             <MessageExporter />

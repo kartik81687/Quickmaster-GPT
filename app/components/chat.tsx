@@ -108,7 +108,7 @@ export function SessionConfigModel(props: { onClose: () => void }) {
 
   return (
     <div className="fixed top-0 left-0 h-screen w-screen bg-black bg-opacity-50 flex items-center justify-center z-50">
-      <div className="fixed bg-white h-[800px] w-[800px] rounded-[10px]">
+      <div className="fixed bg-white dark:bg-neutral-950 h-[800px] w-[800px] rounded-[10px]">
         <Modal
           title={Locale.Context.Edit}
           onClose={() => props.onClose()}
@@ -414,11 +414,11 @@ export function ChatActions(props: {
   };
 
   return (
-    <div className={chatStyle["chat-input-actions"]}>
+    <div className="flex flex-wrap">
       <Toaster />
       {couldStop && (
         <div
-          className={`${chatStyle["chat-input-action"]} clickable`}
+          className="p-3 mb-3 items-center font-[12px] rounded-[20px] bg-white inline-flex shadow-slate-500 shadow mr-1 cursor-pointer dark:bg-neutral-800 dark:shadow-slate-200"
           onClick={stopAll}
         >
           <StopIcon />
@@ -426,7 +426,7 @@ export function ChatActions(props: {
       )}
       {!props.hitBottom && (
         <div
-          className={`${chatStyle["chat-input-action"]} clickable`}
+          className="p-3 mb-3 items-center font-[12px] rounded-[20px] bg-white inline-flex shadow-slate-500 shadow mr-1 cursor-pointer dark:bg-neutral-800 dark:shadow-slate-200"
           onClick={props.scrollToBottom}
         >
           <BottomIcon />
@@ -434,7 +434,7 @@ export function ChatActions(props: {
       )}
       {/* {props.hitBottom && (
         <div
-          className={`${chatStyle["chat-input-action"]} clickable`}
+          className="p-3 mb-3 items-center font-[12px] rounded-[20px] bg-white inline-flex shadow-slate-500 shadow mr-1 cursor-pointer dark:bg-neutral-800 dark:shadow-slate-200"
           onClick={props.showPromptModal}
         >
           <SettingsIcon />
@@ -442,7 +442,7 @@ export function ChatActions(props: {
       )} */}
 
       {/* <div
-        className={`${chatStyle["chat-input-action"]} clickable`}
+        className="p-3 mb-3 items-center font-[12px] rounded-[20px] bg-white inline-flex shadow-slate-500 shadow mr-1 cursor-pointer dark:bg-neutral-800 dark:shadow-slate-200"
         onClick={nextTheme}
       >
         {theme === Theme.Auto ? (
@@ -455,14 +455,14 @@ export function ChatActions(props: {
       </div> */}
 
       <div
-        className={`${chatStyle["chat-input-action"]} clickable`}
+        className="p-3 mb-3 items-center font-[12px] rounded-[20px] bg-white inline-flex shadow-slate-500 shadow mr-1 cursor-pointer dark:bg-neutral-800 dark:shadow-slate-200"
         onClick={props.showPromptHints}
       >
         <PromptIcon />
       </div>
 
       <div
-        className={`${chatStyle["chat-input-action"]} clickable`}
+        className="p-3 mb-3 items-center font-[12px] rounded-[20px] bg-white inline-flex shadow-slate-500 shadow mr-1 cursor-pointer dark:bg-neutral-800 dark:shadow-slate-200"
         onClick={() => {
           navigate(Path.Masks);
         }}
@@ -471,7 +471,7 @@ export function ChatActions(props: {
       </div>
 
       <div
-        className={`${chatStyle["chat-input-action"]} clickable`}
+        className="p-3 mb-3 items-center font-[12px] rounded-[20px] bg-white inline-flex shadow-slate-500 shadow mr-1 cursor-pointer dark:bg-neutral-800 dark:shadow-slate-200"
         onClick={() => {
           chatStore.updateCurrentSession((session) => {
             if (session.clearContextIndex === session.messages.length) {
@@ -487,21 +487,21 @@ export function ChatActions(props: {
       </div>
 
       <div
-        className={`${chatStyle["chat-input-action"]} clickable`}
+        className="p-3 mb-3 items-center font-[12px] rounded-[20px] bg-white inline-flex shadow-slate-500 shadow mr-1 cursor-pointer dark:bg-neutral-800 dark:shadow-slate-200"
         onClick={props.onSpeechStart}
       >
         {props.recording ? <MicrophoneIcon /> : <MicrophoneOffIcon />}
       </div>
 
       <div
-        className={`${chatStyle["chat-input-action"]} clickable`}
+        className="p-3 mb-3 items-center font-[12px] rounded-[20px] bg-white inline-flex shadow-slate-500 shadow mr-1 cursor-pointer dark:bg-neutral-800 dark:shadow-slate-200"
         onClick={props.onBarding}
       >
         {props.barding ? <GoogleBardIcon /> : <GoogleBardOffIcon />}
       </div>
 
       <div
-        className={`${chatStyle["chat-input-action"]} clickable`}
+        className="p-3 mb-3 items-center font-[12px] rounded-[20px] bg-white inline-flex shadow-slate-500 shadow mr-1 cursor-pointer dark:bg-neutral-800 dark:shadow-slate-200"
         onClick={props.onClauding}
       >
         {props.clauding ? (
@@ -512,14 +512,14 @@ export function ChatActions(props: {
       </div>
 
       <div
-        className={`${chatStyle["chat-input-action"]} clickable border border-[#979797] rounded-[1px]`}
+        className="p-3 mb-3 items-center font-[12px] rounded-[20px] bg-white inline-flex shadow-slate-500 shadow mr-1 cursor-pointer dark:bg-neutral-800 dark:shadow-slate-200"
         onClick={props.onDuckDuckGo}
       >
         {props.duckduckgoing ? <DuckDuckGoIcon /> : <DuckDuckGoOffIcon />}
       </div>
 
       <div>
-        <ListItem className="h-3">
+        <ListItem className="h-3 dark:text-slate-700 text-black">
           <Select
             value={editingMask?.modelConfig.model}
             onChange={(e) => {
@@ -541,13 +541,13 @@ export function ChatActions(props: {
       </div>
 
       {/* <div
-        className={`${chatStyle["chat-input-action"]} clickable`}
+        className="p-3 mb-3 items-center font-[12px] rounded-[20px] bg-white inline-flex shadow-slate-500 shadow mr-1 cursor-pointer dark:bg-neutral-800 dark:shadow-slate-200"
         onClick={props.onChinese}
       >
         {props.chinese ? <ChineseIcon /> : <EnglishIcon />}
       </div> */}
 
-      {/* <div className={`${chatStyle["chat-input-action"]} clickable`}>
+      {/* <div className="p-3 mb-3 items-center font-[12px] rounded-[20px] bg-white inline-flex shadow-slate-500 shadow mr-1 cursor-pointer dark:bg-neutral-800 dark:shadow-slate-200">
         {props.speaking ? (
           <PlayerStopIcon onClick={stopVoiceOfAnswer} />
         ) : (
@@ -998,22 +998,22 @@ export function Chat() {
   });
 
   return (
-    <div className="bg-[#ebebeb] flex-row justify-center w-full h-screen flex items-center">
+    <div className="bg-[#ebebeb] dark:bg-neutral-800 flex-row justify-center w-full h-screen flex items-center">
       <SideBar />
       <div className="w-4/5 p-3 h-[95%]">
-        <div className="rounded-[10px] bg-white">
+        <div className="rounded-[10px] bg-white dark:bg-neutral-950">
           <SubAlertModal
             modalState={modalState}
             setModalState={setModalState}
           />
           <div className="pt-5 pl-3">
             <div
-              className="top-0 left-0 [font-family:'Mulish-ExtraBold',Helvetica] font-extrabold text-[#353535] text-[28px] tracking-[0] leading-[normal]"
+              className="top-0 left-0 [font-family:'Mulish-ExtraBold',Helvetica] font-extrabold dark:text-white text-[28px] tracking-[0] leading-[normal]"
               onClickCapture={renameSession}
             >
               {!session.topic ? DEFAULT_TOPIC : session.topic}
             </div>
-            <div className="left-0 [font-family:'Mulish-Medium',Helvetica] font-medium text-[#353535] text-[16px] tracking-[0] leading-[26px] whitespace-nowrap">
+            <div className="left-0 [font-family:'Mulish-Medium',Helvetica] font-medium dark:text-white text-[16px] tracking-[0] leading-[26px] whitespace-nowrap">
               {Locale.Chat.SubTitle(session.messages.length)}
             </div>
           </div>
@@ -1105,7 +1105,7 @@ export function Chat() {
 
               return (
                 <>
-                  <div key={i} className={styles["chat-message"]}>
+                  <div key={i}>
                     <div className={styles["chat-message-container"]}>
                       <div className={styles["chat-message-avatar"]}>
                         {message.role === "user" ? (
@@ -1233,7 +1233,7 @@ export function Chat() {
               /> */}
               <textarea
                 ref={inputRef}
-                className={styles["chat-input"]}
+                className="border-1 h-full w-full rounded-[10px] border-neutral-500 bg-white dark:bg-neutral-950 shadow dark:shadow-slate-300 pl-3 pr-24 pb-4 pt-3"
                 placeholder={Locale.Chat.Input(submitKey)}
                 onInput={(e) => onInput(e.currentTarget.value)}
                 value={userInput}

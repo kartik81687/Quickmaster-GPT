@@ -115,10 +115,10 @@ export function NewChat() {
   }, [groups]);
 
   return (
-    <div className="bg-[#ebebeb] flex flex-row justify-center w-full">
+    <div className="bg-[#ebebeb] dark:bg-neutral-800 flex flex-row justify-center w-full">
       <SideBar />
       <div className="w-4/5 p-[30px]">
-        <div className="rounded-[10px] bg-white flex flex-col items-center h-[600px]">
+        <div className="rounded-[10px] bg-white dark:bg-neutral-950 flex flex-col items-center h-[600px]">
           <div className="flex items-start w-full">
             <IconButton
               icon={<LeftIcon />}
@@ -132,9 +132,9 @@ export function NewChat() {
                 <div className="relative h-[148px]">
                   <div className="absolute w-[269px] h-[148px] top-0 left-0">
                     <div className="relative h-[148px]">
-                      <div className="w-[84px] h-[110px] top-[29px] left-[13px] rotate-[-15.00deg] absolute bg-white rounded-[10px] border border-solid border-[#18bb4e78]" />
-                      <div className="w-[84px] h-[110px] top-[29px] left-[172px] rotate-[15.00deg] absolute bg-white rounded-[10px] border border-solid border-[#18bb4e78]" />
-                      <div className="w-[108px] h-[142px] top-0 left-[81px] absolute bg-white rounded-[10px] border border-solid border-[#18bb4e78]" />
+                      <div className="w-[84px] h-[110px] top-[29px] left-[13px] rotate-[-15.00deg] absolute bg-white dark:bg-neutral-950 rounded-[10px] border border-solid border-[#18bb4e78]" />
+                      <div className="w-[84px] h-[110px] top-[29px] left-[172px] rotate-[15.00deg] absolute bg-white dark:bg-neutral-950 rounded-[10px] border border-solid border-[#18bb4e78]" />
+                      <div className="w-[108px] h-[142px] top-0 left-[81px] absolute bg-white dark:bg-neutral-950 rounded-[10px] border border-solid border-[#18bb4e78]" />
                     </div>
                   </div>
                   <img
@@ -156,10 +156,10 @@ export function NewChat() {
               </div>
             </div>
 
-            <div className="[font-family:'Mulish-ExtraBold',Helvetica] font-extrabold text-[#353535] text-[38px] tracking-[0] leading-[normal]">
+            <div className="[font-family:'Mulish-ExtraBold',Helvetica] font-extrabold dark:text-white text-[38px] tracking-[0] leading-[normal]">
               {Locale.NewChat.Title}
             </div>
-            <div className=" [font-family:'Mulish-ExtraBold',Helvetica] text-[#353535] tracking-[0] leading-[normal]">
+            <div className=" [font-family:'Mulish-ExtraBold',Helvetica] dark:text-white tracking-[0] leading-[normal]">
               {Locale.NewChat.SubTitle}
             </div>
 
