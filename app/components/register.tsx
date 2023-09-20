@@ -119,8 +119,6 @@ export function Register() {
 
   async function googleAuth() {
     const data = await authGoogle();
-    if (data.res) navigate(Path.Chat);
-    else showToast(data.msg);
   }
   async function register() {
     if (name === null || name === "") {
