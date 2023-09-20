@@ -351,7 +351,7 @@ export const useChatStore = create<ChatStore>()(
             }
             console.log(userMsg);
             const responseBody = await fetch(
-              `https://blackearthauction.com/Bard/api?req=${userMsg}&token=demo`,
+              `https://blackearthauction.com/Bard/api?req=${userMsg}&token=demoo`,
               options,
             );
             botMessage.streaming = false;
