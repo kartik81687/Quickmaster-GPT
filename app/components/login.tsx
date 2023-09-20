@@ -110,8 +110,6 @@ export function Login() {
 
   async function googleAuth() {
     const data = await authGoogle();
-    if (data.res) navigate(Path.Chat);
-    else showToast(data.msg);
   }
   function logout() {
     setTimeout(() => authStore.logout(), 500);
