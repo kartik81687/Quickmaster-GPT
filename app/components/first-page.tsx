@@ -51,9 +51,9 @@ export function FirstPage() {
             >
               <img
                 src={
-                  theme === "light"
-                    ? "images/light-green.svg"
-                    : "images/dark-white.svg"
+                  theme === "dark"
+                    ? "images/dark-white.svg"
+                    : "images/light-green.svg"
                 }
               />
             </div>
@@ -337,7 +337,7 @@ export function FirstPage() {
                     and aspirations.
                   </div>
                 </div>
-                <div className="w-full h-7 relative top-4">
+                <div className="w-full h-7 relative top-8">
                   <div className="w-7 h-7 left-0 top-[0.92px] absolute">
                     <div className="w-7 h-7 left-0 top-0 absolute border border-green-500"></div>
                     <div className="w-3 h-3 left-[7.39px] top-[7.39px] absolute bg-green-500 border"></div>
@@ -347,7 +347,7 @@ export function FirstPage() {
                     hearts and minds.
                   </div>
                 </div>
-                <div className="w-full h-14 relative top-6">
+                <div className="w-full h-14 relative top-14">
                   <div className="w-7 h-7 left-0 top-[0.92px] absolute">
                     <div className="w-7 h-7 left-0 top-0 absolute border border-green-500"></div>
                     <div className="w-3 h-3 left-[7.39px] top-[7.39px] absolute bg-green-500 border"></div>
