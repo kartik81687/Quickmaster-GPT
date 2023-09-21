@@ -205,7 +205,7 @@ export function SideBar() {
             className="relative w-fit [font-family:'Mulish-Regular',Helvetica] font-normal dark:text-white text-[16.8px] tracking-[0] leading-[normal]"
             onClick={() => {
               localStorage.clear();
-              navigate(Path.Login);
+              navigate(Path.Home);
             }}
           >
             Log Out
