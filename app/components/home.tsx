@@ -26,6 +26,8 @@ import dynamic from "next/dynamic";
 
 import styles from "./home.module.scss";
 import { ThemeProvider } from "next-themes";
+import { FirstPage } from "./first-page";
+import { useAuthStore } from "../store/auth";
 
 export function Loading(props: { noLogo?: boolean }) {
   return (
@@ -110,7 +112,7 @@ function Screen() {
   const location = useLocation();
   const isHome = location.pathname === Path.Home;
   const isMobileScreen = useMobileScreen();
-  const userId = localStorage.getItem("userId");
+  const session = useAuthStore().session;
 
   useEffect(() => {
     loadAsyncGoogleFont();
@@ -124,9 +126,10 @@ function Screen() {
         <Route path="/register" element={<Register />} />
         <Route path="/register-phone" element={<RegisterPhone />} />
         <Route path="/forget-password" element={<ForgetPassword />} />
+        <Route path="/" element={<FirstPage />} />
 
         {/* Private Routes */}
-        {userId ? (
+        {session ? (
           <>
             <Route path={Path.Home} element={<Chat />} />
             <Route path={Path.NewChat} element={<NewChat />} />
