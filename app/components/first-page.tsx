@@ -16,35 +16,38 @@ export function FirstPage() {
     <>
       <div className="fixed h-16 bg-white flex w-full justify-between z-10 top-0 dark:bg-gradient-to-r dark:from-neutral-900 dark:to-neutral-600 dark:blur-0">
         <div>
-          <img src="/images/group.svg" className="top-4 left-24 relative w-8" />
-          <span className="relative top-[6px] left-[105px] text-lime-600 text-[20px] font-bold font-['Inter'] tracking-tight">
+          <img
+            src="/images/group.svg"
+            className="top-4 md:left-24 left-2 relative w-8"
+          />
+          <span className="relative top-[6px] md:left-[105px] left-[17px] text-lime-600 text-[20px] font-bold font-['Inter'] tracking-tight">
             QuikAsk
           </span>
         </div>
-        <div className="flex justify-between w-1/4">
-          <div className="w-14 h-9 relative top-5">
-            <div className="left-0 top-0 absolute text-neutral-700 text-l font-bold font-['Mulish'] w-full text-center cursor-pointer dark:text-white">
+        <div className="flex justify-between md:w-1/4 w-3/4">
+          <div className="md:w-14 w-7 h-9 relative top-5">
+            <div className="left-0 top-0 absolute text-neutral-700 md:text-l text-sm font-bold font-['Mulish'] w-full text-center cursor-pointer dark:text-white">
               Home
             </div>
             <div className="w-2 h-2 left-[24.32px] top-[29.49px] absolute bg-neutral-700 rounded-full dark:bg-white"></div>
           </div>
-          <div className="w-14 h-9 relative top-5">
+          <div className="md:w-14 w-7 h-9 relative top-5">
             <div
-              className="opacity-70 left-0 top-0 absolute text-neutral-700 text-l font-bold font-['Mulish'] w-full text-center cursor-pointer dark:text-white"
+              className="opacity-70 left-0 top-0 absolute text-neutral-700 md:text-l text-sm font-bold font-['Mulish'] w-full text-center cursor-pointer dark:text-white"
               onClick={() => navigate("chat")}
             >
               Chat
             </div>
           </div>
-          <div className="w-16 h-9 relative top-5">
+          <div className="md:w-16 w-8 h-9 relative top-5">
             <div
-              className="left-0 top-0 absolute text-lime-600 text-l font-bold font-['Mulish'] w-full text-center cursor-pointer"
+              className="left-0 top-0 absolute text-lime-600 md:text-l text-sm font-bold font-['Mulish'] w-full text-center cursor-pointer"
               onClick={authSign}
             >
               {authStore.session ? "Sign Out" : "Sign In"}
             </div>
           </div>
-          <div className="w-14 h-9 relative top-5">
+          <div className="md:w-14 w-7 h-9 relative top-5">
             <div
               className="left-0 top-0 absolute text-neutral-700 text-l font-bold font-['Mulish'] w-full text-center cursor-pointer"
               onClick={nextTheme}
@@ -62,7 +65,7 @@ export function FirstPage() {
       </div>
       <div>
         <div className="h-[400px] relative top-20">
-          <div className="flex h-2/5 w-4/5 ml-28 justify-between">
+          <div className="flex h-2/5 md:w-4/5 w-full ml-28 justify-between">
             <div className="w-96 pt-14">
               <span className="text-neutral-700 text-4xl font-black font-['Mulish'] capitalize leading-10 dark:text-white">
                 Use QuikAsk to
@@ -79,10 +82,10 @@ export function FirstPage() {
               </span>
             </div>
             <div className="w-96 relative">
-              <div className="w-32 h-32 left-0 top-8 absolute bg-lime-200 rounded-full border"></div>
-              <div className="w-32 h-32 left-0 top-8 absolute opacity-50 bg-lime-200 rounded-full border blur-3xl"></div>
-              <div className="w-28 h-28 left-[6px] top-[38px] absolute rounded-full border border-black"></div>
-              <div className="left-[12px] top-16 absolute text-center text-neutral-900 text-2xl font-extrabold font-['Mulish'] leading-7">
+              <div className="w-32 h-32 md:left-0 right-0 top-8 absolute bg-lime-200 rounded-full border"></div>
+              <div className="w-32 h-32 md:left-0 right-0 top-8 absolute opacity-50 bg-lime-200 rounded-full border blur-3xl"></div>
+              <div className="w-28 h-28 md:left-[6px] right-[6px] top-[38px] absolute rounded-full border border-black"></div>
+              <div className="md:left-[12px] right-[12px] top-16 absolute text-center text-neutral-900 text-2xl font-extrabold font-['Mulish'] leading-7">
                 Explore
                 <br />
                 Our Chat
@@ -109,48 +112,58 @@ export function FirstPage() {
               <img src="images/robot-hand.png" className="-top-60" />
             </div>
           </div>
-          <div className="flex h-1/5 w-full justify-between pt-8">
-            <div className="w-52 h-32 relative">
-              <div className="w-52 h-20 left-0 top-0 absolute bg-gradient-to-b from-zinc-300 to-zinc-0 rounded-tl-2xl rounded-tr-2xl backdrop-blur-lg dark:from-neutral-900 dark:to-zinc-900"></div>
-              <div className="w-52 h-12 left-[36.44px] top-[10px] absolute justify-start items-start gap-3.5 inline-flex">
+          <div className="flex h-1/5 justify-between pt-8">
+            <div className="md:w-52 w-24 h-32 relative">
+              <div className="md:w-52 w-24 h-20 left-0 top-0 absolute bg-gradient-to-b from-zinc-300 to-zinc-0 rounded-tl-2xl rounded-tr-2xl backdrop-blur-lg dark:from-neutral-900 dark:to-zinc-900"></div>
+              <div className="md:w-52 w-24 h-12 left-[36.44px] top-[10px] absolute justify-start items-start gap-3.5 inline-flex">
                 <div className="text-neutral-700 font-[12px] font-['Mulish'] capitalize grid grid-cols-2 content-center dark:text-white">
-                  <span className="w-32 items-center flex">Chat GPT</span>{" "}
+                  <span className="md:w-32 w-12 items-center flex">
+                    Chat GPT
+                  </span>{" "}
                   <img src="images/right-arrow.svg" className="w-8" />
                 </div>
               </div>
             </div>
-            <div className="w-52 h-20 relative">
-              <div className="w-52 h-16 left-0 top-4 absolute bg-gradient-to-b from-zinc-300 to-zinc-0 rounded-tl-2xl rounded-tr-2xl backdrop-blur-lg dark:from-neutral-900 dark:to-zinc-900"></div>
-              <div className="w-52 h-12 left-[36.44px] top-[26px] absolute justify-start items-start gap-3.5 inline-flex">
+            <div className="md:w-52 w-24 h-20 relative">
+              <div className="md:w-52 w-24 h-16 left-0 top-4 absolute bg-gradient-to-b from-zinc-300 to-zinc-0 rounded-tl-2xl rounded-tr-2xl backdrop-blur-lg dark:from-neutral-900 dark:to-zinc-900"></div>
+              <div className="md:w-52 w-24 h-12 left-[36.44px] top-[26px] absolute justify-start items-start gap-3.5 inline-flex">
                 <div className="text-neutral-700 font-[12px] font-['Mulish'] capitalize grid grid-cols-2 content-center dark:text-white">
-                  <span className="w-32 items-center flex">Google Bard</span>{" "}
+                  <span className="md:w-32 w-12 items-center flex">
+                    Google Bard
+                  </span>{" "}
                   <img src="images/right-arrow.svg" className="w-8" />
                 </div>
               </div>
             </div>
-            <div className="w-52 h-16 relative">
-              <div className="w-52 h-12 left-0 top-8 absolute bg-gradient-to-b from-lime-600 to-lime-0 rounded-tl-2xl rounded-tr-2xl backdrop-blur-lg dark:from-neutral-900 dark:to-zinc-900"></div>
-              <div className="w-52 h-12 left-[36.44px] top-[42px] absolute justify-start items-start gap-3.5 inline-flex">
+            <div className="md:w-52 w-24 h-16 relative">
+              <div className="md:w-52 w-24 h-12 left-0 top-8 absolute bg-gradient-to-b from-lime-600 to-lime-0 rounded-tl-2xl rounded-tr-2xl backdrop-blur-lg dark:from-neutral-900 dark:to-zinc-900"></div>
+              <div className="md:w-52 w-24 h-12 left-[36.44px] top-[42px] absolute justify-start items-start gap-3.5 inline-flex">
                 <div className="text-neutral-700 font-[12px] font-['Mulish'] capitalize grid grid-cols-2 content-center dark:text-white">
-                  <span className="w-32 items-center flex">QuikAsk Chat</span>{" "}
+                  <span className="md:w-32 w-12 items-center flex">
+                    QuikAsk Chat
+                  </span>{" "}
                   <img src="images/right-arrow.svg" className="w-8" />
                 </div>
               </div>
             </div>
-            <div className="w-52 h-32 relative">
-              <div className="w-52 h-20 left-0 top-4 absolute bg-gradient-to-b from-zinc-300 to-zinc-0 rounded-tl-2xl rounded-tr-2xl backdrop-blur-lg dark:from-neutral-900 dark:to-zinc-900"></div>
-              <div className="w-52 h-12 left-[36.44px] top-[26px] absolute justify-start items-start gap-3.5 inline-flex">
+            <div className="md:w-52 w-24 h-32 relative">
+              <div className="md:w-52 w-24 h-16 left-0 top-4 absolute bg-gradient-to-b from-zinc-300 to-zinc-0 rounded-tl-2xl rounded-tr-2xl backdrop-blur-lg dark:from-neutral-900 dark:to-zinc-900"></div>
+              <div className="md:w-52 w-24 h-12 left-[36.44px] top-[26px] absolute justify-start items-start gap-3.5 inline-flex">
                 <div className="text-neutral-700 font-[12px] font-['Mulish'] capitalize grid grid-cols-2 content-center dark:text-white">
-                  <span className="w-32 items-center flex">Duck Duck Go</span>{" "}
+                  <span className="md:w-32 w-12 items-center flex">
+                    Duck Duck Go
+                  </span>{" "}
                   <img src="images/right-arrow.svg" className="w-8" />
                 </div>
               </div>
             </div>
-            <div className="w-52 h-32 relative">
-              <div className="w-52 h-20 left-0 top-0 absolute bg-gradient-to-b from-zinc-300 to-zinc-0 rounded-tl-2xl rounded-tr-2xl backdrop-blur-lg dark:from-neutral-900 dark:to-zinc-900"></div>
-              <div className="w-40 h-12 left-[36.44px] top-[10px] absolute items-start gap-3.5 inline-flex justify-between">
+            <div className="md:w-52 w-24 h-32 relative">
+              <div className="md:w-52 w-24 h-20 left-0 top-0 absolute bg-gradient-to-b from-zinc-300 to-zinc-0 rounded-tl-2xl rounded-tr-2xl backdrop-blur-lg dark:from-neutral-900 dark:to-zinc-900"></div>
+              <div className="md:w-52 w-24 h-12 left-[36.44px] top-[10px] absolute items-start gap-3.5 inline-flex justify-between">
                 <div className="text-neutral-700 font-[12px] font-['Mulish'] capitalize grid grid-cols-2 content-center dark:text-white">
-                  <span className="w-32 items-center flex">Anthropic Ai</span>{" "}
+                  <span className="md:w-32 w-12 items-center flex">
+                    Anthropic Ai
+                  </span>{" "}
                   <img src="images/right-arrow.svg" className="w-8" />
                 </div>
               </div>
@@ -158,12 +171,12 @@ export function FirstPage() {
           </div>
           <div className="flex justify-center pt-20">
             <div className="w-full h-44 relative">
-              <div className="w-full top-0 absolute flex justify-center text-center text-neutral-700 text-3xl font-bold font-['Mulish'] capitalize leading-10 dark:text-white">
+              <div className="w-full top-0 absolute flex justify-center text-center text-neutral-700 md:text-3xl text-2xl font-bold font-['Mulish'] capitalize leading-10 dark:text-white">
                 <img src="/images/spiral-arrow-left.svg" />
                 For All Kind of Creators
                 <img src="/images/spiral-arrow-right.svg" />
               </div>
-              <div className="pl-80 pr-80 w-full left-0 top-[60px] absolute text-center text-neutral-700 font-[12px] font-['Mulish'] leading-7 dark:text-neutral-300">
+              <div className="md:pl-80 pl-0 md:pr-80 pr-0 w-full left-0 md:top-[60px] top-[110px] absolute text-center text-neutral-700 font-[12px] font-['Mulish'] leading-7 dark:text-neutral-300">
                 Introducing a revolutionary AI partner for creators across the
                 globe—a groundbreaking tool designed to transform the way we
                 bring our creative ideas to life. Unleash your artistic
@@ -173,13 +186,13 @@ export function FirstPage() {
               </div>
             </div>
           </div>
-          <div className="grid pt-20 grid-cols-2">
+          <div className="grid md:pt-20 pt-32 md:grid-cols-2 grid-cols-1">
             <div className="col-span-1 w-96 h-96 relative">
               <div className="w-96 h-80 left-0 top-[50px] absolute">
-                <div className="w-96 h-80 left-[165px] top-0 absolute bg-gradient-to-b from-gray-200 to-gray-50 rounded-2xl shadow border border-green-500 dark:from-zinc-800 dark:to-zinc-900"></div>
-                <div className="w-12 h-12 left-[347.50px] top-[292.80px] absolute origin-top-left -rotate-90"></div>
-                <div className="w-96 h-36 left-[165.50px] top-[85px] absolute">
-                  <div className="left-[125px] top-0 absolute text-center text-neutral-700 text-3xl font-bold font-['Mulish'] capitalize leading-9 dark:text-white">
+                <div className="w-96 h-80 md:left-[165px] left-[135px] top-0 absolute bg-gradient-to-b from-gray-200 to-gray-50 rounded-2xl shadow border border-green-500 dark:from-zinc-800 dark:to-zinc-900"></div>
+                <div className="w-12 h-12 md:left-[347.50px] left-[305px] top-[292.80px] absolute origin-top-left -rotate-90"></div>
+                <div className="w-96 h-36 md:left-[165.50px] left-[135px] top-[85px] absolute">
+                  <div className="md:left-[125px] left-[85px] top-0 absolute text-center text-neutral-700 text-3xl font-bold font-['Mulish'] capitalize leading-9 dark:text-white">
                     ChatGPT - 4
                   </div>
                   <div className="w-96 left-0 top-[60px] absolute text-center text-neutral-700 text-base font-semibold font-['Mulish'] leading-relaxed dark:text-white">
@@ -188,7 +201,7 @@ export function FirstPage() {
                   </div>
                 </div>
               </div>
-              <div className="w-24 h-24 left-[322.50px] top-0 absolute">
+              <div className="w-24 h-24 md:left-[322.50px] left-[292px] top-0 absolute">
                 <div className="w-24 h-24 left-0 top-0 absolute bg-lime-600 rounded-2xl shadow grid content-center justify-center">
                   {" "}
                   <img src="/images/openai-lime.svg" className="w-24" />{" "}
@@ -197,9 +210,9 @@ export function FirstPage() {
             </div>
             <div className="col-span-1 w-96 h-96 relative">
               <div className="w-96 h-80 left-0 top-[50px] absolute">
-                <div className="w-96 h-80 left-[165px] top-0 absolute bg-gradient-to-b from-gray-200 to-gray-50 rounded-2xl shadow border border-zinc-300 dark:from-zinc-800 dark:to-zinc-900"></div>
-                <div className="w-12 h-12 left-[347.50px] top-[292.80px] absolute origin-top-left -rotate-90"></div>
-                <div className="w-96 h-36 left-[165.50px] top-[85px] absolute">
+                <div className="w-96 h-80 md:left-[165px] left-[135px] top-0 absolute bg-gradient-to-b from-gray-200 to-gray-50 rounded-2xl shadow border border-zinc-300 dark:from-zinc-800 dark:to-zinc-900"></div>
+                <div className="w-12 h-12 md:left-[347.50px] left-[305px] top-[292.80px] absolute origin-top-left -rotate-90"></div>
+                <div className="w-96 h-36 md:left-[165.50px] left-[135px] top-[85px] absolute">
                   <div className="left-[125px] top-0 absolute text-center text-neutral-700 text-3xl font-bold font-['Mulish'] capitalize leading-9 dark:text-white">
                     Google Bard
                   </div>
@@ -219,9 +232,9 @@ export function FirstPage() {
             </div>
             <div className="col-span-1 w-96 h-96 relative">
               <div className="w-96 h-80 left-0 top-[50px] absolute">
-                <div className="w-96 h-80 left-[165px] top-0 absolute bg-gradient-to-b from-gray-200 to-gray-50 rounded-2xl shadow border border-zinc-300 dark:from-zinc-800 dark:to-zinc-900"></div>
-                <div className="w-12 h-12 left-[347.50px] top-[292.80px] absolute origin-top-left -rotate-90"></div>
-                <div className="w-96 h-36 left-[165.50px] top-[85px] absolute">
+                <div className="w-96 h-80 md:left-[165px] left-[135px] top-0 absolute bg-gradient-to-b from-gray-200 to-gray-50 rounded-2xl shadow border border-zinc-300 dark:from-zinc-800 dark:to-zinc-900"></div>
+                <div className="w-12 h-12 md:left-[347.50px] left-[305px] top-[292.80px] absolute origin-top-left -rotate-90"></div>
+                <div className="w-96 h-36 md:left-[165.50px] left-[135px] top-[85px] absolute">
                   <div className="left-[80px] top-0 absolute text-center text-neutral-700 text-3xl font-bold font-['Mulish'] capitalize leading-9 dark:text-white">
                     Anthropic Claude
                   </div>
@@ -243,9 +256,9 @@ export function FirstPage() {
             </div>
             <div className="col-span-1 w-96 h-96 relative">
               <div className="w-96 h-80 left-0 top-[50px] absolute">
-                <div className="w-96 h-80 left-[165px] top-0 absolute bg-gradient-to-b from-gray-200 to-gray-50 rounded-2xl shadow border border-zinc-300 dark:from-zinc-800 dark:to-zinc-900"></div>
-                <div className="w-12 h-12 left-[347.50px] top-[292.80px] absolute origin-top-left -rotate-90"></div>
-                <div className="w-96 h-36 left-[165.50px] top-[85px] absolute">
+                <div className="w-96 h-80 md:left-[165px] left-[135px] top-0 absolute bg-gradient-to-b from-gray-200 to-gray-50 rounded-2xl shadow border border-zinc-300 dark:from-zinc-800 dark:to-zinc-900"></div>
+                <div className="w-12 h-12 md:left-[347.50px] left-[305px] top-[292.80px] absolute origin-top-left -rotate-90"></div>
+                <div className="w-96 h-36 md:left-[165.50px] left-[135px] top-[85px] absolute">
                   <div className="left-[105px] top-0 absolute text-center text-neutral-700 text-3xl font-bold font-['Mulish'] capitalize leading-9 dark:text-white">
                     Duck Duck Go
                   </div>
@@ -264,7 +277,7 @@ export function FirstPage() {
             </div>
           </div>
           <div className="flex justify-center">
-            <div className="w-1/2">
+            <div className="md:w-1/2">
               <div className="text-neutral-700 text-center text-3xl font-bold font-['Mulish'] capitalize leading-10 dark:text-white">
                 AI&apos;s Innovative Potential for
                 <br />
@@ -287,7 +300,7 @@ export function FirstPage() {
                     commercials
                   </div>
                 </div>
-                <div className="w-full h-7 relative top-4">
+                <div className="w-full h-7 relative top-7">
                   <div className="w-7 h-7 left-0 top-[0.92px] absolute">
                     <div className="w-7 h-7 left-0 top-0 absolute border border-green-500"></div>
                     <div className="w-3 h-3 left-[7.39px] top-[7.39px] absolute bg-green-500 border"></div>
@@ -296,7 +309,7 @@ export function FirstPage() {
                     Let&apos;s engage with the customers effectively
                   </div>
                 </div>
-                <div className="w-full h-14 relative top-6">
+                <div className="w-full h-14 relative top-12">
                   <div className="w-7 h-7 left-0 top-[0.92px] absolute">
                     <div className="w-7 h-7 left-0 top-0 absolute border border-green-500"></div>
                     <div className="w-3 h-3 left-[7.39px] top-[7.39px] absolute bg-green-500 border"></div>
@@ -312,11 +325,11 @@ export function FirstPage() {
               <img src="/images/chatbot.png" className="w-96" />
             </div>
           </div>
-          <div className="flex justify-center">
+          <div className="flex justify-center md:pt-0 pt-24">
             <div className="w-1/2 grid content-center justify-center">
               <img src="/images/computerbot.png" className="w-96" />
             </div>
-            <div className="w-[calc(50%-100px)]">
+            <div className="md:w-1/2">
               <div className="text-neutral-700 text-center text-3xl font-bold font-['Mulish'] capitalize leading-10 dark:text-white">
                 The key resource for First <br />
                 Page Content Optimization
@@ -337,7 +350,7 @@ export function FirstPage() {
                     and aspirations.
                   </div>
                 </div>
-                <div className="w-full h-7 relative top-8">
+                <div className="w-full h-7 relative top-14">
                   <div className="w-7 h-7 left-0 top-[0.92px] absolute">
                     <div className="w-7 h-7 left-0 top-0 absolute border border-green-500"></div>
                     <div className="w-3 h-3 left-[7.39px] top-[7.39px] absolute bg-green-500 border"></div>
@@ -347,7 +360,7 @@ export function FirstPage() {
                     hearts and minds.
                   </div>
                 </div>
-                <div className="w-full h-14 relative top-14">
+                <div className="w-full h-14 relative top-16">
                   <div className="w-7 h-7 left-0 top-[0.92px] absolute">
                     <div className="w-7 h-7 left-0 top-0 absolute border border-green-500"></div>
                     <div className="w-3 h-3 left-[7.39px] top-[7.39px] absolute bg-green-500 border"></div>
@@ -360,8 +373,8 @@ export function FirstPage() {
               </div>
             </div>
           </div>
-          <div className="flex justify-center">
-            <div className="w-1/2">
+          <div className="flex justify-center md:pt-0 pt-28">
+            <div className="md:w-1/2">
               <div className="text-neutral-700 text-center text-3xl font-bold font-['Mulish'] capitalize leading-10 dark:text-white">
                 QuikAsk: Your Companion for
                 <br />
@@ -384,7 +397,7 @@ export function FirstPage() {
                     shine.
                   </div>
                 </div>
-                <div className="w-full h-7 relative top-4">
+                <div className="w-full h-7 relative top-6">
                   <div className="w-7 h-7 left-0 top-[0.92px] absolute">
                     <div className="w-7 h-7 left-0 top-0 absolute border border-green-500"></div>
                     <div className="w-3 h-3 left-[7.39px] top-[7.39px] absolute bg-green-500 border"></div>
@@ -393,7 +406,7 @@ export function FirstPage() {
                     Generates compelling hashtags that skyrocket your reach
                   </div>
                 </div>
-                <div className="w-full h-14 relative top-6">
+                <div className="w-full h-14 relative top-12">
                   <div className="w-7 h-7 left-0 top-[0.92px] absolute">
                     <div className="w-7 h-7 left-0 top-0 absolute border border-green-500"></div>
                     <div className="w-3 h-3 left-[7.39px] top-[7.39px] absolute bg-green-500 border"></div>
@@ -409,16 +422,22 @@ export function FirstPage() {
               <img src="/images/littlebot.png" className="w-96" />
             </div>
           </div>
-          <div className="relative">
-            <div className="w-full top-0 absolute flex justify-center text-center text-neutral-700 text-3xl font-bold font-['Mulish'] capitalize leading-10 dark:text-white">
-              <img src="/images/spiral-arrow-left.svg" />
+          <div className="relative md:top-0 top-12">
+            <div className="w-full top-0 absolute flex justify-center text-center text-neutral-700 md:text-3xl text-xl font-bold font-['Mulish'] capitalize leading-10 dark:text-white">
+              <img
+                src="/images/spiral-arrow-left.svg"
+                className="hidden md:visible"
+              />
               <span>
                 Check Out How Much &nbsp;{" "}
                 <span className="text-lime-600">QuikAsk</span>
                 <br />
                 Is Loved By Our Users!
               </span>
-              <img src="/images/spiral-arrow-right.svg" />
+              <img
+                src="/images/spiral-arrow-right.svg"
+                className="hidden md:visible"
+              />
             </div>
             <div className="pt-32 w-full justify-center items-center pl-[calc(50%-312px)]">
               <div className="flex">
@@ -452,74 +471,80 @@ export function FirstPage() {
             <div className="flex justify-center pt-20">
               <div className="w-full h-44 relative">
                 <div className="w-full top-0 absolute flex justify-center text-center text-neutral-700 text-3xl font-bold font-['Mulish'] capitalize leading-10 dark:text-white">
-                  <img src="/images/spiral-arrow-left.svg" />
+                  <img
+                    src="/images/spiral-arrow-left.svg"
+                    className="hidden md:visible"
+                  />
                   Frequently Asked Questions
-                  <img src="/images/spiral-arrow-right.svg" />
+                  <img
+                    src="/images/spiral-arrow-right.svg"
+                    className="hidden md:visible"
+                  />
                 </div>
-                <div className="pl-80 pr-80 w-full left-0 top-[60px] absolute text-center text-neutral-700 font-[12px] font-['Mulish'] leading-7 dark:text-neutral-400">
+                <div className="md:pl-80 md:pr-80 w-full left-0 top-[60px] absolute text-center text-neutral-700 font-[12px] font-['Mulish'] leading-7 dark:text-neutral-400">
                   Here, you can find some useful information about QuikAsk
                 </div>
               </div>
             </div>
-            <div className="pl-24 pr-24">
+            <div className="md:pl-24 md:pr-24">
               <div className="flex border border-neutral-300 border-l-0 border-r-0  items-center justify-between pl-8 pr-8">
                 <div className="flex">
                   <div className="w-24 pt-3 pb-3 text-center align-middle text-5xl font-bold font-['Mulish'] capitalize leading-10 text-lime-600 bg-white dark:bg-[#121212]">
                     01
                   </div>
-                  <div className="pt-3 pb-3 text-neutral-700 text-2xl font-semibold font-['Mulish'] capitalize leading-10 dark:text-white">
+                  <div className="pt-3 pb-3 text-neutral-700 md:text-2xl font-semibold font-['Mulish'] capitalize leading-10 dark:text-white">
                     Is the content unique?
                   </div>
                 </div>
                 <img src="/images/plus-green.svg" />
               </div>
             </div>
-            <div className="pl-24 pr-24">
+            <div className="md:pl-24 md:pr-24">
               <div className="flex border border-neutral-300 border-l-0 border-r-0 border-t-0 items-center justify-between pl-8 pr-8">
                 <div className="flex">
                   <div className="w-24 pt-3 pb-3 text-center align-middle text-5xl font-bold font-['Mulish'] capitalize leading-10 text-lime-600 bg-white dark:bg-[#121212]">
                     02
                   </div>
-                  <div className="pt-3 pb-3 text-neutral-700 text-2xl font-semibold font-['Mulish'] capitalize leading-10 dark:text-white">
+                  <div className="pt-3 pb-3 text-neutral-700 md:text-2xl font-semibold font-['Mulish'] capitalize leading-10 dark:text-white">
                     How can I boost traffic with Quik ASk?
                   </div>
                 </div>
                 <img src="/images/plus-green.svg" />
               </div>
             </div>
-            <div className="pl-24 pr-24">
+            <div className="md:pl-24 md:pr-24">
               <div className="flex border border-neutral-300 border-l-0 border-r-0 border-t-0 items-center justify-between pl-8 pr-8">
                 <div className="flex">
                   <div className="w-24 pt-3 pb-3 text-center align-middle text-5xl font-bold font-['Mulish'] capitalize leading-10 text-lime-600 bg-white dark:bg-[#121212]">
                     03
                   </div>
-                  <div className="pt-3 pb-3 text-neutral-700 text-2xl font-semibold font-['Mulish'] capitalize leading-10 dark:text-white">
+                  <div className="pt-3 pb-3 text-neutral-700 md:text-2xl font-semibold font-['Mulish'] capitalize leading-10 dark:text-white">
                     How long will it take to write an article with AI?
                   </div>
                 </div>
                 <img src="/images/plus-green.svg" />
               </div>
             </div>
-            <div className="pl-24 pr-24">
+            <div className="md:pl-24 md:pr-24">
               <div className="flex border border-neutral-300 border-l-0 border-r-0 border-t-0 items-center justify-between pl-8 pr-8">
                 <div className="flex">
                   <div className="w-24 pt-3 pb-3 text-center align-middle text-5xl font-bold font-['Mulish'] capitalize leading-10 text-lime-600 bg-white dark:bg-[#121212]">
                     04
                   </div>
-                  <div className="pt-3 pb-3 text-neutral-700 text-2xl font-semibold font-['Mulish'] capitalize leading-10 dark:text-white">
+                  <div className="pt-3 pb-3 text-neutral-700 md:text-2xl font-semibold font-['Mulish'] capitalize leading-10 dark:text-white">
                     Is there a limit to the amount of stuff that I can create?
                   </div>
                 </div>
                 <img src="/images/plus-green.svg" />
               </div>
             </div>
-            <div className="pl-24 pr-24">
+            <div className="md:pl-24 md:pr-24">
               <div className="flex border border-neutral-300 border-l-0 border-r-0 border-t-0 items-center justify-between pl-8 pr-8">
                 <div className="flex">
                   <div className="w-24 pt-3 pb-3 text-center align-middle text-5xl font-bold font-['Mulish'] capitalize leading-10 text-lime-600 bg-white dark:bg-[#121212]">
                     05
                   </div>
-                  <div className="pt-3 pb-3 text-neutral-700 text-2xl font-semibold font-['Mulish'] capitalize leading-10 dark:text-white">
+                  <div className="pt-3 pb-3 text-neutral-700 md:text-2xl font-semibold font-['Mulish'] capitalize leading-10 dark:text-white">
                     What languages do you support?
                   </div>
                 </div>
@@ -527,7 +552,7 @@ export function FirstPage() {
               </div>
             </div>
           </div>
-          <div className="pl-24 pr-24 pt-24">
+          <div className="md:pl-24 md:pr-24 pt-24">
             <div className="text-neutral-700 text-4xl font-bold font-['Mulish'] capitalize pb-12 leading-10 dark:text-white">
               Trusted By
             </div>
@@ -587,14 +612,14 @@ export function FirstPage() {
             </div>
           </div>
           <div className="w-screen h-16 fixed bottom-0 bg-white dark:bg-neutral-900">
-            <div className="w-screen h-8 flex justify-between pl-24 pr-24">
-              <div className="text-neutral-700 text-xl font-normal font-['Mulish'] leading-loose dark:text-white">
+            <div className="w-screen h-8 flex justify-between md:pl-24 md:pr-24">
+              <div className="text-neutral-700 md:text-xl font-normal font-['Mulish'] leading-loose dark:text-white">
                 Contact Us: support@quikask.com
               </div>
-              <div className="text-neutral-700 text-xl font-normal font-['Mulish'] leading-loose dark:text-white">
+              <div className="text-neutral-700 md:text-xl font-normal font-['Mulish'] leading-loose dark:text-white">
                 © 2023 QuikAsk
               </div>
-              <div className="text-neutral-700 text-xl font-normal font-['Mulish'] leading-loose dark:text-white">
+              <div className="text-neutral-700 md:text-xl font-normal font-['Mulish'] leading-loose dark:text-white">
                 Privacy Policy
               </div>
             </div>
