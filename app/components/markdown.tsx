@@ -123,6 +123,7 @@ export function Markdown(
     fontSize?: number;
     parentRef?: RefObject<HTMLDivElement>;
     defaultShow?: boolean;
+    color?: string;
   } & React.DOMAttributes<HTMLDivElement>,
 ) {
   const mdRef = useRef<HTMLDivElement>(null);
@@ -157,7 +158,7 @@ export function Markdown(
 
   return (
     <div
-      className="markdown-body"
+      className={"dark:text-white text-neutral-950"}
       style={{
         fontSize: `${props.fontSize ?? 14}px`,
         height:

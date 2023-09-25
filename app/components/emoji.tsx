@@ -31,7 +31,7 @@ export function AvatarPicker(props: {
 export function Avatar(props: { model?: ModelType; avatar?: string }) {
   if (props.model) {
     return (
-      <div className="no-dark">
+      <div className="no-dark w-12">
         {props.model?.startsWith("gpt-4") ? (
           <BlackBotIcon className="user-avatar" />
         ) : (

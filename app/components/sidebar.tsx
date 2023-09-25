@@ -215,7 +215,7 @@ export function SideBar() {
       <div className="w-full bottom-3">
         <div className="top-1/4 w-full pl-6 pr-6">
           <button
-            className="bg-[#d3d3d3] rounded-[10px] w-full h-[34px] flex items-center justify-center"
+            className="bg-[#d3d3d3] dark:bg-neutral-950 rounded-[10px] w-full h-[34px] flex items-center justify-center"
             onClick={() =>
               navigate(Path.NewChat, { state: { fromHome: true } })
             }
@@ -229,9 +229,9 @@ export function SideBar() {
           </button>
         </div>
         <div className="top-1/4 w-full pl-6 pr-6 pt-2">
-          <div className="bg-[#d3d3d3] rounded-[10px] flex p-1">
+          <div className="bg-[#d3d3d3] dark:bg-neutral-950 rounded-[10px] flex p-1">
             <button
-              className="bg-[#69A606] dark:bg-neutral-800 text-white dark:text-black rounded-[10px] w-full h-[34px] flex items-center justify-center mr-2"
+              className="bg-[#69A606] dark:bg-neutral-950 text-white dark:text-white rounded-[10px] w-full h-[34px] flex items-center justify-center mr-2"
               onClick={() => setTheme("light")}
             >
               <img
