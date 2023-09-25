@@ -998,7 +998,7 @@ export function Chat() {
   });
 
   return (
-    <div className="bg-[#ebebeb] dark:bg-neutral-800 flex-row justify-center w-full h-screen flex items-center">
+    <div className="bg-[#ebebeb] dark:bg-neutral-800 flex-row justify-center w-full h-full flex items-center">
       <SideBar />
       <div className="w-4/5 p-3 h-[95%]">
         <div className="rounded-[10px] bg-white dark:bg-neutral-950">
@@ -1106,8 +1106,8 @@ export function Chat() {
               return (
                 <>
                   <div key={i}>
-                    <div className={styles["chat-message-container"]}>
-                      <div className={styles["chat-message-avatar"]}>
+                    <div className="flex items-start">
+                      <div className="mt-5">
                         {message.role === "user" ? (
                           <Avatar avatar={config.avatar} />
                         ) : (
@@ -1115,42 +1115,48 @@ export function Chat() {
                         )}
                       </div>
                       {showTyping && (
-                        <div className={styles["chat-message-status"]}>
+                        <div className="font-[12px] mt-[5px]">
                           {Locale.Chat.Typing}
                         </div>
                       )}
-                      <div className={styles["chat-message-item"]}>
+                      <div
+                        className={
+                          message.role === "user"
+                            ? "max-w-3xl ml-10 mt-3 mb-3 dark:text-white dark:bg-neutral-900 p-2 rounded-2xl"
+                            : "w-full max-w-6xl ml-3 dark:text-white dark:bg-[#1A1D15] p-2 rounded-2xl"
+                        }
+                      >
                         {showActions && (
-                          <div className={styles["chat-message-top-actions"]}>
+                          <div className="flex flex-row-reverse w-full pt-[5px] box-border">
                             {message.streaming ? (
                               <div
-                                className={styles["chat-message-top-action"]}
+                                className="flex flex-wrap mt-3 mb-0"
                                 onClick={() => onUserStop(message.id ?? i)}
                               >
                                 {Locale.Chat.Actions.Stop}
                               </div>
                             ) : (
                               <>
-                                <div
-                                  className={styles["chat-message-top-action"]}
+                                {/* <div
+                                  className=""
                                   onClick={() => onDelete(message.id ?? i)}
                                 >
                                   {Locale.Chat.Actions.Delete}
-                                </div>
-                                <div
-                                  className={styles["chat-message-top-action"]}
+                                </div> */}
+                                {/* <div
+                                  className=""
                                   onClick={() => onResend(message.id ?? i)}
                                 >
                                   {Locale.Chat.Actions.Retry}
-                                </div>
+                                </div> */}
                               </>
                             )}
 
                             <div
-                              className={styles["chat-message-top-action"]}
+                              className=""
                               onClick={() => copyToClipboard(message.content)}
                             >
-                              {Locale.Chat.Actions.Copy}
+                              <img src="/images/copy.svg" />
                             </div>
                           </div>
                         )}
@@ -1167,12 +1173,13 @@ export function Chat() {
                           }}
                           fontSize={fontSize}
                           parentRef={scrollRef}
+                          color={"text-white"}
                           defaultShow={i >= messages.length - 10}
                         />
                       </div>
                       {!isUser && !message.preview && (
-                        <div className={styles["chat-message-actions"]}>
-                          <div className={styles["chat-message-action-date"]}>
+                        <div className="flex flex-row-reverse w-1/3 pt-1 box-border font-[12px]">
+                          <div className="text-[#aaa] text-[8px]">
                             {message.date.toLocaleString()}
                           </div>
                         </div>

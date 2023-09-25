@@ -85,7 +85,7 @@ export function FirstPage() {
               <div className="w-32 h-32 md:left-0 right-0 top-8 absolute bg-lime-200 rounded-full border"></div>
               <div className="w-32 h-32 md:left-0 right-0 top-8 absolute opacity-50 bg-lime-200 rounded-full border blur-3xl"></div>
               <div className="w-28 h-28 md:left-[6px] right-[6px] top-[38px] absolute rounded-full border border-black"></div>
-              <div className="md:left-[12px] right-[12px] top-16 absolute text-center text-neutral-900 text-2xl font-extrabold font-['Mulish'] leading-7">
+              <div className="left-[136px] md:left-[12px] top-16 absolute text-center text-neutral-900 text-2xl font-extrabold font-['Mulish'] leading-7">
                 Explore
                 <br />
                 Our Chat
@@ -189,10 +189,10 @@ export function FirstPage() {
           <div className="grid md:pt-20 pt-32 md:grid-cols-2 grid-cols-1">
             <div className="col-span-1 w-96 h-96 relative">
               <div className="w-96 h-80 left-0 top-[50px] absolute">
-                <div className="w-96 h-80 md:left-[165px] left-[135px] top-0 absolute bg-gradient-to-b from-gray-200 to-gray-50 rounded-2xl shadow border border-green-500 dark:from-zinc-800 dark:to-zinc-900"></div>
-                <div className="w-12 h-12 md:left-[347.50px] left-[305px] top-[292.80px] absolute origin-top-left -rotate-90"></div>
-                <div className="w-96 h-36 md:left-[165.50px] left-[135px] top-[85px] absolute">
-                  <div className="md:left-[125px] left-[85px] top-0 absolute text-center text-neutral-700 text-3xl font-bold font-['Mulish'] capitalize leading-9 dark:text-white">
+                <div className="w-96 h-80 left-[165px] md:left-[135px] top-0 absolute bg-gradient-to-b from-gray-200 to-gray-50 rounded-2xl shadow border border-green-500 dark:from-zinc-800 dark:to-zinc-900"></div>
+                <div className="w-12 h-12 left-[347.50px] md:left-[305px] top-[292.80px] absolute origin-top-left -rotate-90"></div>
+                <div className="w-96 h-36 left-[165.50px] md:left-[135px] top-[85px] absolute">
+                  <div className="left-[125px] md:left-[85px] top-0 absolute text-center text-neutral-700 text-3xl font-bold font-['Mulish'] capitalize leading-9 dark:text-white">
                     ChatGPT - 4
                   </div>
                   <div className="w-96 left-0 top-[60px] absolute text-center text-neutral-700 text-base font-semibold font-['Mulish'] leading-relaxed dark:text-white">
@@ -201,7 +201,7 @@ export function FirstPage() {
                   </div>
                 </div>
               </div>
-              <div className="w-24 h-24 md:left-[322.50px] left-[292px] top-0 absolute">
+              <div className="w-24 h-24 left-[322.50px] md:left-[292px] top-0 absolute">
                 <div className="w-24 h-24 left-0 top-0 absolute bg-lime-600 rounded-2xl shadow grid content-center justify-center">
                   {" "}
                   <img src="/images/openai-lime.svg" className="w-24" />{" "}
@@ -210,9 +210,9 @@ export function FirstPage() {
             </div>
             <div className="col-span-1 w-96 h-96 relative">
               <div className="w-96 h-80 left-0 top-[50px] absolute">
-                <div className="w-96 h-80 md:left-[165px] left-[135px] top-0 absolute bg-gradient-to-b from-gray-200 to-gray-50 rounded-2xl shadow border border-zinc-300 dark:from-zinc-800 dark:to-zinc-900"></div>
-                <div className="w-12 h-12 md:left-[347.50px] left-[305px] top-[292.80px] absolute origin-top-left -rotate-90"></div>
-                <div className="w-96 h-36 md:left-[165.50px] left-[135px] top-[85px] absolute">
+                <div className="w-96 h-80 left-[165px] md:left-[135px] top-0 absolute bg-gradient-to-b from-gray-200 to-gray-50 rounded-2xl shadow border border-zinc-300 dark:from-zinc-800 dark:to-zinc-900"></div>
+                <div className="w-12 h-12 left-[347.50px] md:left-[305px] top-[292.80px] absolute origin-top-left -rotate-90"></div>
+                <div className="w-96 h-36 left-[165.50px] md:left-[135px] top-[85px] absolute">
                   <div className="left-[125px] top-0 absolute text-center text-neutral-700 text-3xl font-bold font-['Mulish'] capitalize leading-9 dark:text-white">
                     Google Bard
                   </div>
@@ -223,7 +223,7 @@ export function FirstPage() {
                   </div>
                 </div>
               </div>
-              <div className="w-24 h-24 left-[322.50px] top-0 absolute">
+              <div className="w-24 h-24 left-[322.50px] md:left-[282.5px] top-0 absolute">
                 <div className="w-24 h-24 left-0 top-0 absolute bg-zinc-300 rounded-2xl shadow grid content-center justify-center">
                   {" "}
                   <img src="/images/google-black.svg" className="w-10" />{" "}
@@ -232,9 +232,9 @@ export function FirstPage() {
             </div>
             <div className="col-span-1 w-96 h-96 relative">
               <div className="w-96 h-80 left-0 top-[50px] absolute">
-                <div className="w-96 h-80 md:left-[165px] left-[135px] top-0 absolute bg-gradient-to-b from-gray-200 to-gray-50 rounded-2xl shadow border border-zinc-300 dark:from-zinc-800 dark:to-zinc-900"></div>
-                <div className="w-12 h-12 md:left-[347.50px] left-[305px] top-[292.80px] absolute origin-top-left -rotate-90"></div>
-                <div className="w-96 h-36 md:left-[165.50px] left-[135px] top-[85px] absolute">
+                <div className="w-96 h-80 left-[165px] md:left-[135px] top-0 absolute bg-gradient-to-b from-gray-200 to-gray-50 rounded-2xl shadow border border-zinc-300 dark:from-zinc-800 dark:to-zinc-900"></div>
+                <div className="w-12 h-12 left-[347.50px] md:left-[305px] top-[292.80px] absolute origin-top-left -rotate-90"></div>
+                <div className="w-96 h-36 left-[165.50px] md:left-[135px] top-[85px] absolute">
                   <div className="left-[80px] top-0 absolute text-center text-neutral-700 text-3xl font-bold font-['Mulish'] capitalize leading-9 dark:text-white">
                     Anthropic Claude
                   </div>
@@ -244,7 +244,7 @@ export function FirstPage() {
                   </div>
                 </div>
               </div>
-              <div className="w-24 h-24 left-[322.50px] top-0 absolute">
+              <div className="w-24 h-24 left-[322.50px] md:left-[282.50px] top-0 absolute">
                 <div className="w-24 h-24 left-0 top-0 absolute bg-zinc-300 rounded-2xl shadow grid content-center justify-center">
                   {" "}
                   <img
@@ -256,9 +256,9 @@ export function FirstPage() {
             </div>
             <div className="col-span-1 w-96 h-96 relative">
               <div className="w-96 h-80 left-0 top-[50px] absolute">
-                <div className="w-96 h-80 md:left-[165px] left-[135px] top-0 absolute bg-gradient-to-b from-gray-200 to-gray-50 rounded-2xl shadow border border-zinc-300 dark:from-zinc-800 dark:to-zinc-900"></div>
-                <div className="w-12 h-12 md:left-[347.50px] left-[305px] top-[292.80px] absolute origin-top-left -rotate-90"></div>
-                <div className="w-96 h-36 md:left-[165.50px] left-[135px] top-[85px] absolute">
+                <div className="w-96 h-80 left-[165px] md:left-[135px] top-0 absolute bg-gradient-to-b from-gray-200 to-gray-50 rounded-2xl shadow border border-zinc-300 dark:from-zinc-800 dark:to-zinc-900"></div>
+                <div className="w-12 h-12 left-[347.50px] md:left-[305px] top-[292.80px] absolute origin-top-left -rotate-90"></div>
+                <div className="w-96 h-36 left-[165.50px] md:left-[135px] top-[85px] absolute">
                   <div className="left-[105px] top-0 absolute text-center text-neutral-700 text-3xl font-bold font-['Mulish'] capitalize leading-9 dark:text-white">
                     Duck Duck Go
                   </div>
