@@ -9,7 +9,11 @@ module.exports = {
     "./src/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      boxShadow: {
+        '5xl': '0 0px 120px 2px',
+      }
+    },
   },
   plugins: [],
   darkMode: 'class',

@@ -1,6 +1,7 @@
 import { useTheme } from "next-themes";
 import { useNavigate } from "react-router-dom";
 import { useAuthStore } from "../store/auth";
+import Image from "next/image";
 
 export function FirstPage() {
   const navigate = useNavigate();
@@ -14,169 +15,161 @@ export function FirstPage() {
   const { systemTheme, theme, setTheme } = useTheme();
   return (
     <>
-      <div className="fixed h-16 bg-white flex w-full justify-between z-10 top-0 dark:bg-gradient-to-r dark:from-neutral-900 dark:to-neutral-600 dark:blur-0">
-        <div>
-          <img
-            src="/images/group.svg"
-            className="top-4 md:left-24 left-2 relative w-8"
-          />
-          <span className="relative top-[6px] md:left-[105px] left-[17px] text-lime-600 text-[20px] font-bold font-['Inter'] tracking-tight">
-            QuikAsk
-          </span>
-        </div>
-        <div className="flex justify-between md:w-1/4 w-3/4">
-          <div className="md:w-14 w-7 h-9 relative top-5">
-            <div className="left-0 top-0 absolute text-neutral-700 md:text-l text-sm font-bold font-['Mulish'] w-full text-center cursor-pointer dark:text-white">
-              Home
-            </div>
-            <div className="w-2 h-2 left-[24.32px] top-[29.49px] absolute bg-neutral-700 rounded-full dark:bg-white"></div>
-          </div>
-          <div className="md:w-14 w-7 h-9 relative top-5">
-            <div
-              className="opacity-70 left-0 top-0 absolute text-neutral-700 md:text-l text-sm font-bold font-['Mulish'] w-full text-center cursor-pointer dark:text-white"
-              onClick={() => navigate("chat")}
-            >
-              Chat
-            </div>
-          </div>
-          <div className="md:w-16 w-8 h-9 relative top-5">
-            <div
-              className="left-0 top-0 absolute text-lime-600 md:text-l text-sm font-bold font-['Mulish'] w-full text-center cursor-pointer"
-              onClick={authSign}
-            >
-              {authStore.session ? "Sign Out" : "Sign In"}
-            </div>
-          </div>
-          <div className="md:w-14 w-7 h-9 relative top-5">
-            <div
-              className="left-0 top-0 absolute text-neutral-700 text-l font-bold font-['Mulish'] w-full text-center cursor-pointer"
-              onClick={nextTheme}
-            >
-              <img
-                src={
-                  theme === "dark"
-                    ? "images/dark-white.svg"
-                    : "images/light-green.svg"
-                }
-              />
-            </div>
-          </div>
-        </div>
-      </div>
-      <div>
-        <div className="h-[400px] relative top-20">
-          <div className="flex h-2/5 md:w-4/5 w-full ml-28 justify-between">
-            <div className="w-96 pt-14">
-              <span className="text-neutral-700 text-4xl font-black font-['Mulish'] capitalize leading-10 dark:text-white">
-                Use QuikAsk to
-                <br />
-              </span>
-              <span className="text-lime-600 bg-green-600 bg-opacity-5 text-4xl font-black font-['Mulish'] capitalize leading-10">
-                Simplify
-              </span>
-              <span className="text-zinc-300 text-4xl font-black font-['Mulish'] capitalize leading-10">
-                {" "}
-              </span>
-              <span className="text-neutral-700 text-4xl font-black font-['Mulish'] capitalize leading-10 dark:text-white">
-                Your Life
-              </span>
-            </div>
-            <div className="w-96 relative">
-              <div className="w-32 h-32 md:left-0 right-0 top-8 absolute bg-lime-200 rounded-full border"></div>
-              <div className="w-32 h-32 md:left-0 right-0 top-8 absolute opacity-50 bg-lime-200 rounded-full border blur-3xl"></div>
-              <div className="w-28 h-28 md:left-[6px] right-[6px] top-[38px] absolute rounded-full border border-black"></div>
-              <div className="left-[136px] md:left-[12px] top-16 absolute text-center text-neutral-900 text-2xl font-extrabold font-['Mulish'] leading-7">
-                Explore
-                <br />
-                Our Chat
+      <main className="overflow-hidden">
+        <nav className="fixed h-20 bg-white flex items-center w-full justify-between z-10 top-0 dark:bg-transparent dark:blur-0">
+          <div className="w-full max-w-[1520px] mx-auto flex justify-between">
+            <Image
+              src="/logo.svg"
+              alt="logo"
+              width={120}
+              height={50}
+              draggable={false}
+              className="select-none"
+            />
+            <div className="flex items-center justify-between gap-10">
+              <div className="relative">
+                <div className=" text-neutral-700  font-['Mulish'] w-full font-semibold text-center cursor-pointer dark:text-white">
+                  Home
+                </div>
+                <div className="w-2 h-2 absolute right-1/2 translate-y-1 bg-neutral-700 rounded-full dark:bg-white"></div>
+              </div>
+              <div className="">
+                <div
+                  className="opacity-70  text-neutral-700 font-['Mulish'] font-semibold w-full text-center cursor-pointer dark:text-[#B1B2B1]"
+                  onClick={() => navigate("chat")}
+                >
+                  Chat
+                </div>
+              </div>
+              <div className="h-full max-h-[30px] w-[2px] bg-gradient-to-b from-transparent via-white/50 to-transparent" />
+              <div className="">
+                <div
+                  className=" text-lime-600 font-semibold font-['Mulish'] w-full text-center cursor-pointer"
+                  onClick={authSign}
+                >
+                  {authStore.session ? "Sign Out" : "Sign In"}
+                </div>
+              </div>
+              <div className="">
+                <div
+                  className=" text-neutral-700 text-l font-bold font-['Mulish'] w-full text-center cursor-pointer"
+                  onClick={nextTheme}
+                >
+                  <img
+                    src={
+                      theme === "dark"
+                        ? "images/dark-white.svg"
+                        : "images/light-green.svg"
+                    }
+                    draggable={false}
+                    className="w-6 h-6"
+                  />
+                </div>
               </div>
             </div>
           </div>
-          <div className="flex h-2/5 pl-28 justify-between">
-            <div className="w-96 pt-9">
-              <div className="w-96">
-                <span className="text-lime-600 font-[13px] font-['Mulish'] leading-10">
+        </nav>
+        <section className="w-full mt-20">
+          <div className="w-full max-w-[1520px] mx-auto px-2">
+            <div className="flex flex-col md:flex-row justify-between gap-20 md:gap-40 w-full">
+              <h1 className="w-full max-w-2xl md:max-w-5xl pt-14 text-6xl capitalize leading-relaxed">
+                <span className="text-neutral-700  dark:text-white  font-[1000] font-sans tracking-wide">
+                  Use QuikAsk to
+                  <br />
+                </span>
+                <p className="inline relative">
+                  <span className="text-lime-600 ring-2 ring-green-500/10 rounded-sm p-3  relative">
+                    <span className=" font-[1000] font-sans tracking-wide">
+                      Simplify
+                    </span>
+                    <span className="bg-green-600 bg-opacity-5 absolute inset-0 backdrop-blur-[1.5px] z-[1]" />
+                  </span>
+                  <img
+                    src="/images/curved-dash.png"
+                    className="absolute translate-y-4 translate-x-6 object-cover w-4/5 "
+                    draggable={false}
+                  />
+                </p>
+                <span className="text-zinc-300 "> </span>
+                <span className="text-neutral-700  dark:text-white  font-[1000] font-sans tracking-wide">
+                  Your Life
+                </span>
+              </h1>
+              <div className="md:mt-20">
+                <div className="bg-[#B8F68F] w-[170px] h-[170px] rounded-full p-1 grid place-content-center shadow-5xl shadow-[#B8F68F]/60 s">
+                  <div className="bg-[#B8F68F] w-[164px] h-[164px] rounded-full grid place-content-center border border-black">
+                    <div className="text-center text-neutral-900 text-xl font-extrabold font-['Mulish'] leading-7">
+                      Explore
+                      <br />
+                      Our Chat
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="flex justify-between mt-24">
+              <div className="w-full max-w-xl">
+                <span className="text-lime-600 font-[13px] font-['Mulish'] leading-8">
                   QuikAsk
                 </span>
-                <span className="text-neutral-700 font-[13px] font-['Mulish'] leading-10">
-                  {" "}
-                </span>
-                <span className="text-neutral-700 font-[13px] font-['Mulish'] leading-10 dark:text-neutral-300">
+                <span className="text-[#B1B2B1] font-[13px] font-['Mulish'] leading-8 dark:text-neutral-300">
                   , have a natural conversation with AI that feels surprisingly
                   human. Interacting with artificial intelligence used to feel
                   difficult, overwhelming, and a bit robotic.
                 </span>
               </div>
-            </div>
-            <div className="relative w-[500px] -top-44">
-              <img src="images/robot-hand.png" className="-top-60" />
+              <img
+                src="/images/robot-hand.png"
+                className="absolute right-0 h-[600px] top-0"
+              />
             </div>
           </div>
-          <div className="flex h-1/5 justify-between pt-8">
-            <div className="md:w-52 w-24 h-32 relative">
-              <div className="md:w-52 w-24 h-20 left-0 top-0 absolute bg-gradient-to-b from-zinc-300 to-zinc-0 rounded-tl-2xl rounded-tr-2xl backdrop-blur-lg dark:from-neutral-900 dark:to-zinc-900"></div>
-              <div className="md:w-52 w-24 h-12 left-[36.44px] top-[10px] absolute justify-start items-start gap-3.5 inline-flex">
-                <div className="text-neutral-700 font-[12px] font-['Mulish'] capitalize grid grid-cols-2 content-center dark:text-white">
-                  <span className="md:w-32 w-12 items-center flex">
-                    Chat GPT
-                  </span>{" "}
-                  <img src="images/right-arrow.svg" className="w-8" />
-                </div>
+          <div className="flex flex-col md:flex-row gap-4 md:items-end justify-between mt-40 px-3 md:px-0">
+            <div className="w-full md:max-w-[352px] grid place-content-center rounded-t-2xl bg-gradient-to-b from-[#242424] to-[#16151a]/[0.05] min-h-[80px] md:min-h-[160px]">
+              <div className="text-neutral-700 font-[12px] font-['Mulish'] capitalize flex justify-between dark:text-white">
+                <span className="items-center flex gap-4">Chat GPT</span>
+                <img src="/images/down-arrow.svg" className="w-8" />
               </div>
             </div>
-            <div className="md:w-52 w-24 h-20 relative">
-              <div className="md:w-52 w-24 h-16 left-0 top-4 absolute bg-gradient-to-b from-zinc-300 to-zinc-0 rounded-tl-2xl rounded-tr-2xl backdrop-blur-lg dark:from-neutral-900 dark:to-zinc-900"></div>
-              <div className="md:w-52 w-24 h-12 left-[36.44px] top-[26px] absolute justify-start items-start gap-3.5 inline-flex">
-                <div className="text-neutral-700 font-[12px] font-['Mulish'] capitalize grid grid-cols-2 content-center dark:text-white">
-                  <span className="md:w-32 w-12 items-center flex">
-                    Google Bard
-                  </span>{" "}
-                  <img src="images/right-arrow.svg" className="w-8" />
-                </div>
+            <div className="w-full md:max-w-[352px] grid place-content-center rounded-t-2xl bg-gradient-to-b from-[#242424] to-[#16151a]/[0.05] min-h-[80px] md:min-h-[120px]">
+              <div className="text-neutral-700 font-[12px] font-['Mulish'] capitalize flex justify-between dark:text-white">
+                <span className="items-center flex gap-4">Google Bard</span>
+                <img src="/images/down-arrow.svg" className="w-8" />
               </div>
             </div>
-            <div className="md:w-52 w-24 h-16 relative">
-              <div className="md:w-52 w-24 h-12 left-0 top-8 absolute bg-gradient-to-b from-lime-600 to-lime-0 rounded-tl-2xl rounded-tr-2xl backdrop-blur-lg dark:from-neutral-900 dark:to-zinc-900"></div>
-              <div className="md:w-52 w-24 h-12 left-[36.44px] top-[42px] absolute justify-start items-start gap-3.5 inline-flex">
-                <div className="text-neutral-700 font-[12px] font-['Mulish'] capitalize grid grid-cols-2 content-center dark:text-white">
-                  <span className="md:w-32 w-12 items-center flex">
-                    QuikAsk Chat
-                  </span>{" "}
-                  <img src="images/right-arrow.svg" className="w-8" />
-                </div>
+            <div className="w-full md:max-w-[352px] grid place-content-center rounded-t-2xl bg-gradient-to-b from-[#69A606] to-[#16151a]/[0.05] min-h-[80px] md:min-h-[80px]">
+              <div className="text-neutral-700 font-[12px] font-['Mulish'] capitalize flex justify-between dark:text-white">
+                <span className="items-center flex gap-4">QuikAsk Chat</span>
+                <img src="/images/down-arrow.svg" className="w-8" />
               </div>
             </div>
-            <div className="md:w-52 w-24 h-32 relative">
-              <div className="md:w-52 w-24 h-16 left-0 top-4 absolute bg-gradient-to-b from-zinc-300 to-zinc-0 rounded-tl-2xl rounded-tr-2xl backdrop-blur-lg dark:from-neutral-900 dark:to-zinc-900"></div>
-              <div className="md:w-52 w-24 h-12 left-[36.44px] top-[26px] absolute justify-start items-start gap-3.5 inline-flex">
-                <div className="text-neutral-700 font-[12px] font-['Mulish'] capitalize grid grid-cols-2 content-center dark:text-white">
-                  <span className="md:w-32 w-12 items-center flex">
-                    Duck Duck Go
-                  </span>{" "}
-                  <img src="images/right-arrow.svg" className="w-8" />
-                </div>
+            <div className="w-full md:max-w-[352px] grid place-content-center rounded-t-2xl bg-gradient-to-b from-[#242424] to-[#16151a]/[0.05] min-h-[80px] md:min-h-[120px]">
+              <div className="text-neutral-700 font-[12px] font-['Mulish'] capitalize flex justify-between dark:text-white">
+                <span className="items-center flex gap-4">Duck Duck Go</span>
+                <img src="/images/down-arrow.svg" className="w-8" />
               </div>
             </div>
-            <div className="md:w-52 w-24 h-32 relative">
-              <div className="md:w-52 w-24 h-20 left-0 top-0 absolute bg-gradient-to-b from-zinc-300 to-zinc-0 rounded-tl-2xl rounded-tr-2xl backdrop-blur-lg dark:from-neutral-900 dark:to-zinc-900"></div>
-              <div className="md:w-52 w-24 h-12 left-[36.44px] top-[10px] absolute items-start gap-3.5 inline-flex justify-between">
-                <div className="text-neutral-700 font-[12px] font-['Mulish'] capitalize grid grid-cols-2 content-center dark:text-white">
-                  <span className="md:w-32 w-12 items-center flex">
-                    Anthropic Ai
-                  </span>{" "}
-                  <img src="images/right-arrow.svg" className="w-8" />
-                </div>
+            <div className="w-full md:max-w-[352px] grid place-content-center rounded-t-2xl bg-gradient-to-b from-[#242424] to-[#16151a]/[0.05] min-h-[80px] md:min-h-[160px]">
+              <div className="text-neutral-700 font-[12px] font-['Mulish'] capitalize flex justify-between dark:text-white">
+                <span className="items-center flex gap-4">Anthropic Ai</span>
+                <img src="/images/down-arrow.svg" className="w-8" />
               </div>
             </div>
           </div>
-          <div className="flex justify-center pt-20">
-            <div className="w-full h-44 relative">
-              <div className="w-full top-0 absolute flex justify-center text-center text-neutral-700 md:text-3xl text-2xl font-bold font-['Mulish'] capitalize leading-10 dark:text-white">
-                <img src="/images/spiral-arrow-left.svg" />
+          <div className="flex justify-center pt-20 px-2">
+            <div className="w-full max-w-5xl mx-auto space-y-4">
+              <div className="w-full flex justify-center text-center text-neutral-700 md:text-3xl text-2xl font-bold font-['Mulish'] capitalize leading-10 dark:text-white gap-2 sm:gap-4">
+                <img
+                  src="/images/spiral-arrow-left.svg"
+                  className="w-32 hidden sm:block"
+                />
                 For All Kind of Creators
-                <img src="/images/spiral-arrow-right.svg" />
+                <img
+                  src="/images/spiral-arrow-right.svg"
+                  className="w-32 hidden sm:block"
+                />
               </div>
-              <div className="md:pl-80 pl-0 md:pr-80 pr-0 w-full left-0 md:top-[60px] top-[110px] absolute text-center text-neutral-700 font-[12px] font-['Mulish'] leading-7 dark:text-neutral-300">
+              <div className="w-full left-0 text-center text-neutral-700 font-[12px] font-['Mulish'] leading-7 dark:text-[#B1B2B1]">
                 Introducing a revolutionary AI partner for creators across the
                 globe—a groundbreaking tool designed to transform the way we
                 bring our creative ideas to life. Unleash your artistic
@@ -186,275 +179,277 @@ export function FirstPage() {
               </div>
             </div>
           </div>
-          <div className="grid md:pt-20 pt-32 md:grid-cols-2 grid-cols-1">
-            <div className="col-span-1 w-96 h-96 relative">
-              <div className="w-96 h-80 left-0 top-[50px] absolute">
-                <div className="w-96 h-80 left-[165px] md:left-[135px] top-0 absolute bg-gradient-to-b from-gray-200 to-gray-50 rounded-2xl shadow border border-green-500 dark:from-zinc-800 dark:to-zinc-900"></div>
-                <div className="w-12 h-12 left-[347.50px] md:left-[305px] top-[292.80px] absolute origin-top-left -rotate-90"></div>
-                <div className="w-96 h-36 left-[165.50px] md:left-[135px] top-[85px] absolute">
-                  <div className="left-[125px] md:left-[85px] top-0 absolute text-center text-neutral-700 text-3xl font-bold font-['Mulish'] capitalize leading-9 dark:text-white">
-                    ChatGPT - 4
-                  </div>
-                  <div className="w-96 left-0 top-[60px] absolute text-center text-neutral-700 text-base font-semibold font-['Mulish'] leading-relaxed dark:text-white">
-                    The next-generation AI language model with even deeper
-                    understanding and more human-like conversations.
-                  </div>
+
+          <div className="grid mt-28 md:grid-cols-2 gap-x-4 gap-y-20 grid-cols-1 w-full max-w-[1520px] mx-auto px-2">
+            <div className="cursor-default bg-gradient-to-b from-gray-200 to-gray-50 rounded-2xl dark:from-[#2F3128] dark:to-[#2f3128]/[0.05] group hover:ring-1 hover:ring-[#18BB4E] p-10 relative transition duration-300">
+              <div className="space-y-6 flex flex-col items-center">
+                <div className="w-20 h-20  bg-[#3E3F3E] group-hover:bg-lime-600 rounded-2xl shadow grid place-content-center absolute -top-12 left-[45%] transition duration-100">
+                  <img src="/images/chat-gpt.svg" className="w-11" />
                 </div>
-              </div>
-              <div className="w-24 h-24 left-[322.50px] md:left-[292px] top-0 absolute">
-                <div className="w-24 h-24 left-0 top-0 absolute bg-lime-600 rounded-2xl shadow grid content-center justify-center">
-                  {" "}
-                  <img src="/images/openai-lime.svg" className="w-24" />{" "}
+                <h1 className="text-center text-neutral-700 text-3xl font-semibold font-['Mulish'] capitalize leading-9 dark:text-white">
+                  ChatGPT - 4
+                </h1>
+                <div className="max-w-md mx-auto text-center font-['Mulish'] leading-relaxed text-[#B1B2B1] dark:group-hover:text-white text-sm transition duration-300">
+                  The next-generation AI language model with even deeper
+                  understanding and more human-like conversations.
                 </div>
+                <img
+                  src="/images/down-arrow.svg"
+                  className="w-8 cursor-pointer"
+                />
               </div>
             </div>
-            <div className="col-span-1 w-96 h-96 relative">
-              <div className="w-96 h-80 left-0 top-[50px] absolute">
-                <div className="w-96 h-80 left-[165px] md:left-[135px] top-0 absolute bg-gradient-to-b from-gray-200 to-gray-50 rounded-2xl shadow border border-zinc-300 dark:from-zinc-800 dark:to-zinc-900"></div>
-                <div className="w-12 h-12 left-[347.50px] md:left-[305px] top-[292.80px] absolute origin-top-left -rotate-90"></div>
-                <div className="w-96 h-36 left-[165.50px] md:left-[135px] top-[85px] absolute">
-                  <div className="left-[125px] top-0 absolute text-center text-neutral-700 text-3xl font-bold font-['Mulish'] capitalize leading-9 dark:text-white">
-                    Google Bard
-                  </div>
-                  <div className="w-80 left-8 top-[60px] absolute text-center text-neutral-700 text-base font-semibold font-['Mulish'] leading-relaxed dark:text-neutral-300">
-                    AI-powered chatbot tool designed by Google to simulate human
-                    conversations using natural language processing and machine
-                    learning.
-                  </div>
+
+            <div className="cursor-default bg-gradient-to-b from-gray-200 to-gray-50 rounded-2xl dark:from-[#2F3128] dark:to-[#2f3128]/[0.05] group hover:ring-1 hover:ring-[#18BB4E] p-10 relative transition duration-300">
+              <div className="space-y-6 flex flex-col items-center">
+                <div className="w-20 h-20  bg-[#3E3F3E] group-hover:bg-lime-600 rounded-2xl shadow grid place-content-center absolute -top-12 left-[45%] transition duration-100">
+                  <img src="/images/google-white.svg" className="w-11" />
                 </div>
-              </div>
-              <div className="w-24 h-24 left-[322.50px] md:left-[282.5px] top-0 absolute">
-                <div className="w-24 h-24 left-0 top-0 absolute bg-zinc-300 rounded-2xl shadow grid content-center justify-center">
-                  {" "}
-                  <img src="/images/google-black.svg" className="w-10" />{" "}
+                <h1 className="text-center text-neutral-700 text-3xl font-semibold font-['Mulish'] capitalize leading-9 dark:text-white">
+                  ChatGPT - 4
+                </h1>
+                <div className="max-w-md mx-auto text-center font-['Mulish'] leading-relaxed text-[#B1B2B1] dark:group-hover:text-white text-sm transition duration-300">
+                  The next-generation AI language model with even deeper
+                  understanding and more human-like conversations.
                 </div>
+                <img
+                  src="/images/down-arrow.svg"
+                  className="w-8 cursor-pointer"
+                />
               </div>
             </div>
-            <div className="col-span-1 w-96 h-96 relative">
-              <div className="w-96 h-80 left-0 top-[50px] absolute">
-                <div className="w-96 h-80 left-[165px] md:left-[135px] top-0 absolute bg-gradient-to-b from-gray-200 to-gray-50 rounded-2xl shadow border border-zinc-300 dark:from-zinc-800 dark:to-zinc-900"></div>
-                <div className="w-12 h-12 left-[347.50px] md:left-[305px] top-[292.80px] absolute origin-top-left -rotate-90"></div>
-                <div className="w-96 h-36 left-[165.50px] md:left-[135px] top-[85px] absolute">
-                  <div className="left-[80px] top-0 absolute text-center text-neutral-700 text-3xl font-bold font-['Mulish'] capitalize leading-9 dark:text-white">
-                    Anthropic Claude
-                  </div>
-                  <div className="w-80 left-8 top-[60px] absolute text-center text-neutral-700 text-base font-semibold font-['Mulish'] leading-relaxed dark:text-neutral-300">
-                    QuikAsk have integrated with claude it can do things like
-                    create summaries, write code, translate text, and more.
-                  </div>
-                </div>
-              </div>
-              <div className="w-24 h-24 left-[322.50px] md:left-[282.50px] top-0 absolute">
-                <div className="w-24 h-24 left-0 top-0 absolute bg-zinc-300 rounded-2xl shadow grid content-center justify-center">
-                  {" "}
+            <div className="cursor-default bg-gradient-to-b from-gray-200 to-gray-50 rounded-2xl dark:from-[#2F3128] dark:to-[#2f3128]/[0.05] group hover:ring-1 hover:ring-[#18BB4E] p-10 relative transition duration-300">
+              <div className="space-y-6 flex flex-col items-center">
+                <div className="w-20 h-20  bg-[#3E3F3E] group-hover:bg-lime-600 rounded-2xl shadow grid place-content-center absolute -top-12 left-[45%] transition duration-100">
                   <img
-                    src="/images/anthropic-black.svg"
-                    className="w-10"
-                  />{" "}
+                    src="/images/anthopic-white.svg"
+                    className="w-11 translate-x-2"
+                  />
                 </div>
+                <h1 className="text-center text-neutral-700 text-3xl font-semibold font-['Mulish'] capitalize leading-9 dark:text-white">
+                  Anthropic Claude 2.0
+                </h1>
+                <div className="max-w-md mx-auto text-center font-['Mulish'] leading-relaxed text-[#B1B2B1] dark:group-hover:text-white text-sm transition duration-300">
+                  QuikAsk have integrated with claude it can do things like
+                  create summaries, write code, translate text, and more.
+                </div>
+                <img
+                  src="/images/down-arrow.svg"
+                  className="w-8 cursor-pointer"
+                />
               </div>
             </div>
-            <div className="col-span-1 w-96 h-96 relative">
-              <div className="w-96 h-80 left-0 top-[50px] absolute">
-                <div className="w-96 h-80 left-[165px] md:left-[135px] top-0 absolute bg-gradient-to-b from-gray-200 to-gray-50 rounded-2xl shadow border border-zinc-300 dark:from-zinc-800 dark:to-zinc-900"></div>
-                <div className="w-12 h-12 left-[347.50px] md:left-[305px] top-[292.80px] absolute origin-top-left -rotate-90"></div>
-                <div className="w-96 h-36 left-[165.50px] md:left-[135px] top-[85px] absolute">
-                  <div className="left-[105px] top-0 absolute text-center text-neutral-700 text-3xl font-bold font-['Mulish'] capitalize leading-9 dark:text-white">
-                    Duck Duck Go
-                  </div>
-                  <div className="w-80 left-8 top-[60px] absolute text-center text-neutral-700 text-base font-semibold font-['Mulish'] leading-relaxed dark:text-neutral-300">
-                    A privacy-focused search engine that prioritizes user
-                    anonymity by not tracking or storing personal information.
-                  </div>
+            <div className="cursor-default bg-gradient-to-b from-gray-200 to-gray-50 rounded-2xl dark:from-[#2F3128] dark:to-[#2f3128]/[0.05] group hover:ring-1 hover:ring-[#18BB4E] p-10 relative transition duration-300">
+              <div className="space-y-6 flex flex-col items-center">
+                <div className="w-20 h-20  bg-[#3E3F3E] group-hover:bg-lime-600 rounded-2xl shadow grid place-content-center absolute -top-12 left-[45%] transition duration-100">
+                  <img src="/images/duckduckgo-white.svg" className="w-11" />
                 </div>
-              </div>
-              <div className="w-24 h-24 left-[322.50px] top-0 absolute">
-                <div className="w-24 h-24 left-0 top-0 absolute bg-zinc-300 rounded-2xl shadow grid content-center justify-center">
-                  {" "}
-                  <img src="/images/duckduckgo-black.svg" />{" "}
+                <h1 className="text-center text-neutral-700 text-3xl font-semibold font-['Mulish'] capitalize leading-9 dark:text-white">
+                  Duck Duck Go
+                </h1>
+                <div className="max-w-md mx-auto text-center font-['Mulish'] leading-relaxed text-[#B1B2B1] dark:group-hover:text-white text-sm transition duration-300">
+                  A privacy-focused search engine that prioritizes user
+                  anonymity by not tracking or storing personal information.
                 </div>
-              </div>
-            </div>
-          </div>
-          <div className="flex justify-center">
-            <div className="md:w-1/2">
-              <div className="text-neutral-700 text-center text-3xl font-bold font-['Mulish'] capitalize leading-10 dark:text-white">
-                AI&apos;s Innovative Potential for
-                <br />
-                One-Click Content Generation
-              </div>
-              <div className="w-full pt-4 text-neutral-700 text-center pl-10 pr-10 text-lg font-normal font-['Mulish'] leading-7 dark:text-neutral-400">
-                Crafting influential content requires a deep understanding of
-                your target audience. Pinpoint your ideal demographic and
-                familiarise yourself with their needs, passions, and sources of
-                concern.
-              </div>
-              <div className="pl-12 pt-4">
-                <div className="w-full h-7 relative top-2">
-                  <div className="w-7 h-7 left-0 top-[0.92px] absolute">
-                    <div className="w-7 h-7 left-0 top-0 absolute border border-green-500"></div>
-                    <div className="w-3 h-3 left-[7.39px] top-[7.39px] absolute bg-green-500 border"></div>
-                  </div>
-                  <div className="w-full left-[43.56px] top-0 absolute text-neutral-700 text-lg font-normal font-['Mulish'] leading-7 dark:text-neutral-400">
-                    Attract your audience with captivating facts in your
-                    commercials
-                  </div>
-                </div>
-                <div className="w-full h-7 relative top-7">
-                  <div className="w-7 h-7 left-0 top-[0.92px] absolute">
-                    <div className="w-7 h-7 left-0 top-0 absolute border border-green-500"></div>
-                    <div className="w-3 h-3 left-[7.39px] top-[7.39px] absolute bg-green-500 border"></div>
-                  </div>
-                  <div className="w-full left-[43.56px] top-0 absolute text-neutral-700 text-lg font-normal font-['Mulish'] leading-7 dark:text-neutral-400">
-                    Let&apos;s engage with the customers effectively
-                  </div>
-                </div>
-                <div className="w-full h-14 relative top-12">
-                  <div className="w-7 h-7 left-0 top-[0.92px] absolute">
-                    <div className="w-7 h-7 left-0 top-0 absolute border border-green-500"></div>
-                    <div className="w-3 h-3 left-[7.39px] top-[7.39px] absolute bg-green-500 border"></div>
-                  </div>
-                  <div className="w-full left-[43.56px] top-0 absolute text-neutral-700 text-lg font-normal font-['Mulish'] leading-7 dark:text-neutral-400">
-                    Brighten up your content with appealing graphics: pictures,
-                    clips, and graphs that will fascinate your users!
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="w-1/2 grid content-center justify-center">
-              <img src="/images/chatbot.png" className="w-96" />
-            </div>
-          </div>
-          <div className="flex justify-center md:pt-0 pt-24">
-            <div className="w-1/2 grid content-center justify-center">
-              <img src="/images/computerbot.png" className="w-96" />
-            </div>
-            <div className="md:w-1/2">
-              <div className="text-neutral-700 text-center text-3xl font-bold font-['Mulish'] capitalize leading-10 dark:text-white">
-                The key resource for First <br />
-                Page Content Optimization
-              </div>
-              <div className="w-full pt-4 text-neutral-700 text-center pl-10 pr-10 text-lg font-normal font-['Mulish'] leading-7 dark:text-neutral-400">
-                &quot;Unlock Content Magic: Tailor Your Message to Win Hearts!
-                Discover Your Ideal Audience, Understand Their Desires, Tastes,
-                and Challenges!&quot;
-              </div>
-              <div className="pl-12 pt-4">
-                <div className="w-full h-7 relative top-2">
-                  <div className="w-7 h-7 left-0 top-[0.92px] absolute">
-                    <div className="w-7 h-7 left-0 top-0 absolute border border-green-500"></div>
-                    <div className="w-3 h-3 left-[7.39px] top-[7.39px] absolute bg-green-500 border"></div>
-                  </div>
-                  <div className="w-full left-[43.56px] top-0 absolute text-neutral-700 text-lg font-normal font-['Mulish'] leading-7 dark:text-neutral-400">
-                    Gain valuable insights into their expectations, preferences,
-                    and aspirations.
-                  </div>
-                </div>
-                <div className="w-full h-7 relative top-14">
-                  <div className="w-7 h-7 left-0 top-[0.92px] absolute">
-                    <div className="w-7 h-7 left-0 top-0 absolute border border-green-500"></div>
-                    <div className="w-3 h-3 left-[7.39px] top-[7.39px] absolute bg-green-500 border"></div>
-                  </div>
-                  <div className="w-full left-[43.56px] top-0 absolute text-neutral-700 text-lg font-normal font-['Mulish'] leading-7 dark:text-neutral-400">
-                    Create captivating content that speaks directly to their
-                    hearts and minds.
-                  </div>
-                </div>
-                <div className="w-full h-14 relative top-16">
-                  <div className="w-7 h-7 left-0 top-[0.92px] absolute">
-                    <div className="w-7 h-7 left-0 top-0 absolute border border-green-500"></div>
-                    <div className="w-3 h-3 left-[7.39px] top-[7.39px] absolute bg-green-500 border"></div>
-                  </div>
-                  <div className="w-[calc(100%-45px)] left-[43.56px] top-0 absolute text-neutral-700 text-lg font-normal font-['Mulish'] leading-7 dark:text-neutral-400">
-                    Identify the precise pain points and challenges your
-                    audience faces, and provide solutions through your content.
-                  </div>
-                </div>
+                <img
+                  src="/images/down-arrow.svg"
+                  className="w-8 cursor-pointer"
+                />
               </div>
             </div>
           </div>
-          <div className="flex justify-center md:pt-0 pt-28">
-            <div className="md:w-1/2">
-              <div className="text-neutral-700 text-center text-3xl font-bold font-['Mulish'] capitalize leading-10 dark:text-white">
-                QuikAsk: Your Companion for
-                <br />
-                Hashtags, Captions, and More!
-              </div>
-              <div className="w-full pt-4 text-neutral-700 text-center pl-10 pr-10 text-lg font-normal font-['Mulish'] leading-7 dark:text-neutral-400">
-                Experience the power of QUIKASK AI and revolutionise your social
-                media presence. Say goodbye to writer&apos;s block and hello to
-                compelling hashtags, captivating captions, and endless content
-                possibilities.
-              </div>
-              <div className="pl-12 pt-4">
-                <div className="w-full h-7 relative top-2">
-                  <div className="w-7 h-7 left-0 top-[0.92px] absolute">
-                    <div className="w-7 h-7 left-0 top-0 absolute border border-green-500"></div>
-                    <div className="w-3 h-3 left-[7.39px] top-[7.39px] absolute bg-green-500 border"></div>
-                  </div>
-                  <div className="w-full left-[43.56px] top-0 absolute text-neutral-700 text-lg font-normal font-['Mulish'] leading-7 dark:text-neutral-400">
-                    Curate endless content possibilities that make your website
-                    shine.
-                  </div>
+          <div className="max-w-[1520px] w-full mx-auto px-2">
+            <div className="flex flex-col md:flex-row justify-between gap-20 w-full mt-28">
+              <div className="space-y-6">
+                <div className="text-neutral-700 text-3xl font-bold font-['Mulish'] capitalize leading-10 dark:text-white">
+                  AI&apos;s Innovative Potential for
+                  <br />
+                  One-Click Content Generation
                 </div>
-                <div className="w-full h-7 relative top-6">
-                  <div className="w-7 h-7 left-0 top-[0.92px] absolute">
-                    <div className="w-7 h-7 left-0 top-0 absolute border border-green-500"></div>
-                    <div className="w-3 h-3 left-[7.39px] top-[7.39px] absolute bg-green-500 border"></div>
-                  </div>
-                  <div className="w-full left-[43.56px] top-0 absolute text-neutral-700 text-lg font-normal font-['Mulish'] leading-7 dark:text-neutral-400">
-                    Generates compelling hashtags that skyrocket your reach
-                  </div>
+                <div className="w-full pt-4 text-neutral-700 font-normal font-['Mulish'] leading-7 dark:text-neutral-400">
+                  Crafting influential content requires a deep understanding of
+                  your target audience. Pinpoint your ideal demographic and
+                  familiarise yourself with their needs, passions, and sources
+                  of concern.
                 </div>
-                <div className="w-full h-14 relative top-12">
-                  <div className="w-7 h-7 left-0 top-[0.92px] absolute">
-                    <div className="w-7 h-7 left-0 top-0 absolute border border-green-500"></div>
-                    <div className="w-3 h-3 left-[7.39px] top-[7.39px] absolute bg-green-500 border"></div>
-                  </div>
-                  <div className="w-full left-[43.56px] top-0 absolute text-neutral-700 text-lg font-normal font-['Mulish'] leading-7 dark:text-neutral-400">
-                    Unlock a world of unlimited content ideas that keep your
-                    followers hooked.
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="w-1/2 grid content-center justify-center">
-              <img src="/images/littlebot.png" className="w-96" />
-            </div>
-          </div>
-          <div className="relative md:top-0 top-12">
-            <div className="w-full top-0 absolute flex justify-center text-center text-neutral-700 md:text-3xl text-xl font-bold font-['Mulish'] capitalize leading-10 dark:text-white">
-              <img
-                src="/images/spiral-arrow-left.svg"
-                className="hidden md:visible"
-              />
-              <span>
-                Check Out How Much &nbsp;{" "}
-                <span className="text-lime-600">QuikAsk</span>
-                <br />
-                Is Loved By Our Users!
-              </span>
-              <img
-                src="/images/spiral-arrow-right.svg"
-                className="hidden md:visible"
-              />
-            </div>
-            <div className="pt-32 w-full justify-center items-center pl-[calc(50%-312px)]">
-              <div className="flex">
-                <img src="/images/testimonial.jpg" className="w-60" />
-                <div>
-                  <div className="text-2xl pl-12 pt-24 dark:text-white">
-                    Cameron Williamson
-                  </div>
-                  <div className="text-neutral-700 text-opacity-60 pl-10 text-xl dark:text-neutral-400">
-                    CEO & Owner, Vision Trust
-                  </div>
-                  <div className="w-96 h-52 bg-gradient-to-b from-zinc-300 to-neutral-400 flex">
-                    <div className="right-0 w-28 pl-3 pt-10 dark:bg-black">
-                      {" "}
-                      <img src="/images/quote.svg" />{" "}
+                <div className="space-y-4">
+                  <div className="w-full flex items-start gap-4">
+                    <div className="w-6 h-6 left-0 mt-1.5">
+                      <div className="w-6 h-6 border border-green-500 grid place-content-center">
+                        <div className="w-3 h-3 bg-green-500"></div>
+                      </div>
                     </div>
-                    <div className="pt-12 pl-2 dark:bg-black">
+                    <p className="w-full text-neutral-700 font-normal font-['Mulish'] leading-7 dark:text-white">
+                      Attract your audience with captivating facts in your
+                      commercials
+                    </p>
+                  </div>
+                  <div className="w-full flex items-start gap-4">
+                    <div className="w-6 h-6 left-0 mt-1.5">
+                      <div className="w-6 h-6 border border-green-500 grid place-content-center">
+                        <div className="w-3 h-3 bg-green-500"></div>
+                      </div>
+                    </div>
+                    <p className="w-full text-neutral-700 font-normal font-['Mulish'] leading-7 dark:text-white">
+                      Let&apos;s engage with the customers effectively
+                    </p>
+                  </div>
+                  <div className="w-full flex items-start gap-4">
+                    <div className="w-6 h-6 left-0 mt-1.5">
+                      <div className="w-6 h-6 border border-green-500 grid place-content-center">
+                        <div className="w-3 h-3 bg-green-500"></div>
+                      </div>
+                    </div>
+                    <p className="w-full text-neutral-700 font-normal font-['Mulish'] leading-7 dark:text-white">
+                      Brighten up your content with appealing graphics:
+                      pictures, clips, and graphs that will fascinate your
+                      users!
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div className="w-full grid content-center justify-center">
+                <img src="/images/chatbot.png" className="w-96" />
+              </div>
+            </div>
+            <div className="flex  flex-col-reverse md:flex-row justify-between gap-20 w-full mt-28">
+              <div className="w-full grid content-center justify-center">
+                <img src="/images/computerbot.png" className="w-96" />
+              </div>
+              <div className="w-full space-y-6">
+                <div className="text-neutral-700 text-3xl font-bold font-['Mulish'] capitalize leading-10 dark:text-white">
+                  The key resource for First <br />
+                  Page Content Optimization
+                </div>
+                <div className="w-full pt-4 text-neutral-700 font-normal font-['Mulish'] leading-7 dark:text-neutral-400">
+                  &quot;Unlock Content Magic: Tailor Your Message to Win Hearts!
+                  Discover Your Ideal Audience, Understand Their Desires,
+                  Tastes, and Challenges!&quot;
+                </div>
+                <div className="space-y-4">
+                  <div className="w-full flex items-start gap-4">
+                    <div className="w-6 h-6 left-0 mt-1.5">
+                      <div className="w-6 h-6 border border-green-500 grid place-content-center">
+                        <div className="w-3 h-3 bg-green-500"></div>
+                      </div>
+                    </div>
+                    <p className="w-full text-neutral-700 font-normal font-['Mulish'] leading-7 dark:text-white">
+                      Gain valuable insights into their expectations,
+                      preferences, and aspirations.
+                    </p>
+                  </div>
+                  <div className="w-full flex items-start gap-4">
+                    <div className="w-6 h-6 left-0 mt-1.5">
+                      <div className="w-6 h-6 border border-green-500 grid place-content-center">
+                        <div className="w-3 h-3 bg-green-500"></div>
+                      </div>
+                    </div>
+                    <p className="w-full text-neutral-700 font-normal font-['Mulish'] leading-7 dark:text-white">
+                      Create captivating content that speaks directly to their
+                      hearts and minds.
+                    </p>
+                  </div>
+                  <div className="w-full flex items-start gap-4">
+                    <div className="w-6 h-6 left-0 mt-1.5">
+                      <div className="w-6 h-6 border border-green-500 grid place-content-center">
+                        <div className="w-3 h-3 bg-green-500"></div>
+                      </div>
+                    </div>
+                    <p className="text-neutral-700 font-normal font-['Mulish'] leading-7 dark:text-white">
+                      Identify the precise pain points and challenges your
+                      audience faces, and provide solutions through your
+                      content.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="flex  flex-col md:flex-row justify-between gap-20 mt-28">
+              <div className="w-full space-y-6">
+                <div className="text-neutral-700 text-3xl font-bold font-['Mulish'] capitalize leading-10 dark:text-white">
+                  QuikAsk: Your Companion for
+                  <br />
+                  Hashtags, Captions, and More!
+                </div>
+                <p className="w-full pt-4 text-neutral-700 font-normal font-['Mulish'] leading-7 dark:text-neutral-400">
+                  Experience the power of QUIKASK AI and revolutionise your
+                  social media presence. Say goodbye to writer&apos;s block and
+                  hello to compelling hashtags, captivating captions, and
+                  endless content possibilities.
+                </p>
+                <div className="space-y-4">
+                  <div className="w-full flex items-start gap-4">
+                    <div className="w-6 h-6 left-0 mt-1.5">
+                      <div className="w-6 h-6 border border-green-500 grid place-content-center">
+                        <div className="w-3 h-3 bg-green-500"></div>
+                      </div>
+                    </div>
+                    <p className="w-full  text-neutral-700 text-lg font-normal font-['Mulish'] leading-7 dark:text-neutral-400">
+                      Curate endless content possibilities that make your
+                      website shine.
+                    </p>
+                  </div>
+                  <div className="w-full flex items-start gap-4">
+                    <div className="w-6 h-6 left-0 mt-1.5">
+                      <div className="w-6 h-6 border border-green-500 grid place-content-center">
+                        <div className="w-3 h-3 bg-green-500"></div>
+                      </div>
+                    </div>
+                    <p className="w-full text-neutral-700 text-lg font-normal font-['Mulish'] leading-7 dark:text-neutral-400">
+                      Generates compelling hashtags that skyrocket your reach
+                    </p>
+                  </div>
+                  <div className="w-full flex items-start gap-4">
+                    <div className="w-6 h-6 left-0 mt-1.5">
+                      <div className="w-6 h-6 border border-green-500 grid place-content-center">
+                        <div className="w-3 h-3 bg-green-500"></div>
+                      </div>
+                    </div>
+                    <p className="w-full text-neutral-700 text-lg font-normal font-['Mulish'] leading-7 dark:text-neutral-400">
+                      Unlock a world of unlimited content ideas that keep your
+                      followers hooked.
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div className="w-full grid content-center justify-center">
+                <img src="/images/littlebot.png" className="w-96" />
+              </div>
+            </div>
+          </div>
+          <div className="mt-28">
+            <div className="w-full flex justify-center text-center text-neutral-700 md:text-3xl text-xl font-bold font-['Mulish'] capitalize leading-10 dark:text-white">
+              <div className="w-full flex justify-center text-center text-neutral-700 md:text-3xl text-2xl font-bold font-['Mulish'] capitalize leading-10 dark:text-white gap-2 md:gap-4">
+                <img
+                  src="/images/spiral-arrow-left.svg"
+                  className="w-32 hidden sm:block"
+                />
+                <h1 className="max-w-lg w-full">
+                  Check out how much{" "}
+                  <span className="text-[#69A606]">QuikAsk</span> is loved by
+                  our users!
+                </h1>
+                <img
+                  src="/images/spiral-arrow-right.svg"
+                  className="w-32 hidden sm:block"
+                />
+              </div>
+            </div>
+            <div className="mt-14 w-full flex justify-center items-center">
+              <div className="flex flex-col md:flex-row items-center p-2">
+                <img src="/images/testimonial.jpg" className="w-full md:w-80" />
+                <div className="flex flex-col gap-4">
+                  <div className="ml-4">
+                    <h1 className="text-2xl dark:text-white">
+                      Cameron Williamson
+                    </h1>
+                    <p className="text-neutral-700 text-opacity-60 text-sm dark:text-neutral-400">
+                      CEO & Owner, Vision Trust
+                    </p>
+                  </div>
+                  <div className="w-full max-w-xl bg-gradient-to-b from-zinc-300 to-neutral-400">
+                    <img src="/images/quote.svg" className="absolute w-8 m-3" />
+                    <div className="dark:bg-black p-12">
                       It&apos;s like having a 24/7 virtual assistant that can
                       engage with our customers intelligently and provide
                       instant support. The chatbot&apos;s natural language
@@ -467,141 +462,160 @@ export function FirstPage() {
               </div>
             </div>
           </div>
-          <div>
-            <div className="flex justify-center pt-20">
-              <div className="w-full h-44 relative">
-                <div className="w-full top-0 absolute flex justify-center text-center text-neutral-700 text-3xl font-bold font-['Mulish'] capitalize leading-10 dark:text-white">
+          <div className="w-full max-w-[1520px] mx-auto mt-28">
+            <div className="flex justify-center px-2">
+              <div className="w-full space-y-3">
+                <div className="w-full flex justify-center text-center text-neutral-700 md:text-3xl text-2xl font-['Mulish'] capitalize leading-10 dark:text-white gap-4">
                   <img
                     src="/images/spiral-arrow-left.svg"
-                    className="hidden md:visible"
+                    className="w-32 hidden sm:block"
                   />
-                  Frequently Asked Questions
+                  <h1 className="max-w-lg w-full">
+                    frequently asked questions
+                  </h1>
                   <img
                     src="/images/spiral-arrow-right.svg"
-                    className="hidden md:visible"
+                    className="w-32 hidden sm:block"
                   />
                 </div>
-                <div className="md:pl-80 md:pr-80 w-full left-0 top-[60px] absolute text-center text-neutral-700 font-[12px] font-['Mulish'] leading-7 dark:text-neutral-400">
+                <div className="text-center text-neutral-700 font-[12px] font-['Mulish'] leading-7 dark:text-neutral-400">
                   Here, you can find some useful information about QuikAsk
                 </div>
               </div>
             </div>
-            <div className="md:pl-24 md:pr-24">
-              <div className="flex border border-neutral-300 border-l-0 border-r-0  items-center justify-between pl-8 pr-8">
-                <div className="flex">
-                  <div className="w-24 pt-3 pb-3 text-center align-middle text-5xl font-bold font-['Mulish'] capitalize leading-10 text-lime-600 bg-white dark:bg-[#121212]">
+            <div className="mt-20">
+              <div className="flex border-t border-neutral-700  items-center justify-between px-4 sm:px-8">
+                <div className="flex items-center py-4 sm:py-6 gap-3 sm:gap-6">
+                  <div className="text-outline font-sans font-bold text-center align-middle text-3xl sm:text-5xl capitalize leading-10 text-transparent bg-clip-text">
                     01
                   </div>
-                  <div className="pt-3 pb-3 text-neutral-700 md:text-2xl font-semibold font-['Mulish'] capitalize leading-10 dark:text-white">
+                  <div className="text-neutral-700 text-md sm:text-xl font-['Mulish'] capitalize sm:leading-10 dark:text-white">
                     Is the content unique?
                   </div>
                 </div>
-                <img src="/images/plus-green.svg" />
+                <img
+                  src="/images/plus-green.svg"
+                  className="w-6 cursor-pointer"
+                />
               </div>
             </div>
-            <div className="md:pl-24 md:pr-24">
-              <div className="flex border border-neutral-300 border-l-0 border-r-0 border-t-0 items-center justify-between pl-8 pr-8">
-                <div className="flex">
-                  <div className="w-24 pt-3 pb-3 text-center align-middle text-5xl font-bold font-['Mulish'] capitalize leading-10 text-lime-600 bg-white dark:bg-[#121212]">
+            <div className="">
+              <div className="flex border-t border-neutral-700 items-center justify-between px-4 sm:px-8">
+                <div className="flex items-center py-4 sm:py-6 gap-3 sm:sm:gap-6">
+                  <div className="text-outline font-sans font-bold text-center align-middle text-3xl sm:text-5xl capitalize leading-10 text-transparent bg-clip-text">
                     02
                   </div>
-                  <div className="pt-3 pb-3 text-neutral-700 md:text-2xl font-semibold font-['Mulish'] capitalize leading-10 dark:text-white">
+                  <div className="text-neutral-700 text-md sm:text-xl font-['Mulish'] capitalize sm:leading-10 dark:text-white">
                     How can I boost traffic with Quik ASk?
                   </div>
                 </div>
-                <img src="/images/plus-green.svg" />
+                <img
+                  src="/images/plus-green.svg"
+                  className="w-6 cursor-pointer"
+                />
               </div>
             </div>
-            <div className="md:pl-24 md:pr-24">
-              <div className="flex border border-neutral-300 border-l-0 border-r-0 border-t-0 items-center justify-between pl-8 pr-8">
-                <div className="flex">
-                  <div className="w-24 pt-3 pb-3 text-center align-middle text-5xl font-bold font-['Mulish'] capitalize leading-10 text-lime-600 bg-white dark:bg-[#121212]">
+            <div className="">
+              <div className="flex border-t border-neutral-700 items-center justify-between px-4 sm:px-8">
+                <div className="flex items-center py-4 sm:py-6 gap-3 sm:sm:gap-6">
+                  <div className="text-outline font-sans font-bold text-center align-middle text-3xl sm:text-5xl capitalize leading-10 text-transparent bg-clip-text">
                     03
                   </div>
-                  <div className="pt-3 pb-3 text-neutral-700 md:text-2xl font-semibold font-['Mulish'] capitalize leading-10 dark:text-white">
+                  <div className="text-neutral-700 text-md sm:text-xl font-['Mulish'] capitalize sm:leading-10 dark:text-white">
                     How long will it take to write an article with AI?
                   </div>
                 </div>
-                <img src="/images/plus-green.svg" />
+                <img
+                  src="/images/plus-green.svg"
+                  className="w-6 cursor-pointer"
+                />
               </div>
             </div>
-            <div className="md:pl-24 md:pr-24">
-              <div className="flex border border-neutral-300 border-l-0 border-r-0 border-t-0 items-center justify-between pl-8 pr-8">
-                <div className="flex">
-                  <div className="w-24 pt-3 pb-3 text-center align-middle text-5xl font-bold font-['Mulish'] capitalize leading-10 text-lime-600 bg-white dark:bg-[#121212]">
+            <div className="">
+              <div className="flex border-t border-neutral-700 items-center justify-between px-4 sm:px-8">
+                <div className="flex items-center py-4 sm:py-6 gap-3 sm:gap-6">
+                  <div className="text-outline font-sans font-bold text-center align-middle text-3xl sm:text-5xl capitalize leading-10 text-transparent bg-clip-text">
                     04
                   </div>
-                  <div className="pt-3 pb-3 text-neutral-700 md:text-2xl font-semibold font-['Mulish'] capitalize leading-10 dark:text-white">
+                  <div className="text-neutral-700 text-md sm:text-xl font-['Mulish'] capitalize sm:leading-10 dark:text-white">
                     Is there a limit to the amount of stuff that I can create?
                   </div>
                 </div>
-                <img src="/images/plus-green.svg" />
+                <img
+                  src="/images/plus-green.svg"
+                  className="w-6 cursor-pointer"
+                />
               </div>
             </div>
-            <div className="md:pl-24 md:pr-24">
-              <div className="flex border border-neutral-300 border-l-0 border-r-0 border-t-0 items-center justify-between pl-8 pr-8">
-                <div className="flex">
-                  <div className="w-24 pt-3 pb-3 text-center align-middle text-5xl font-bold font-['Mulish'] capitalize leading-10 text-lime-600 bg-white dark:bg-[#121212]">
+            <div className="">
+              <div className="flex border-t border-neutral-700 items-center justify-between px-4 sm:px-8">
+                <div className="flex items-center py-4 sm:py-6 gap-3 sm:gap-6">
+                  <div className="text-outline font-sans font-bold text-center align-middle text-3xl sm:text-5xl capitalize leading-10 text-transparent bg-clip-text">
                     05
                   </div>
-                  <div className="pt-3 pb-3 text-neutral-700 md:text-2xl font-semibold font-['Mulish'] capitalize leading-10 dark:text-white">
+                  <div className="text-neutral-700 text-md sm:text-xl font-['Mulish'] capitalize sm:leading-10 dark:text-white">
                     What languages do you support?
                   </div>
                 </div>
-                <img src="/images/plus-green.svg" />
+                <img
+                  src="/images/plus-green.svg"
+                  className="w-6 cursor-pointer"
+                />
               </div>
             </div>
           </div>
-          <div className="md:pl-24 md:pr-24 pt-24">
-            <div className="text-neutral-700 text-4xl font-bold font-['Mulish'] capitalize pb-12 leading-10 dark:text-white">
+          <div className="w-full max-w-[1520px] mx-auto mt-28">
+            <div className="text-neutral-700 text-4xl font-bold font-['Mulish'] capitalize pb-12 leading-10 dark:text-white px-4">
               Trusted By
             </div>
-            <div className="flex justify-between border border-neutral-300 border-l-0 border-r-0 pt-5 pb-5 dark:bg-neutral-100">
-              <div className="w-36 h-10 relative">
-                <img
-                  className="w-36 h-10 left-0 top-0 absolute"
-                  src="/images/paypal.png"
-                />
-              </div>
-              <div className="w-36 h-10 relative">
-                <img
-                  className="w-36 h-10 left-0 top-0 absolute"
-                  src="/images/visa.png"
-                />
-              </div>
-              <div className="w-36 h-10 relative">
-                <img
-                  className="w-36 h-10 left-0 top-0 absolute"
-                  src="/images/amazon.png"
-                />
-              </div>
-              <div className="w-36 h-10 relative">
-                <img
-                  className="w-36 h-10 left-0 top-0 absolute"
-                  src="/images/citibank.png"
-                />
-              </div>
-              <div className="w-28 h-10 relative">
-                <img
-                  className="w-36 h-10 left-0 top-0 absolute"
-                  src="/images/w.png"
-                />
+            <div className="border-y border-neutral-600 py-7 bg-transparent">
+              <div className="px-3 flex  gap-2 flex-col min-[400px]:flex-row justify-between ">
+                <div className="w-36 h-10 relative">
+                  <img
+                    className="w-36 h-10 left-0 top-0 absolute"
+                    src="/images/paypal.png"
+                  />
+                </div>
+                <div className="w-36 h-10 relative">
+                  <img
+                    className="w-36 h-10 left-0 top-0 absolute"
+                    src="/images/visa.png"
+                  />
+                </div>
+                <div className="w-36 h-10 relative">
+                  <img
+                    className="w-36 h-10 left-0 top-0 absolute"
+                    src="/images/amazon.png"
+                  />
+                </div>
+                <div className="w-36 h-10 relative">
+                  <img
+                    className="w-36 h-10 left-0 top-0 absolute"
+                    src="/images/citibank.png"
+                  />
+                </div>
+                <div className="w-28 h-10 relative">
+                  <img
+                    className="w-36 h-10 left-0 top-0 absolute"
+                    src="/images/w.png"
+                  />
+                </div>
               </div>
             </div>
           </div>
-          <div className="pt-24 pb-32">
-            <div className="text-4xl font-bold font-['Mulish'] capitalize leading-10 text-neutral-700 text-center dark:text-white">
+          <div className="mt-28 max-w-[1520px] mx-auto p-3 space-y-4">
+            <div className="text-4xl font-bold font-['Mulish'] text-center capitalize leading-10 text-neutral-700 dark:text-white">
               Trade With Anyone
             </div>
-            <div className="font-['Mulish'] capitalize leading-10 text-neutral-700 justify-center flex pt-3 dark:text-neutral-400">
-              <div className="w-[700px] text-center">
+            <div className="font-['Mulish'] capitalize text-neutral-700 justify-center flex pt-3 dark:text-neutral-400">
+              <p className="max-w-[800px] text-sm sm:text-base w-full text-center">
                 Lorem ipsum dolor sit amet consectetur. Nisi risus at ac
                 vestibulum ut. Amet bibendum mi eu leo. Ut odio ipsum et quis id
                 ridiculus commodo tincidunt ridiculus. Lacus ut sit vestibulum
                 at.
-              </div>
+              </p>
             </div>
-            <div className="flex justify-center pt-3">
+            <div className="flex flex-wrap justify-center pt-3">
               <img src="/images/discord.svg" className="w-12 pl-2 pr-2" />
               <img src="/images/telegram.svg" className="w-12 pl-2 pr-2" />
               <img src="/images/twitter.svg" className="w-12 pl-2 pr-2" />
@@ -611,21 +625,21 @@ export function FirstPage() {
               <img src="/images/reddit.svg" className="w-12 pl-2 pr-2" />
             </div>
           </div>
-          <div className="w-screen h-16 fixed bottom-0 bg-white dark:bg-neutral-900">
-            <div className="w-screen h-8 flex justify-between md:pl-24 md:pr-24">
-              <div className="text-neutral-700 md:text-xl font-normal font-['Mulish'] leading-loose dark:text-white">
+          <div className="mt-28 border-t border-white/10 py-10">
+            <div className="max-w-[1520px] mx-auto h-8 flex justify-between flex-col sm:flex-row px-4">
+              <div className="text-neutral-700  font-normal font-['Mulish'] leading-loose dark:text-[#B1B2B1]">
                 Contact Us: support@quikask.com
               </div>
-              <div className="text-neutral-700 md:text-xl font-normal font-['Mulish'] leading-loose dark:text-white">
+              <div className="text-neutral-700  font-normal font-['Mulish'] leading-loose dark:text-[#B1B2B1]">
                 © 2023 QuikAsk
               </div>
-              <div className="text-neutral-700 md:text-xl font-normal font-['Mulish'] leading-loose dark:text-white">
+              <div className="text-neutral-700  font-normal font-['Mulish'] leading-loose dark:text-[#B1B2B1]">
                 Privacy Policy
               </div>
             </div>
           </div>
-        </div>
-      </div>
+        </section>
+      </main>
     </>
   );
 }
