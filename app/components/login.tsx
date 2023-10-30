@@ -9,6 +9,7 @@ import { ErrorBoundary } from "./error";
 import { useLocation, useNavigate } from "react-router-dom";
 import { showToast } from "../components/ui-lib";
 import { useMobileScreen } from "../utils";
+import Image from "next/image";
 
 // TODO: need change currentUrl
 // const currentUrl = "http://localhost:3000/#/login"
@@ -134,103 +135,120 @@ export function Login() {
 
   return (
     <ErrorBoundary>
-      <div className="flex flex-row justify-center bg-[url('/images/background.png')] w-full md:h-[1080px] sm:h-screen bg-cover">
-        <div className="absolute bg-white dark:bg-neutral-950 w-[790px] h-[847px] border-[1px] top-[124px] rounded-[30px]">
-          <div className="relative">
-            <img
-              src="/images/group.svg"
-              className="top-[34px] left-[287px] w-[66.07px] h-[48.15px] relative"
-            />
-            <span className="top-[10px] left-[317px] text-lime-600 text-[44px] font-bold font-['Inter'] tracking-tight relative">
-              QuickAsk
-            </span>
-          </div>
-          <div className="text-neutral-700 text-4xl font-extrabold font-['Mulish'] uppercase top-[37px] left-[136px] relative">
-            LOGIN
-          </div>
-          <div className="opacity-80 text-neutral-700 text-base font-medium font-['Mulish'] leading-relaxed top-[37px] left-[136px] relative">
-            After Logging in, you can communicate with AI
-          </div>
-          <div className="text-neutral-700 text-lg font-semibold font-['Mulish'] leading-relaxed top-[98px] left-[136px] relative">
-            Email
-          </div>
-          <div className="w-[521px] h-[60px] relative top-[98px] left-[136px] bg-[#c6c6c673] rounded-[10px] border border-solid border-[#ffffff3b] backdrop-blur-[20px] backdrop-brightness-[100%] [-webkit-backdrop-filter:blur(20px)_brightness(100%)]">
-            <input
-              className="absolute h-[58px] w-[470px] bg-[#c6c6c600] left-[46px] right-[46px] [font-family:'Mulish-Regular',Helvetica] font-normal dark:text-white text-[16px] pl-4 tracking-[0] leading-[26px] whitespace-nowrap"
-              placeholder="sherazahmedofficial@gmail.com"
-              value={email}
-              onChange={(e) => setEmail(e.currentTarget.value)}
-            />
-            <img
-              className="absolute w-[15px] h-[19px] top-[20px] left-[20px]"
-              alt="Group"
-              src="/images/user.svg"
-            />
-          </div>
-          <div className="text-neutral-700 text-lg font-semibold font-['Mulish'] leading-relaxed top-[114px] left-[136px] relative">
-            Password
-          </div>
-          <div className="w-[521px] h-[60px] relative top-[114px] left-[136px] bg-[#c6c6c673] rounded-[10px] border border-solid border-[#ffffff3b] backdrop-blur-[20px] backdrop-brightness-[100%] [-webkit-backdrop-filter:blur(20px)_brightness(100%)]">
-            <input
-              className="absolute h-[58px] w-[470px] bg-[#c6c6c600] left-[46px] right-[46px] [font-family:'Mulish-Regular',Helvetica] font-normal dark:text-white text-[16px] pl-4 tracking-[0] leading-[26px] whitespace-nowrap"
-              placeholder="************"
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.currentTarget.value)}
-            />
-            <img
-              className="absolute w-[15px] h-[19px] top-[20px] left-[20px]"
-              alt="Group"
-              src="/images/lock.svg"
-            />
-            <img
-              className="absolute w-[15px] h-[19px] top-[20px] right-[20px]"
-              alt="Eye-Off"
-              src="/images/eye-off.svg"
-            />
-          </div>
-          <div className="top-[135px] left-[136px] h-[60px] relative">
-            <input type="checkbox" id="checkbox-1" className="absolute top-2" />
-            <span className="left-5 absolute">Remember me</span>
-            <span
-              className="left-[370px] absolute"
-              onClick={() => {
-                navigate(Path.ForgetPassword);
-              }}
-            >
-              {" "}
-              Forgot password?{" "}
-            </span>
-          </div>
-          <button
-            className="w-[519px] h-[60px] relative top-[160px] left-[136px] bg-[#69a506] rounded-[10px] [font-family:'Mulish-Bold',Helvetica] font-bold text-white text-[18px] text-center tracking-[0] leading-[normal]"
-            onClick={() => {
-              if (authStore.session) logout();
-              else login();
-            }}
-          >
-            LOGIN
-          </button>
-          <div className="w-[519px] h-[60px] relative top-[185px] left-[136px]">
+      <div className="flex justify-center items-center bg-[url('/images/background.png')] w-full h-full min-h-screen bg-cover">
+        <div className="bg-white dark:bg-[#303c4b30] dark:backdrop-blur-2xl w-full h-fit max-w-[690px] border-[2px] border-green-700 rounded-[30px] py-10 px-5">
+          <div className="w-full max-w-[500px] mx-auto space-y-7">
+            <div className="flex justify-center">
+              <Image
+                src="/logo.svg"
+                alt="logo"
+                width={150}
+                height={50}
+                draggable={false}
+              />
+            </div>
+            <div className="space-y-1">
+              <div className="text-neutral-700 dark:text-white text-3xl font-black font-['Mulish'] uppercase">
+                LOGIN
+              </div>
+              <div className="opacity-80 text-neutral-700 dark:text-white dark:texase font-medium font-['Mulish'] leading-relaxed">
+                After Logging in, you can communicate with AI
+              </div>
+            </div>
+
+            <div className="space-y-1">
+              <label className="text-neutral-700 dark:text-white font-['Mulish'] leading-relaxed">
+                Username / Email
+              </label>
+              <div className="bg-[#c6c6c673] dark:bg-[#00000070] rounded-[10px] border border-[#ffffff3b] backdrop-blur-[20px] backdrop-brightness-[100%] [-webkit-backdrop-filter:blur(20px)_brightness(100%)] flex items-center pl-6 h-[60px] gap-4">
+                <img
+                  className="w-[15px] h-[19px]"
+                  alt="Group"
+                  src="/images/user.svg"
+                />
+                <input
+                  className="flex-1 h-full outline-none bg-transparent font-normal dark:text-white text-[16px] tracking-[0] leading-[26px] whitespace-nowrap"
+                  placeholder="sherazahmedofficial@gmail.com"
+                  value={email}
+                  onChange={(e) => setEmail(e.currentTarget.value)}
+                />
+              </div>
+            </div>
+
+            <div className="space-y-1">
+              <label className="text-neutral-700 dark:text-white font-['Mulish'] leading-relaxed">
+                Password
+              </label>
+              <div className="bg-[#c6c6c673] dark:bg-[#00000070] rounded-[10px] border border-[#ffffff3b] backdrop-blur-[20px] backdrop-brightness-[100%] [-webkit-backdrop-filter:blur(20px)_brightness(100%)] flex items-center px-6 h-[60px] gap-4">
+                <img
+                  className="w-[15px] h-[19px]"
+                  alt="Group"
+                  src="/images/lock.svg"
+                />
+                <input
+                  className="flex-1 h-full outline-none bg-transparent font-normal dark:text-white text-[16px] tracking-[0] leading-[26px] whitespace-nowrap"
+                  placeholder="************"
+                  type="password"
+                  value={password}
+                  onChange={(e) => setPassword(e.currentTarget.value)}
+                />
+                <img
+                  className="w-[15px] h-[19px]"
+                  alt="Eye-Off"
+                  src="/images/eye-off.svg"
+                />
+              </div>
+            </div>
+            <div className="flex flex-wrap justify-between w-full !mt-5 gap-3">
+              <div className="flex items-center gap-2">
+                <input
+                  type="checkbox"
+                  id="checkbox-1"
+                  className="peer cursor-pointer relative h-5 w-5 shrink-0 appearance-none rounded-[4px] bg-transparent border border-[#a7a6a6] after:absolute after:left-0 after:top-0 after:h-full after:w-full checked:after:bg-[url('data:image/svg+xml;base64,PHN2ZyBoZWlnaHQ9JzMwMHB4JyB3aWR0aD0nMzAwcHgnICBmaWxsPSIjZmZmZmZmIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB2aWV3Qm94PSIwIDAgMTAwIDEwMCIgdmVyc2lvbj0iMS4xIiB4PSIwcHgiIHk9IjBweCI+PHRpdGxlPmljb25fYnlfUG9zaGx5YWtvdjEwPC90aXRsZT48ZGVzYz5DcmVhdGVkIHdpdGggU2tldGNoLjwvZGVzYz48ZyBzdHJva2U9Im5vbmUiIHN0cm9rZS13aWR0aD0iMSIgZmlsbD0ibm9uZSIgZmlsbC1ydWxlPSJldmVub2RkIj48ZyBmaWxsPSIjZmZmZmZmIj48ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSgyNi4wMDAwMDAsIDI2LjAwMDAwMCkiPjxwYXRoIGQ9Ik0xNy45OTk5ODc4LDMyLjQgTDEwLjk5OTk4NzgsMjUuNCBDMTAuMjI2Nzg5MSwyNC42MjY4MDE0IDguOTczMTg2NDQsMjQuNjI2ODAxNCA4LjE5OTk4Nzc5LDI1LjQgTDguMTk5OTg3NzksMjUuNCBDNy40MjY3ODkxNCwyNi4xNzMxOTg2IDcuNDI2Nzg5MTQsMjcuNDI2ODAxNCA4LjE5OTk4Nzc5LDI4LjIgTDE2LjU4NTc3NDIsMzYuNTg1Nzg2NCBDMTcuMzY2ODIyOCwzNy4zNjY4MzUgMTguNjMzMTUyOCwzNy4zNjY4MzUgMTkuNDE0MjAxNCwzNi41ODU3ODY0IEw0MC41OTk5ODc4LDE1LjQgQzQxLjM3MzE4NjQsMTQuNjI2ODAxNCA0MS4zNzMxODY0LDEzLjM3MzE5ODYgNDAuNTk5OTg3OCwxMi42IEw0MC41OTk5ODc4LDEyLjYgQzM5LjgyNjc4OTEsMTEuODI2ODAxNCAzOC41NzMxODY0LDExLjgyNjgwMTQgMzcuNzk5OTg3OCwxMi42IEwxNy45OTk5ODc4LDMyLjQgWiI+PC9wYXRoPjwvZz48L2c+PC9nPjwvc3ZnPg==')] after:bg-[length:40px] after:bg-center after:bg-no-repeat after:content-['']  hover:ring-1 hover:ring-[#2c2c2c69] transition duration-300 focus:outline-none"
+                />
+                <label htmlFor="checkbox-1" className="">
+                  Remember me
+                </label>
+              </div>
+              <span
+                className="cursor-pointer"
+                onClick={() => {
+                  navigate(Path.ForgetPassword);
+                }}
+              >
+                Forgot password?
+              </span>
+            </div>
             <button
-              className="w-[519px] h-[60px] mr-[41px] rounded-[10px] border border-solid border-[#353535] [font-family:'Mulish-Bold',Helvetica] font-bold dark:text-white text-[18px] text-center tracking-[0] leading-[normal]"
+              className="h-[60px] w-full bg-[#69a506] rounded-[10px] [font-family:'Mulish-Bold',Helvetica] font-bold text-white text-center tracking-[0] leading-[normal]"
               onClick={() => {
-                googleAuth();
+                if (authStore.session) logout();
+                else login();
               }}
             >
-              GOOGLE LOGIN
+              LOGIN
             </button>
-          </div>
-          <div className="w-[519px] h-[60px] relative top-[245px] left-[136px] text-center">
-            <span className="top-0 left-10 [font-family:'Mulish-Medium',Helvetica] font-medium dark:text-white text-[18px] text-center tracking-[0] leading-[26px] whitespace-nowrap mr-10">
-              DON’T HAVE AN ACCOUNT?
-            </span>
-            <span
-              className="top-0 [font-family:'Mulish-Bold',Helvetica] font-bold text-[#69a506] text-[18px] text-center tracking-[0] leading-[26px] whitespace-nowrap"
-              onClick={() => navigate(Path.Register)}
-            >
-              REGISTER
-            </span>
+            <div>
+              <button
+                className="h-[60px] w-full rounded-[10px] border border-solid border-[#353535] dark:border-white hover:bg-[#303c4b30] transition duration-300 uppercase [font-family:'Mulish-Bold',Helvetica] font-bold dark:text-white text-center tracking-[0] leading-[normal]"
+                onClick={() => {
+                  googleAuth();
+                }}
+              >
+                GOOGLE LOGIN
+              </button>
+            </div>
+            <div className="text-center">
+              <span className="text-sm font-medium dark:text-white text-center tracking-[0] leading-[26px] whitespace-nowrap">
+                DON’T HAVE AN ACCOUNT?{" "}
+              </span>
+              <span
+                className="text-sm font-bold text-[#69a506] cursor-pointer text-center tracking-[0] leading-[26px] whitespace-nowrap"
+                onClick={() => navigate(Path.Register)}
+              >
+                REGISTER
+              </span>
+            </div>
           </div>
         </div>
       </div>

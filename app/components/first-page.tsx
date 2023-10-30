@@ -1,6 +1,7 @@
 import { useTheme } from "next-themes";
 import { useNavigate } from "react-router-dom";
 import { useAuthStore } from "../store/auth";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 
 export function FirstPage() {
@@ -13,11 +14,35 @@ export function FirstPage() {
     setTheme(theme === "light" ? "dark" : "light");
   };
   const { systemTheme, theme, setTheme } = useTheme();
+  const [isScrolled, setIsScrolled] = useState(false);
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 0) {
+        return setIsScrolled(true);
+      }
+      return setIsScrolled(false);
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.addEventListener("scroll", handleScroll);
+    };
+  }, []);
+
   return (
     <>
-      <main className="overflow-hidden">
-        <nav className="fixed h-20 bg-white flex items-center w-full justify-between z-10 top-0 dark:bg-transparent dark:blur-0">
-          <div className="w-full max-w-[1520px] mx-auto flex justify-between">
+      <main className="overflow-hidden relative">
+        <div className="w-[1320px] h-[1320px] absolute top-[-1000px] left-[-200px] border-[2px] border-[#8dbbff1a] rounded-full" />
+        <div className="w-[740px] h-[740px] absolute top-[200px] left-[40px] border-[2px] border-[#8dbbff1a] rounded-full z-[0]" />
+        <div className="w-[840px] h-[840px] absolute top-[-800px] left-[40px] bg-gradient-to-br from-teal-600/50 to-blue-600/50 blur-[500px] z-[0]" />
+        <div className="w-[640px] h-[640px] absolute top-[-800px] right-[200px] bg-gradient-to-br from-teal-600/50 to-yellow-600/50 blur-[500px] z-[0]" />
+        <nav
+          className={`fixed transition h-20 flex items-center w-full justify-between z-10 top-0  ${
+            isScrolled
+              ? "bg-white/60 dark:bg-black/30 backdrop-blur-sm"
+              : "bg-transparent"
+          }`}
+        >
+          <div className="w-full max-w-[1520px] mx-auto flex justify-between px-4">
             <Image
               src="/logo.svg"
               alt="logo"
@@ -26,7 +51,7 @@ export function FirstPage() {
               draggable={false}
               className="select-none"
             />
-            <div className="flex items-center justify-between gap-10">
+            <div className="flex items-center justify-between gap-4 sm:gap-10">
               <div className="relative">
                 <div className=" text-neutral-700  font-['Mulish'] w-full font-semibold text-center cursor-pointer dark:text-white">
                   Home
@@ -69,34 +94,49 @@ export function FirstPage() {
             </div>
           </div>
         </nav>
-        <section className="w-full mt-20">
-          <div className="w-full max-w-[1520px] mx-auto px-2">
-            <div className="flex flex-col md:flex-row justify-between gap-20 md:gap-40 w-full">
-              <h1 className="w-full max-w-2xl md:max-w-5xl pt-14 text-6xl capitalize leading-relaxed">
-                <span className="text-neutral-700  dark:text-white  font-[1000] font-sans tracking-wide">
-                  Use QuikAsk to
-                  <br />
-                </span>
-                <p className="inline relative">
-                  <span className="text-lime-600 ring-2 ring-green-500/10 rounded-sm p-3  relative">
-                    <span className=" font-[1000] font-sans tracking-wide">
-                      Simplify
-                    </span>
-                    <span className="bg-green-600 bg-opacity-5 absolute inset-0 backdrop-blur-[1.5px] z-[1]" />
+        <section className="w-full mt-40 relative z-[1]">
+          <div className="h-fit max-w-[1520px] w-full mx-auto px-2">
+            <div className="flex flex-col lg:flex-row justify-between w-full">
+              <div className="w-full">
+                <h1 className="w-full max-w-2xl md:max-w-5xl pt-14 text-6xl capitalize leading-relaxed">
+                  <span className="text-neutral-700  dark:text-white  font-[1000] font-sans tracking-wide">
+                    Use QuikAsk to
+                    <br />
                   </span>
-                  <img
-                    src="/images/curved-dash.png"
-                    className="absolute translate-y-4 translate-x-6 object-cover w-4/5 "
-                    draggable={false}
-                  />
-                </p>
-                <span className="text-zinc-300 "> </span>
-                <span className="text-neutral-700  dark:text-white  font-[1000] font-sans tracking-wide">
-                  Your Life
-                </span>
-              </h1>
-              <div className="md:mt-20">
-                <div className="bg-[#B8F68F] w-[170px] h-[170px] rounded-full p-1 grid place-content-center shadow-5xl shadow-[#B8F68F]/60 s">
+                  <p className="inline relative">
+                    <span className="text-lime-600 ring-2 ring-green-500/10 rounded-sm p-3  relative">
+                      <span className=" font-[1000] font-sans tracking-wide">
+                        Simplify
+                      </span>
+                      <span className="bg-green-600 bg-opacity-5 absolute inset-0 backdrop-blur-[1.5px] z-[1]" />
+                    </span>
+                    <img
+                      src="/images/curved-dash.png"
+                      className="absolute translate-y-4 translate-x-6 object-cover w-4/5 "
+                      draggable={false}
+                    />
+                  </p>
+                  <span className="text-zinc-300 "> </span>
+                  <span className="text-neutral-700  dark:text-white  font-[1000] font-sans tracking-wide">
+                    Your Life
+                  </span>
+                </h1>
+                <div className="flex justify-between mt-24">
+                  <div className="w-full max-w-xl">
+                    <span className="text-lime-600 font-[13px] font-['Mulish'] leading-8">
+                      QuikAsk
+                    </span>
+                    <span className="text-[#B1B2B1] font-[13px] font-['Mulish'] leading-8 dark:text-neutral-300">
+                      , have a natural conversation with AI that feels
+                      surprisingly human. Interacting with artificial
+                      intelligence used to feel difficult, overwhelming, and a
+                      bit robotic.
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <div className="md:mt-20 relative h-fit w-full sm:min-w-[512px]">
+                <div className="bg-[#B8F68F] w-[170px] h-[170px] translate-x-60 rounded-full p-1 grid place-content-center shadow-5xl shadow-[#B8F68F]/60 s">
                   <div className="bg-[#B8F68F] w-[164px] h-[164px] rounded-full grid place-content-center border border-black">
                     <div className="text-center text-neutral-900 text-xl font-extrabold font-['Mulish'] leading-7">
                       Explore
@@ -105,51 +145,42 @@ export function FirstPage() {
                     </div>
                   </div>
                 </div>
+                <Image
+                  src="/images/robot-hand.png"
+                  alt="robot-hand"
+                  width={700}
+                  height={300}
+                  className=" object-cover"
+                />
               </div>
-            </div>
-            <div className="flex justify-between mt-24">
-              <div className="w-full max-w-xl">
-                <span className="text-lime-600 font-[13px] font-['Mulish'] leading-8">
-                  QuikAsk
-                </span>
-                <span className="text-[#B1B2B1] font-[13px] font-['Mulish'] leading-8 dark:text-neutral-300">
-                  , have a natural conversation with AI that feels surprisingly
-                  human. Interacting with artificial intelligence used to feel
-                  difficult, overwhelming, and a bit robotic.
-                </span>
-              </div>
-              <img
-                src="/images/robot-hand.png"
-                className="absolute right-0 h-[600px] top-0"
-              />
             </div>
           </div>
-          <div className="flex flex-col md:flex-row gap-4 md:items-end justify-between mt-40 px-3 md:px-0">
-            <div className="w-full md:max-w-[352px] grid place-content-center rounded-t-2xl bg-gradient-to-b from-[#242424] to-[#16151a]/[0.05] min-h-[80px] md:min-h-[160px]">
+          <div className="flex flex-col md:flex-row gap-4 md:items-end justify-between mt-20 px-3 md:px-0">
+            <div className="w-full md:max-w-[352px] grid place-content-center rounded-t-2xl bg-gradient-to-b dark:from-[#242424] from-[#F3F3F3] to-transparent min-h-[80px] md:min-h-[160px]">
               <div className="text-neutral-700 font-[12px] font-['Mulish'] capitalize flex justify-between dark:text-white">
                 <span className="items-center flex gap-4">Chat GPT</span>
                 <img src="/images/down-arrow.svg" className="w-8" />
               </div>
             </div>
-            <div className="w-full md:max-w-[352px] grid place-content-center rounded-t-2xl bg-gradient-to-b from-[#242424] to-[#16151a]/[0.05] min-h-[80px] md:min-h-[120px]">
+            <div className="w-full md:max-w-[352px] grid place-content-center rounded-t-2xl bg-gradient-to-b dark:from-[#242424] from-[#F3F3F3] to-transparent min-h-[80px] md:min-h-[120px]">
               <div className="text-neutral-700 font-[12px] font-['Mulish'] capitalize flex justify-between dark:text-white">
                 <span className="items-center flex gap-4">Google Bard</span>
                 <img src="/images/down-arrow.svg" className="w-8" />
               </div>
             </div>
-            <div className="w-full md:max-w-[352px] grid place-content-center rounded-t-2xl bg-gradient-to-b from-[#69A606] to-[#16151a]/[0.05] min-h-[80px] md:min-h-[80px]">
+            <div className="w-full md:max-w-[352px] grid place-content-center rounded-t-2xl bg-gradient-to-b from-[#69A606] to-transparent min-h-[80px] md:min-h-[80px]">
               <div className="text-neutral-700 font-[12px] font-['Mulish'] capitalize flex justify-between dark:text-white">
                 <span className="items-center flex gap-4">QuikAsk Chat</span>
                 <img src="/images/down-arrow.svg" className="w-8" />
               </div>
             </div>
-            <div className="w-full md:max-w-[352px] grid place-content-center rounded-t-2xl bg-gradient-to-b from-[#242424] to-[#16151a]/[0.05] min-h-[80px] md:min-h-[120px]">
+            <div className="w-full md:max-w-[352px] grid place-content-center rounded-t-2xl bg-gradient-to-b dark:from-[#242424] from-[#F3F3F3] to-transparent min-h-[80px] md:min-h-[120px]">
               <div className="text-neutral-700 font-[12px] font-['Mulish'] capitalize flex justify-between dark:text-white">
                 <span className="items-center flex gap-4">Duck Duck Go</span>
                 <img src="/images/down-arrow.svg" className="w-8" />
               </div>
             </div>
-            <div className="w-full md:max-w-[352px] grid place-content-center rounded-t-2xl bg-gradient-to-b from-[#242424] to-[#16151a]/[0.05] min-h-[80px] md:min-h-[160px]">
+            <div className="w-full md:max-w-[352px] grid place-content-center rounded-t-2xl bg-gradient-to-b dark:from-[#242424] from-[#F3F3F3] to-transparent min-h-[80px] md:min-h-[160px]">
               <div className="text-neutral-700 font-[12px] font-['Mulish'] capitalize flex justify-between dark:text-white">
                 <span className="items-center flex gap-4">Anthropic Ai</span>
                 <img src="/images/down-arrow.svg" className="w-8" />
@@ -179,11 +210,12 @@ export function FirstPage() {
               </div>
             </div>
           </div>
-
+          <div className="w-[740px] h-[740px] absolute right-[-480px] border-[2px] border-[#8dbbff1a] rounded-full z-[0]" />
+          <div className="w-[640px] h-[640px] absolute bg-gradient-to-br from-teal-600/80 via-orange-500/50 to-green-600/80 blur-[500px] z-[0]" />
           <div className="grid mt-28 md:grid-cols-2 gap-x-4 gap-y-20 grid-cols-1 w-full max-w-[1520px] mx-auto px-2">
             <div className="cursor-default bg-gradient-to-b from-gray-200 to-gray-50 rounded-2xl dark:from-[#2F3128] dark:to-[#2f3128]/[0.05] group hover:ring-1 hover:ring-[#18BB4E] p-10 relative transition duration-300">
               <div className="space-y-6 flex flex-col items-center">
-                <div className="w-20 h-20  bg-[#3E3F3E] group-hover:bg-lime-600 rounded-2xl shadow grid place-content-center absolute -top-12 left-[45%] transition duration-100">
+                <div className="w-20 h-20  bg-[#DADADA] dark:bg-[#3E3F3E] group-hover:bg-lime-600 rounded-2xl shadow grid place-content-center absolute -top-12 left-[45%] transition duration-100">
                   <img src="/images/chat-gpt.svg" className="w-11" />
                 </div>
                 <h1 className="text-center text-neutral-700 text-3xl font-semibold font-['Mulish'] capitalize leading-9 dark:text-white">
@@ -199,18 +231,18 @@ export function FirstPage() {
                 />
               </div>
             </div>
-
             <div className="cursor-default bg-gradient-to-b from-gray-200 to-gray-50 rounded-2xl dark:from-[#2F3128] dark:to-[#2f3128]/[0.05] group hover:ring-1 hover:ring-[#18BB4E] p-10 relative transition duration-300">
               <div className="space-y-6 flex flex-col items-center">
-                <div className="w-20 h-20  bg-[#3E3F3E] group-hover:bg-lime-600 rounded-2xl shadow grid place-content-center absolute -top-12 left-[45%] transition duration-100">
+                <div className="w-20 h-20  bg-[#DADADA] dark:bg-[#3E3F3E] group-hover:bg-lime-600 rounded-2xl shadow grid place-content-center absolute -top-12 left-[45%] transition duration-100">
                   <img src="/images/google-white.svg" className="w-11" />
                 </div>
                 <h1 className="text-center text-neutral-700 text-3xl font-semibold font-['Mulish'] capitalize leading-9 dark:text-white">
-                  ChatGPT - 4
+                  Google Bard
                 </h1>
                 <div className="max-w-md mx-auto text-center font-['Mulish'] leading-relaxed text-[#B1B2B1] dark:group-hover:text-white text-sm transition duration-300">
-                  The next-generation AI language model with even deeper
-                  understanding and more human-like conversations.
+                  AI-powered chatbot tool designed by Google to simulate human
+                  conversations using natural language processing and machine
+                  learning.
                 </div>
                 <img
                   src="/images/down-arrow.svg"
@@ -220,7 +252,7 @@ export function FirstPage() {
             </div>
             <div className="cursor-default bg-gradient-to-b from-gray-200 to-gray-50 rounded-2xl dark:from-[#2F3128] dark:to-[#2f3128]/[0.05] group hover:ring-1 hover:ring-[#18BB4E] p-10 relative transition duration-300">
               <div className="space-y-6 flex flex-col items-center">
-                <div className="w-20 h-20  bg-[#3E3F3E] group-hover:bg-lime-600 rounded-2xl shadow grid place-content-center absolute -top-12 left-[45%] transition duration-100">
+                <div className="w-20 h-20  bg-[#DADADA] dark:bg-[#3E3F3E] group-hover:bg-lime-600 rounded-2xl shadow grid place-content-center absolute -top-12 left-[45%] transition duration-100">
                   <img
                     src="/images/anthopic-white.svg"
                     className="w-11 translate-x-2"
@@ -241,7 +273,7 @@ export function FirstPage() {
             </div>
             <div className="cursor-default bg-gradient-to-b from-gray-200 to-gray-50 rounded-2xl dark:from-[#2F3128] dark:to-[#2f3128]/[0.05] group hover:ring-1 hover:ring-[#18BB4E] p-10 relative transition duration-300">
               <div className="space-y-6 flex flex-col items-center">
-                <div className="w-20 h-20  bg-[#3E3F3E] group-hover:bg-lime-600 rounded-2xl shadow grid place-content-center absolute -top-12 left-[45%] transition duration-100">
+                <div className="w-20 h-20  bg-[#DADADA] dark:bg-[#3E3F3E] group-hover:bg-lime-600 rounded-2xl shadow grid place-content-center absolute -top-12 left-[45%] transition duration-100">
                   <img src="/images/duckduckgo-white.svg" className="w-11" />
                 </div>
                 <h1 className="text-center text-neutral-700 text-3xl font-semibold font-['Mulish'] capitalize leading-9 dark:text-white">
@@ -257,9 +289,14 @@ export function FirstPage() {
                 />
               </div>
             </div>
+            <div className="w-[440px] h-[440px] absolute right-[-520px] bg-gradient-to-br from-teal-600/80 via-blue-500/50 to-green-600/80 blur-[500px] z-[0]" />
           </div>
           <div className="max-w-[1520px] w-full mx-auto px-2">
-            <div className="flex flex-col md:flex-row justify-between gap-20 w-full mt-28">
+            <img
+              src="/images/path.svg"
+              className="absolute -translate-x-44 -translate-y-20 object-cover z-[0]"
+            />
+            <div className="flex flex-col md:flex-row justify-between gap-20 w-full mt-28 z-[1]">
               <div className="space-y-6">
                 <div className="text-neutral-700 text-3xl font-bold font-['Mulish'] capitalize leading-10 dark:text-white">
                   AI&apos;s Innovative Potential for
@@ -312,7 +349,7 @@ export function FirstPage() {
                 <img src="/images/chatbot.png" className="w-96" />
               </div>
             </div>
-            <div className="flex  flex-col-reverse md:flex-row justify-between gap-20 w-full mt-28">
+            <div className="flex  flex-col-reverse md:flex-row justify-between gap-20 w-full mt-28 z-[1]">
               <div className="w-full grid content-center justify-center">
                 <img src="/images/computerbot.png" className="w-96" />
               </div>
@@ -364,7 +401,7 @@ export function FirstPage() {
                 </div>
               </div>
             </div>
-            <div className="flex  flex-col md:flex-row justify-between gap-20 mt-28">
+            <div className="flex  flex-col md:flex-row justify-between gap-20 mt-28 z-[1]">
               <div className="w-full space-y-6">
                 <div className="text-neutral-700 text-3xl font-bold font-['Mulish'] capitalize leading-10 dark:text-white">
                   QuikAsk: Your Companion for
@@ -417,7 +454,8 @@ export function FirstPage() {
               </div>
             </div>
           </div>
-          <div className="mt-28">
+          <div className="mt-40">
+            <div className="w-[440px] h-[440px] absolute right-10 bg-gradient-to-br from-blue-600 via-lime-500/50 to-green-600 blur-[420px] z-[0]" />
             <div className="w-full flex justify-center text-center text-neutral-700 md:text-3xl text-xl font-bold font-['Mulish'] capitalize leading-10 dark:text-white">
               <div className="w-full flex justify-center text-center text-neutral-700 md:text-3xl text-2xl font-bold font-['Mulish'] capitalize leading-10 dark:text-white gap-2 md:gap-4">
                 <img
@@ -437,8 +475,11 @@ export function FirstPage() {
             </div>
             <div className="mt-14 w-full flex justify-center items-center">
               <div className="flex flex-col md:flex-row items-center p-2">
-                <img src="/images/testimonial.jpg" className="w-full md:w-80" />
-                <div className="flex flex-col gap-4">
+                <img
+                  src="/images/testimonial.jpg"
+                  className="w-full max-w-[384px] md:w-80"
+                />
+                <div className="flex flex-col gap-4 md:mt-20">
                   <div className="ml-4">
                     <h1 className="text-2xl dark:text-white">
                       Cameron Williamson
@@ -447,15 +488,36 @@ export function FirstPage() {
                       CEO & Owner, Vision Trust
                     </p>
                   </div>
-                  <div className="w-full max-w-xl bg-gradient-to-b from-zinc-300 to-neutral-400">
-                    <img src="/images/quote.svg" className="absolute w-8 m-3" />
-                    <div className="dark:bg-black p-12">
-                      It&apos;s like having a 24/7 virtual assistant that can
-                      engage with our customers intelligently and provide
-                      instant support. The chatbot&apos;s natural language
-                      understanding and quick responses have improved our
-                      efficiency. It&apos;s truly a valuable addition to our
-                      team!
+                  <div className="flex flex-col md:flex-row md:items-end md:relative">
+                    <div className="bg-[#18BB4E] w-full md:w-[1380px] h-[180px] md:absolute -right-1/2 mix-blend-multiply flex justify-between items-center">
+                      <div className="w-full flex justify-start h-full cursor-pointer max-w-[200px] pl-10">
+                        <img
+                          src="/images/Frame-Left.svg"
+                          alt="left"
+                          className="w-[70px]"
+                        />
+                      </div>
+                      <div className="w-full flex justify-end h-full cursor-pointer max-w-[200px] pr-10">
+                        <img
+                          src="/images/Frame-Right.svg"
+                          alt="left"
+                          className="w-[70px]"
+                        />
+                      </div>
+                    </div>
+                    <div className="w-full max-w-xl bg-gradient-to-b from-[#DADADA] to-[#A1A1A1] relative z-[1]">
+                      <img
+                        src="/images/quote.svg"
+                        className="absolute w-8 m-3"
+                      />
+                      <div className="dark:bg-black p-12">
+                        It&apos;s like having a 24/7 virtual assistant that can
+                        engage with our customers intelligently and provide
+                        instant support. The chatbot&apos;s natural language
+                        understanding and quick responses have improved our
+                        efficiency. It&apos;s truly a valuable addition to our
+                        team!
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -499,6 +561,7 @@ export function FirstPage() {
                 />
               </div>
             </div>
+
             <div className="">
               <div className="flex border-t border-neutral-700 items-center justify-between px-4 sm:px-8">
                 <div className="flex items-center py-4 sm:py-6 gap-3 sm:sm:gap-6">
@@ -515,6 +578,8 @@ export function FirstPage() {
                 />
               </div>
             </div>
+            <div className="w-[440px] h-[440px] absolute right-1/3 bg-gradient-to-br from-orange-400/50 via-lime-500/50 to-green-600 blur-[420px] z-[0]" />
+
             <div className="">
               <div className="flex border-t border-neutral-700 items-center justify-between px-4 sm:px-8">
                 <div className="flex items-center py-4 sm:py-6 gap-3 sm:sm:gap-6">
@@ -565,6 +630,8 @@ export function FirstPage() {
             </div>
           </div>
           <div className="w-full max-w-[1520px] mx-auto mt-28">
+            <div className="w-[440px] h-[440px] absolute bg-gradient-to-br from-blue-600 via-teal-500/50 to-green-600 blur-[420px] z-[0]" />
+
             <div className="text-neutral-700 text-4xl font-bold font-['Mulish'] capitalize pb-12 leading-10 dark:text-white px-4">
               Trusted By
             </div>

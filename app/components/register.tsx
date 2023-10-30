@@ -16,6 +16,7 @@ import { ErrorBoundary } from "./error";
 import { useNavigate } from "react-router-dom";
 import { showToast } from "../components/ui-lib";
 import { useMobileScreen } from "../utils";
+import Image from "next/image";
 
 export function Register() {
   const config = useAppConfig();
@@ -156,108 +157,128 @@ export function Register() {
 
   return (
     <ErrorBoundary>
-      <div className="flex flex-row justify-center bg-[url('/images/background.png')] w-full md:h-[1080px] sm:h-screen bg-cover">
-        <div className="absolute bg-white dark:bg-neutral-950 w-[790px] h-[966px] border-[1px] top-[55px] rounded-[30px]">
-          <div className="relative">
-            <img
-              src="/images/group.svg"
-              className="top-[34px] left-[287px] w-[66.07px] h-[48.15px] relative"
-            />
-            <span className="top-[10px] left-[317px] text-lime-600 text-[44px] font-bold font-['Inter'] tracking-tight relative">
-              QuickAsk
-            </span>
-          </div>
-          <div className="text-neutral-700 text-4xl font-extrabold font-['Mulish'] uppercase top-[37px] left-[136px] relative">
-            REGISTER
-          </div>
-          <div className="opacity-80 text-neutral-700 text-base font-medium font-['Mulish'] leading-relaxed top-[37px] left-[136px] relative">
-            Free quota after registeration
-          </div>
-          <div className="text-neutral-700 text-lg font-semibold font-['Mulish'] leading-relaxed top-[67px] left-[136px] relative">
-            Full Name
-          </div>
-          <div className="w-[521px] h-[60px] relative top-[67px] left-[136px] bg-[#c6c6c673] rounded-[10px] border border-solid border-[#ffffff3b] backdrop-blur-[20px] backdrop-brightness-[100%] [-webkit-backdrop-filter:blur(20px)_brightness(100%)]">
-            <input
-              className="absolute h-[58px] w-[470px] bg-[#c6c6c600] left-[46px] right-[46px] [font-family:'Mulish-Regular',Helvetica] font-normal dark:text-white text-[16px] pl-4 tracking-[0] leading-[26px] whitespace-nowrap"
-              placeholder="Please enter your full name"
-              value={name}
-              onChange={(e) => setName(e.currentTarget.value)}
-            />
-            <img
-              className="absolute w-[15px] h-[19px] top-[20px] left-[20px]"
-              alt="Group"
-              src="/images/user.svg"
-            />
-          </div>
-          <div className="text-neutral-700 text-lg font-semibold font-['Mulish'] leading-relaxed top-[87px] left-[136px] relative">
-            Email Address
-          </div>
-          <div className="w-[521px] h-[60px] relative top-[87px] left-[136px] bg-[#c6c6c673] rounded-[10px] border border-solid border-[#ffffff3b] backdrop-blur-[20px] backdrop-brightness-[100%] [-webkit-backdrop-filter:blur(20px)_brightness(100%)]">
-            <input
-              className="absolute h-[58px] w-[470px] bg-[#c6c6c600] left-[46px] right-[46px] [font-family:'Mulish-Regular',Helvetica] font-normal dark:text-white text-[16px] pl-4 tracking-[0] leading-[26px] whitespace-nowrap"
-              placeholder="Please enter your email address"
-              value={email}
-              onChange={(e) => setEmail(e.currentTarget.value)}
-            />
-            <img
-              className="absolute w-[15px] h-[19px] top-[20px] left-[20px]"
-              alt="Group"
-              src="/images/user.svg"
-            />
-          </div>
-          <div className="text-neutral-700 text-lg font-semibold font-['Mulish'] leading-relaxed top-[107px] left-[136px] relative">
-            Password
-          </div>
-          <div className="w-[521px] h-[60px] relative top-[107px] left-[136px] bg-[#c6c6c673] rounded-[10px] border border-solid border-[#ffffff3b] backdrop-blur-[20px] backdrop-brightness-[100%] [-webkit-backdrop-filter:blur(20px)_brightness(100%)]">
-            <input
-              className="absolute h-[58px] w-[470px] bg-[#c6c6c600] left-[46px] right-[46px] [font-family:'Mulish-Regular',Helvetica] font-normal dark:text-white text-[16px] pl-4 tracking-[0] leading-[26px] whitespace-nowrap"
-              placeholder="Please enter your password"
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.currentTarget.value)}
-            />
-            <img
-              className="absolute w-[15px] h-[19px] top-[20px] left-[20px]"
-              alt="Group"
-              src="/images/lock.svg"
-            />
-            <img
-              className="absolute w-[15px] h-[19px] top-[20px] right-[20px]"
-              alt="Eye-Off"
-              src="/images/eye-off.svg"
-            />
-          </div>
-          <button
-            className="w-[519px] h-[60px] relative top-[147px] left-[136px] bg-[#69a506] rounded-[10px] [font-family:'Mulish-Bold',Helvetica] font-bold text-white text-[18px] text-center tracking-[0] leading-[normal]"
-            onClick={() => register()}
-          >
-            REGISTER
-          </button>
-          <div className="w-[519px] h-[60px] relative top-[172px] left-[136px]">
-            <button
-              className="w-[519px] h-[60px] mr-[41px] rounded-[10px] border border-solid border-[#353535] [font-family:'Mulish-Bold',Helvetica] font-bold dark:text-white text-[18px] text-center tracking-[0] leading-[normal]"
-              onClick={() => {
-                googleAuth();
-              }}
+      <div className="flex justify-center items-center bg-[url('/images/background.png')] w-full h-full min-h-screen bg-cover">
+        <div className="bg-white dark:bg-[#303c4b30] dark:backdrop-blur-2xl w-full h-fit max-w-[690px] border-[2px] border-green-700 rounded-[30px] py-10 px-5">
+          <div className="w-full max-w-[500px] mx-auto space-y-7">
+            <div className="flex justify-center">
+              <Image
+                src="/logo.svg"
+                alt="logo"
+                width={150}
+                height={50}
+                draggable={false}
+              />
+            </div>
+            <div className="space-y-3">
+              <div className="text-neutral-700 dark:text-white text-3xl font-black font-['Mulish'] uppercase">
+                REGISTER
+              </div>
+              <div className="opacity-80 text-neutral-700 dark:text-white dark:texase font-medium font-['Mulish'] leading-relaxed">
+                Free quota after registeration
+              </div>
+            </div>
+            <div className="space-y-3">
+              <label className="text-neutral-700 dark:text-white font-['Mulish'] leading-relaxed">
+                Full Name
+              </label>
+              <div className="bg-[#c6c6c673] dark:bg-[#00000070] rounded-[10px] border border-[#ffffff3b] backdrop-blur-[20px] backdrop-brightness-[100%] [-webkit-backdrop-filter:blur(20px)_brightness(100%)] flex items-center pl-6 h-[60px] gap-4">
+                <img
+                  className="w-[15px] h-[19px]"
+                  alt="Group"
+                  src="/images/user.svg"
+                />
+                <input
+                  className="flex-1 h-full outline-none bg-transparent [font-family:'Mulish-Regular',Helvetica] font-normal dark:text-white text-[16px] tracking-[0] leading-[26px] whitespace-nowrap"
+                  placeholder="Please enter your full name"
+                  value={name}
+                  onChange={(e) => setName(e.currentTarget.value)}
+                />
+              </div>
+            </div>
+            <div className="space-y-3">
+              <label className="text-neutral-700 dark:text-white font-['Mulish'] leading-relaxed">
+                Email Address
+              </label>
+              <div className="bg-[#c6c6c673] dark:bg-[#00000070] rounded-[10px] border border-[#ffffff3b] backdrop-blur-[20px] backdrop-brightness-[100%] [-webkit-backdrop-filter:blur(20px)_brightness(100%)] flex items-center pl-6 h-[60px] gap-4">
+                <img
+                  className="w-[15px] h-[19px]"
+                  alt="Group"
+                  src="/images/user.svg"
+                />
+                <input
+                  className="flex-1 h-full outline-none bg-transparent font-family:'Mulish-Regular',Helvetica] font-normal dark:text-white text-[16px] tracking-[0] leading-[26px] whitespace-nowrap"
+                  placeholder="Please enter your email address"
+                  value={email}
+                  onChange={(e) => setEmail(e.currentTarget.value)}
+                />
+              </div>
+            </div>
+            <div className="space-y-3">
+              <label className="text-neutral-700 dark:text-white font-['Mulish'] leading-relaxed">
+                Password
+              </label>
+              <div className="bg-[#c6c6c673] dark:bg-[#00000070] rounded-[10px] border border-[#ffffff3b] backdrop-blur-[20px] backdrop-brightness-[100%] [-webkit-backdrop-filter:blur(20px)_brightness(100%)] flex items-center px-6 h-[60px] gap-4">
+                <img
+                  className="w-[15px] h-[19px]"
+                  alt="Group"
+                  src="/images/lock.svg"
+                />
+                <input
+                  className="flex-1 h-full outline-none bg-transparent font-family:'Mulish-Regular',Helvetica] font-normal dark:text-white text-[16px] tracking-[0] leading-[26px] whitespace-nowrap"
+                  placeholder="Please enter your password"
+                  type="password"
+                  value={password}
+                  onChange={(e) => setPassword(e.currentTarget.value)}
+                />
+                <img
+                  className="w-[15px] h-[19px]"
+                  alt="Eye-Off"
+                  src="/images/eye-off.svg"
+                />
+              </div>
+            </div>
+            <div className="space-y-6">
+              <button
+                className="h-[60px] w-full bg-[#69a506] rounded-[10px] font-bold text-white text-center tracking-[0] leading-[normal]"
+                onClick={() => register()}
+              >
+                REGISTER
+              </button>
+              <div className="flex gap-3">
+                <button
+                  className="h-[60px] w-full rounded-[10px] border border-solid border-[#353535] dark:border-white hover:bg-[#303c4b30] transition duration-300 uppercase font-bold dark:text-white text-center tracking-[0] leading-[normal]"
+                  onClick={() => {
+                    googleAuth();
+                  }}
+                >
+                  Wechat Login
+                </button>
+                <button
+                  className="h-[60px] w-full rounded-[10px] border border-solid border-[#353535] dark:border-white hover:bg-[#303c4b30] transition duration-300 uppercase font-bold dark:text-white text-center tracking-[0] leading-[normal]"
+                  onClick={() => {
+                    googleAuth();
+                  }}
+                >
+                  Alipay login
+                </button>
+              </div>
+            </div>
+            <div
+              className="text-center"
+              // onClick={() => {
+              //   window.location.href = alipayLoginUrl;
+              // }}
             >
-              GOOGLE LOGIN
-            </button>
-          </div>
-          <div
-            className="w-[519px] h-[60px] relative top-[232px] left-[136px] text-center"
-            onClick={() => {
-              window.location.href = alipayLoginUrl;
-            }}
-          >
-            <span className="top-0 left-10 [font-family:'Mulish-Medium',Helvetica] font-medium dark:text-white text-[18px] text-center tracking-[0] leading-[26px] whitespace-nowrap mr-10">
-              ALREADY HAVE AN ACCOUNT?
-            </span>
-            <span
-              className="top-0 [font-family:'Mulish-Bold',Helvetica] font-bold text-[#69a506] text-[18px] text-center tracking-[0] leading-[26px] whitespace-nowrap"
-              onClick={() => navigate(Path.Login)}
-            >
-              LOGIN
-            </span>
+              <span className="text-sm font-medium dark:text-white text-center tracking-[0] leading-[26px] whitespace-nowrap">
+                ALREADY HAVE AN ACCOUNT?{" "}
+              </span>
+              <span
+                className="text-sm font-bold text-[#69a506] text-center tracking-[0] leading-[26px] whitespace-nowrap cursor-pointer"
+                onClick={() => navigate(Path.Login)}
+              >
+                LOGIN
+              </span>
+            </div>
           </div>
         </div>
       </div>
