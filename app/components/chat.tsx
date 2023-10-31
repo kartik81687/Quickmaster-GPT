@@ -20,17 +20,24 @@ import ExportIcon from "../icons/share.svg";
 import ReturnIcon from "../icons/return.svg";
 import CopyIcon from "../icons/copy.svg";
 import LoadingIcon from "../icons/three-dots.svg";
-import PromptIcon from "../icons/prompt.svg";
-import MaskIcon from "../icons/mask.svg";
+import PromptIconDark from "../icons/prompt.svg";
+import PromptIconLight from "../icons/prompt-light.svg";
+import MaskIconDark from "../icons/mask.svg";
+import MaskIconLight from "../icons/mask-light.svg";
 import MaxIcon from "../icons/max.svg";
 import MinIcon from "../icons/min.svg";
 import ResetIcon from "../icons/reload.svg";
-import BreakIcon from "../icons/break.svg";
+import BreakIconDark from "../icons/break.svg";
+import BreakIconLight from "../icons/break-light.svg";
 import SettingsIcon from "../icons/chat-settings.svg";
-import MicrophoneIcon from "../icons/microphone.svg";
-import MicrophoneOffIcon from "../icons/microphone_off.svg";
-import GoogleBardIcon from "../icons/google-bard-on.svg";
-import GoogleBardOffIcon from "../icons/google-bard-off.svg";
+import MicrophoneIconDark from "../icons/microphone.svg";
+import MicrophoneIconLight from "../icons/microphone-light.svg";
+import MicrophoneOffIconDark from "../icons/microphone_off.svg";
+import MicrophoneOffIconLight from "../icons/microphone_off-light.svg";
+import GoogleBardIconDark from "../icons/google-bard-on.svg";
+import GoogleBardOffIconDark from "../icons/google-bard-off.svg";
+import GoogleBardIconLight from "../icons/google-bard-on-light.svg";
+import GoogleBardOffIconLight from "../icons/google-bard-off-light.svg";
 import ChineseIcon from "../icons/chinese.svg";
 import EnglishIcon from "../icons/english.svg";
 import PlayerIcon from "../icons/player-play.svg";
@@ -95,6 +102,7 @@ import { prettyObject } from "../utils/format";
 import { ExportMessageModal } from "./exporter";
 import SubAlertModal from "./subAlertModal";
 import { BUILTIN_MASK_STORE } from "../masks";
+import { useTheme } from "next-themes";
 
 const Markdown = dynamic(async () => (await import("./markdown")).Markdown, {
   loading: () => <LoadingIcon />,
@@ -413,12 +421,15 @@ export function ChatActions(props: {
     });
   };
 
+  const themeData = useTheme();
+  const currentTheme = themeData.theme;
+
   return (
-    <div className="flex flex-wrap">
+    <div className="flex flex-wrap gap-3 mb-4">
       <Toaster />
       {couldStop && (
         <div
-          className="p-3 mb-3 items-center font-[12px] rounded-[20px] bg-white inline-flex shadow-slate-500 shadow mr-1 cursor-pointer dark:bg-neutral-800 dark:shadow-slate-200"
+          className="w-[62px] h-[54px] flex justify-center items-center font-[12px] rounded-xl bg-transparent ring-1 ring-[#b6b6b6] dark:ring-[#585858] cursor-pointer"
           onClick={stopAll}
         >
           <StopIcon />
@@ -426,7 +437,7 @@ export function ChatActions(props: {
       )}
       {!props.hitBottom && (
         <div
-          className="p-3 mb-3 items-center font-[12px] rounded-[20px] bg-white inline-flex shadow-slate-500 shadow mr-1 cursor-pointer dark:bg-neutral-800 dark:shadow-slate-200"
+          className="w-[62px] h-[54px] flex justify-center items-center font-[12px] rounded-xl bg-transparent ring-1 ring-[#b6b6b6] dark:ring-[#585858] cursor-pointer"
           onClick={props.scrollToBottom}
         >
           <BottomIcon />
@@ -434,7 +445,7 @@ export function ChatActions(props: {
       )}
       {/* {props.hitBottom && (
         <div
-          className="p-3 mb-3 items-center font-[12px] rounded-[20px] bg-white inline-flex shadow-slate-500 shadow mr-1 cursor-pointer dark:bg-neutral-800 dark:shadow-slate-200"
+          className="w-[62px] h-[54px] p-3 mb-3 items-center font-[12px] rounded-[20px] bg-white inline-flex shadow-slate-500 shadow cursor-pointer dark:bg-neutral-800 dark:shadow-slate-200"
           onClick={props.showPromptModal}
         >
           <SettingsIcon />
@@ -442,7 +453,7 @@ export function ChatActions(props: {
       )} */}
 
       {/* <div
-        className="p-3 mb-3 items-center font-[12px] rounded-[20px] bg-white inline-flex shadow-slate-500 shadow mr-1 cursor-pointer dark:bg-neutral-800 dark:shadow-slate-200"
+        className="w-[62px] h-[54px] p-3 mb-3 items-center font-[12px] rounded-[20px] bg-white inline-flex shadow-slate-500 shadow cursor-pointer dark:bg-neutral-800 dark:shadow-slate-200"
         onClick={nextTheme}
       >
         {theme === Theme.Auto ? (
@@ -455,23 +466,23 @@ export function ChatActions(props: {
       </div> */}
 
       <div
-        className="p-3 mb-3 items-center font-[12px] rounded-[20px] bg-white inline-flex shadow-slate-500 shadow mr-1 cursor-pointer dark:bg-neutral-800 dark:shadow-slate-200"
+        className="w-[62px] h-[54px] flex justify-center items-center font-[12px] rounded-xl bg-transparent ring-1 ring-[#b6b6b6] dark:ring-[#585858] cursor-pointer"
         onClick={props.showPromptHints}
       >
-        <PromptIcon />
+        {currentTheme === Theme.Dark ? <PromptIconDark /> : <PromptIconLight />}
       </div>
 
       <div
-        className="p-3 mb-3 items-center font-[12px] rounded-[20px] bg-white inline-flex shadow-slate-500 shadow mr-1 cursor-pointer dark:bg-neutral-800 dark:shadow-slate-200"
+        className="w-[62px] h-[54px] flex justify-center items-center font-[12px] rounded-xl bg-transparent ring-1 ring-[#b6b6b6] dark:ring-[#585858] cursor-pointer"
         onClick={() => {
           navigate(Path.Masks);
         }}
       >
-        <MaskIcon />
+        {currentTheme === Theme.Dark ? <MaskIconDark /> : <MaskIconLight />}
       </div>
 
       <div
-        className="p-3 mb-3 items-center font-[12px] rounded-[20px] bg-white inline-flex shadow-slate-500 shadow mr-1 cursor-pointer dark:bg-neutral-800 dark:shadow-slate-200"
+        className="w-[62px] h-[54px] flex justify-center items-center font-[12px] rounded-xl bg-transparent ring-1 ring-[#b6b6b6] dark:ring-[#585858] cursor-pointer"
         onClick={() => {
           chatStore.updateCurrentSession((session) => {
             if (session.clearContextIndex === session.messages.length) {
@@ -483,25 +494,45 @@ export function ChatActions(props: {
           });
         }}
       >
-        <BreakIcon />
+        {currentTheme === Theme.Dark ? <BreakIconDark /> : <BreakIconLight />}
       </div>
 
       <div
-        className="p-3 mb-3 items-center font-[12px] rounded-[20px] bg-white inline-flex shadow-slate-500 shadow mr-1 cursor-pointer dark:bg-neutral-800 dark:shadow-slate-200"
+        className="w-[62px] h-[54px] flex justify-center items-center font-[12px] rounded-xl bg-transparent ring-1 ring-[#b6b6b6] dark:ring-[#585858] cursor-pointer"
         onClick={props.onSpeechStart}
       >
-        {props.recording ? <MicrophoneIcon /> : <MicrophoneOffIcon />}
+        {currentTheme === Theme.Dark ? (
+          props.recording ? (
+            <MicrophoneIconDark />
+          ) : (
+            <MicrophoneOffIconDark />
+          )
+        ) : props.recording ? (
+          <MicrophoneIconLight />
+        ) : (
+          <MicrophoneOffIconLight />
+        )}
       </div>
 
       <div
-        className="p-3 mb-3 items-center font-[12px] rounded-[20px] bg-white inline-flex shadow-slate-500 shadow mr-1 cursor-pointer dark:bg-neutral-800 dark:shadow-slate-200"
+        className="w-[62px] h-[54px] flex justify-center items-center font-[12px] rounded-xl bg-transparent ring-1 ring-[#b6b6b6] dark:ring-[#585858] cursor-pointer"
         onClick={props.onBarding}
       >
-        {props.barding ? <GoogleBardIcon /> : <GoogleBardOffIcon />}
+        {currentTheme === Theme.Dark ? (
+          props.barding ? (
+            <GoogleBardIconDark />
+          ) : (
+            <GoogleBardOffIconDark />
+          )
+        ) : props.barding ? (
+          <GoogleBardIconLight />
+        ) : (
+          <GoogleBardOffIconLight />
+        )}
       </div>
 
       <div
-        className="p-3 mb-3 items-center font-[12px] rounded-[20px] bg-white inline-flex shadow-slate-500 shadow mr-1 cursor-pointer dark:bg-neutral-800 dark:shadow-slate-200"
+        className="w-[62px] h-[54px] flex justify-center items-center font-[12px] rounded-xl bg-transparent ring-1 ring-[#b6b6b6] dark:ring-[#585858] cursor-pointer"
         onClick={props.onClauding}
       >
         {props.clauding ? (
@@ -512,16 +543,17 @@ export function ChatActions(props: {
       </div>
 
       <div
-        className="p-3 mb-3 items-center font-[12px] rounded-[20px] bg-white inline-flex shadow-slate-500 shadow mr-1 cursor-pointer dark:bg-neutral-800 dark:shadow-slate-200"
+        className="w-[62px] h-[54px] flex justify-center items-center font-[12px] rounded-xl bg-transparent ring-1 ring-[#b6b6b6] dark:ring-[#585858] cursor-pointer"
         onClick={props.onDuckDuckGo}
       >
         {props.duckduckgoing ? <DuckDuckGoIcon /> : <DuckDuckGoOffIcon />}
       </div>
 
-      <div>
-        <ListItem className="h-3 dark:text-slate-700 text-black">
+      <div className="">
+        <ListItem className="dark:text-[#B6B7B8] text-[#353535] !p-0">
           <Select
             value={editingMask?.modelConfig.model}
+            className="h-[54px] items-center font-[12px] rounded-xl bg-transparent ring-1 ring-[#b6b6b6] dark:ring-[#585858] inline-flex px-4"
             onChange={(e) => {
               updateConfig(
                 (config) =>
@@ -532,7 +564,12 @@ export function ChatActions(props: {
             }}
           >
             {ALL_MODELS.map((v) => (
-              <option value={v.name} key={v.name} disabled={!v.available}>
+              <option
+                className="!]"
+                value={v.name}
+                key={v.name}
+                disabled={!v.available}
+              >
                 {v.name}
               </option>
             ))}
@@ -541,13 +578,13 @@ export function ChatActions(props: {
       </div>
 
       {/* <div
-        className="p-3 mb-3 items-center font-[12px] rounded-[20px] bg-white inline-flex shadow-slate-500 shadow mr-1 cursor-pointer dark:bg-neutral-800 dark:shadow-slate-200"
+        className="w-[62px] h-[54px] flex justify-center items-center font-[12px] rounded-xl bg-transparent ring-1 ring-[#b6b6b6] dark:ring-[#585858] cursor-pointer"
         onClick={props.onChinese}
       >
         {props.chinese ? <ChineseIcon /> : <EnglishIcon />}
       </div> */}
 
-      {/* <div className="p-3 mb-3 items-center font-[12px] rounded-[20px] bg-white inline-flex shadow-slate-500 shadow mr-1 cursor-pointer dark:bg-neutral-800 dark:shadow-slate-200">
+      {/* <div className="w-[62px] h-[54px] flex justify-center items-center font-[12px] rounded-xl bg-transparent ring-1 ring-[#b6b6b6] dark:ring-[#585858] cursor-pointer">
         {props.speaking ? (
           <PlayerStopIcon onClick={stopVoiceOfAnswer} />
         ) : (
@@ -998,22 +1035,22 @@ export function Chat() {
   });
 
   return (
-    <div className="bg-[#ebebeb] dark:bg-neutral-800 flex-row justify-center w-full h-full flex items-center">
+    <div className="bg-[#ebebeb] dark:bg-[#202227] flex justify-center w-full h-screen min-h-fit p-6 lg:gap-6">
       <SideBar />
-      <div className="w-4/5 p-3 h-[95%]">
-        <div className="rounded-[10px] bg-white dark:bg-neutral-950">
+      <div className="w-full flex-1 h-full">
+        <div className="rounded-[10px] bg-white dark:bg-[#0E0F13] p-4 h-full flex flex-col">
           <SubAlertModal
             modalState={modalState}
             setModalState={setModalState}
           />
           <div className="pt-5 pl-3">
             <div
-              className="top-0 left-0 [font-family:'Mulish-ExtraBold',Helvetica] font-extrabold dark:text-white text-[28px] tracking-[0] leading-[normal]"
+              className="top-0 left-0 [font-family:'Mulish-ExtraBold',Helvetica] font-bold dark:text-white text-[28px] tracking-[0] leading-[normal]"
               onClickCapture={renameSession}
             >
               {!session.topic ? DEFAULT_TOPIC : session.topic}
             </div>
-            <div className="left-0 [font-family:'Mulish-Medium',Helvetica] font-medium dark:text-white text-[16px] tracking-[0] leading-[26px] whitespace-nowrap">
+            <div className="left-0  font-medium text-[#808080] dark:text-white text-sm tracking-[0] leading-[26px] whitespace-nowrap">
               {Locale.Chat.SubTitle(session.messages.length)}
             </div>
           </div>
@@ -1080,176 +1117,188 @@ export function Chat() {
               setShowModal={setShowPromptModal}
             />
           </div> */}
+          <div className="flex-1 h-full flex flex-col">
+            <div className="flex-1 h-full w-full">
+              <div
+                className={styles["chat-body"]}
+                ref={scrollRef}
+                onScroll={(e) => onChatBodyScroll(e.currentTarget)}
+                onMouseDown={() => inputRef.current?.blur()}
+                onWheel={(e) => setAutoScroll(hitBottom && e.deltaY > 0)}
+                onTouchStart={() => {
+                  inputRef.current?.blur();
+                  setAutoScroll(false);
+                }}
+              >
+                {messages.map((message, i) => {
+                  const isUser = message.role === "user";
+                  const showActions =
+                    !isUser &&
+                    i > 0 &&
+                    !(message.preview || message.content.length === 0);
+                  const showTyping = message.preview || message.streaming;
 
-          <div
-            className={styles["chat-body"] + " h-[400px]"}
-            ref={scrollRef}
-            onScroll={(e) => onChatBodyScroll(e.currentTarget)}
-            onMouseDown={() => inputRef.current?.blur()}
-            onWheel={(e) => setAutoScroll(hitBottom && e.deltaY > 0)}
-            onTouchStart={() => {
-              inputRef.current?.blur();
-              setAutoScroll(false);
-            }}
-          >
-            {messages.map((message, i) => {
-              const isUser = message.role === "user";
-              const showActions =
-                !isUser &&
-                i > 0 &&
-                !(message.preview || message.content.length === 0);
-              const showTyping = message.preview || message.streaming;
+                  const shouldShowClearContextDivider: boolean =
+                    i === clearContextIndex - 1;
 
-              const shouldShowClearContextDivider: boolean =
-                i === clearContextIndex - 1;
-
-              return (
-                <>
-                  <div key={i}>
-                    <div className="flex items-start">
-                      <div className="mt-5">
-                        {message.role === "user" ? (
-                          <Avatar avatar={config.avatar} />
-                        ) : (
-                          <MaskAvatar mask={session.mask} />
-                        )}
-                      </div>
-                      {showTyping && (
-                        <div className="font-[12px] mt-[5px]">
-                          {Locale.Chat.Typing}
-                        </div>
-                      )}
-                      <div
-                        className={
-                          message.role === "user"
-                            ? "max-w-3xl ml-10 mt-3 mb-3 dark:text-white dark:bg-neutral-900 p-2 rounded-2xl"
-                            : "w-full max-w-6xl ml-3 dark:text-white dark:bg-[#1A1D15] p-2 rounded-2xl"
-                        }
-                      >
-                        {showActions && (
-                          <div className="flex flex-row-reverse w-full pt-[5px] box-border">
-                            {message.streaming ? (
-                              <div
-                                className="flex flex-wrap mt-3 mb-0"
-                                onClick={() => onUserStop(message.id ?? i)}
-                              >
-                                {Locale.Chat.Actions.Stop}
-                              </div>
+                  return (
+                    <>
+                      <div key={i}>
+                        <div className="flex items-start w-full mt-4">
+                          <div>
+                            {message.role === "user" ? (
+                              <Avatar avatar={config.avatar} />
                             ) : (
-                              <>
-                                {/* <div
+                              <MaskAvatar mask={session.mask} />
+                            )}
+                          </div>
+                          {showTyping && (
+                            <div className="font-[12px] mt-[5px]">
+                              {Locale.Chat.Typing}
+                            </div>
+                          )}
+                          <div
+                            className={
+                              message.role === "user"
+                                ? "w-full max-w-6xl dark:text-white bg-[#EEEEEE] dark:bg-[#202227] py-3 px-4 rounded-lg"
+                                : "w-full max-w-6xl dark:text-white bg-[#EEEEEE] dark:bg-[#1A1D15] py-3 px-4 rounded-lg"
+                            }
+                          >
+                            {showActions && (
+                              <div className="flex flex-row-reverse w-full pt-[5px] box-border">
+                                {message.streaming ? (
+                                  <div
+                                    className="flex flex-wrap mt-3 mb-0"
+                                    onClick={() => onUserStop(message.id ?? i)}
+                                  >
+                                    {Locale.Chat.Actions.Stop}
+                                  </div>
+                                ) : (
+                                  <>
+                                    {/* <div
                                   className=""
                                   onClick={() => onDelete(message.id ?? i)}
                                 >
                                   {Locale.Chat.Actions.Delete}
                                 </div> */}
-                                {/* <div
+                                    {/* <div
                                   className=""
                                   onClick={() => onResend(message.id ?? i)}
                                 >
                                   {Locale.Chat.Actions.Retry}
                                 </div> */}
-                              </>
-                            )}
+                                  </>
+                                )}
 
-                            <div
-                              className=""
-                              onClick={() => copyToClipboard(message.content)}
-                            >
-                              <img src="/images/copy.svg" />
+                                <div
+                                  className=""
+                                  onClick={() =>
+                                    copyToClipboard(message.content)
+                                  }
+                                >
+                                  <img src="/images/copy.svg" />
+                                </div>
+                              </div>
+                            )}
+                            <Markdown
+                              content={message.content}
+                              loading={
+                                (message.preview ||
+                                  message.content.length === 0) &&
+                                !isUser
+                              }
+                              onContextMenu={(e: any) =>
+                                onRightClick(e, message)
+                              }
+                              onDoubleClickCapture={() => {
+                                if (!isMobileScreen) return;
+                                setUserInput(message.content);
+                              }}
+                              fontSize={fontSize}
+                              parentRef={scrollRef}
+                              color={"text-white"}
+                              defaultShow={i >= messages.length - 10}
+                            />
+                          </div>
+                        </div>
+                        {!isUser && !message.preview && (
+                          <div className="flex justify-end box-border font-[12px]">
+                            <div className="text-[#aaa] text-sm">
+                              {message.date.toLocaleString()}
                             </div>
                           </div>
                         )}
-                        <Markdown
-                          content={message.content}
-                          loading={
-                            (message.preview || message.content.length === 0) &&
-                            !isUser
-                          }
-                          onContextMenu={(e: any) => onRightClick(e, message)}
-                          onDoubleClickCapture={() => {
-                            if (!isMobileScreen) return;
-                            setUserInput(message.content);
-                          }}
-                          fontSize={fontSize}
-                          parentRef={scrollRef}
-                          color={"text-white"}
-                          defaultShow={i >= messages.length - 10}
-                        />
                       </div>
-                      {!isUser && !message.preview && (
-                        <div className="flex flex-row-reverse w-1/3 pt-1 box-border font-[12px]">
-                          <div className="text-[#aaa] text-[8px]">
-                            {message.date.toLocaleString()}
-                          </div>
-                        </div>
-                      )}
-                    </div>
+                      {shouldShowClearContextDivider && <ClearContextDivider />}
+                    </>
+                  );
+                })}
+              </div>
+            </div>
+            <div className="border-t border-[#a1a1a1] dark:border-[#444444] rounded-2xl p-4">
+              <div className={styles["chat-input-panel"]}>
+                <PromptHints
+                  prompts={promptHints}
+                  onPromptSelect={onPromptSelect}
+                />
+
+                <ChatActions
+                  showPromptModal={() => setShowPromptModal(true)}
+                  scrollToBottom={scrollToBottom}
+                  hitBottom={hitBottom}
+                  recording={recording}
+                  barding={barding}
+                  clauding={clauding}
+                  chinese={chinese}
+                  speaking={speaking}
+                  duckduckgoing={duckduckgo}
+                  showPromptHints={() => {
+                    // Click again to close
+                    if (promptHints.length > 0) {
+                      setPromptHints([]);
+                      return;
+                    }
+
+                    inputRef.current?.focus();
+                    setUserInput("/");
+                    onSearch("");
+                  }}
+                  onSpeechStart={onSpeechStart}
+                  onBarding={() => {
+                    setClauding(false);
+                    setBarding(!barding);
+                  }}
+                  onChinese={() => setChinese(!chinese)}
+                  onClauding={() => {
+                    setClauding(!clauding);
+                    setBarding(false);
+                  }}
+                  onDuckDuckGo={() => setDuckDuckGo(!duckduckgo)}
+                  setSpeaking={setSpeaking}
+                />
+                <div className={styles["chat-input-panel-inner" + "w-full"]}>
+                  <div className="ring-1 ring-[#a1a1a1] dark:ring-[#33363E] flex items-start gap-3 p-2 rounded-xl">
+                    <textarea
+                      ref={inputRef}
+                      className="h-full w-full  bg-white dark:bg-[#0E0F13] p-2 outline-none min-h-[90px] 2ax-h-[254px]"
+                      placeholder={Locale.Chat.Input(submitKey)}
+                      onInput={(e) => onInput(e.currentTarget.value)}
+                      value={userInput}
+                      onKeyDown={onInputKeyDown}
+                      onFocus={() => setAutoScroll(true)}
+                      onBlur={() => setAutoScroll(false)}
+                      rows={inputRows}
+                      autoFocus={autoFocus}
+                    />
+                    <button onClick={() => doSubmit(userInput, false)}>
+                      <img
+                        src="/images/send.svg"
+                        className="m-2 w-[28px] h-[28px]"
+                      />
+                    </button>
                   </div>
-                  {shouldShowClearContextDivider && <ClearContextDivider />}
-                </>
-              );
-            })}
-          </div>
-
-          <div className={styles["chat-input-panel"]}>
-            <PromptHints
-              prompts={promptHints}
-              onPromptSelect={onPromptSelect}
-            />
-
-            <ChatActions
-              showPromptModal={() => setShowPromptModal(true)}
-              scrollToBottom={scrollToBottom}
-              hitBottom={hitBottom}
-              recording={recording}
-              barding={barding}
-              clauding={clauding}
-              chinese={chinese}
-              speaking={speaking}
-              duckduckgoing={duckduckgo}
-              showPromptHints={() => {
-                // Click again to close
-                if (promptHints.length > 0) {
-                  setPromptHints([]);
-                  return;
-                }
-
-                inputRef.current?.focus();
-                setUserInput("/");
-                onSearch("");
-              }}
-              onSpeechStart={onSpeechStart}
-              onBarding={() => {
-                setClauding(false);
-                setBarding(!barding);
-              }}
-              onChinese={() => setChinese(!chinese)}
-              onClauding={() => {
-                setClauding(!clauding);
-                setBarding(false);
-              }}
-              onDuckDuckGo={() => setDuckDuckGo(!duckduckgo)}
-              setSpeaking={setSpeaking}
-            />
-            <div className={styles["chat-input-panel-inner"] + "absolute"}>
-              {/* <IconButton
-                icon={<SendWhiteIcon className="w-10 h-9" />}
-                className="bg-slate-400 text-black fixed right-16 bottom-10 w-12"
-                onClick={() => doSubmit(userInput, false)}
-              /> */}
-              <textarea
-                ref={inputRef}
-                className="border-1 h-full w-full rounded-[10px] border-neutral-500 bg-white dark:bg-neutral-950 shadow dark:shadow-slate-300 pl-3 pr-24 pb-4 pt-3"
-                placeholder={Locale.Chat.Input(submitKey)}
-                onInput={(e) => onInput(e.currentTarget.value)}
-                value={userInput}
-                onKeyDown={onInputKeyDown}
-                onFocus={() => setAutoScroll(true)}
-                onBlur={() => setAutoScroll(false)}
-                rows={inputRows}
-                autoFocus={autoFocus}
-              />
+                </div>
+              </div>
             </div>
           </div>
 

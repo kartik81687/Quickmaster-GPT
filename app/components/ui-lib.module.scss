@@ -206,18 +206,18 @@
 
 .select-with-icon {
   position: relative;
-  max-width: fit-content;
+  width: 100%;
+  max-width: 188px;
   
   .select-with-icon-select {
     height: 100%;
     border: var(--border-in-light);
-    padding: 10px 25px 10px 10px;
+    outline: none;
     border-radius: 10px;
     appearance: none;
     cursor: pointer;
     background-color: var(--white);
     color: var(--black);
-    text-align: center;
   }
 
   .select-with-icon-icon {
