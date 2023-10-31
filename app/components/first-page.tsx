@@ -53,14 +53,14 @@ export function FirstPage() {
             />
             <div className="flex items-center justify-between gap-4 sm:gap-10">
               <div className="relative">
-                <div className=" text-neutral-700  font-['Mulish'] w-full font-semibold text-center cursor-pointer dark:text-white">
+                <div className=" text-neutral-700 w-full font-semibold text-center cursor-pointer dark:text-white">
                   Home
                 </div>
                 <div className="w-2 h-2 absolute right-1/2 translate-y-1 bg-neutral-700 rounded-full dark:bg-white"></div>
               </div>
               <div className="">
                 <div
-                  className="opacity-70  text-neutral-700 font-['Mulish'] font-semibold w-full text-center cursor-pointer dark:text-[#B1B2B1]"
+                  className="opacity-70  text-neutral-70 font-semibold w-full text-center cursor-pointer dark:text-[#B1B2B1]"
                   onClick={() => navigate("chat")}
                 >
                   Chat
@@ -69,7 +69,7 @@ export function FirstPage() {
               <div className="h-full max-h-[30px] w-[2px] bg-gradient-to-b from-transparent via-white/50 to-transparent" />
               <div className="">
                 <div
-                  className=" text-lime-600 font-semibold font-['Mulish'] w-full text-center cursor-pointer"
+                  className=" text-lime-600 font-semibol w-full text-center cursor-pointer"
                   onClick={authSign}
                 >
                   {authStore.session ? "Sign Out" : "Sign In"}
@@ -77,7 +77,7 @@ export function FirstPage() {
               </div>
               <div className="">
                 <div
-                  className=" text-neutral-700 text-l font-bold font-['Mulish'] w-full text-center cursor-pointer"
+                  className=" text-neutral-700 text-l font-bol w-full text-center cursor-pointer"
                   onClick={nextTheme}
                 >
                   <img
@@ -123,10 +123,10 @@ export function FirstPage() {
                 </h1>
                 <div className="flex justify-between mt-24">
                   <div className="w-full max-w-xl">
-                    <span className="text-lime-600 font-[13px] font-['Mulish'] leading-8">
+                    <span className="text-lime-600 font-[13px leading-8">
                       QuikAsk
                     </span>
-                    <span className="text-[#B1B2B1] font-[13px] font-['Mulish'] leading-8 dark:text-neutral-300">
+                    <span className="text-[#B1B2B1] font-[13px leading-8 dark:text-neutral-300">
                       , have a natural conversation with AI that feels
                       surprisingly human. Interacting with artificial
                       intelligence used to feel difficult, overwhelming, and a
@@ -138,7 +138,7 @@ export function FirstPage() {
               <div className="md:mt-20 relative h-fit w-full sm:min-w-[512px]">
                 <div className="bg-[#B8F68F] w-[170px] h-[170px] translate-x-60 rounded-full p-1 grid place-content-center shadow-5xl shadow-[#B8F68F]/60 s">
                   <div className="bg-[#B8F68F] w-[164px] h-[164px] rounded-full grid place-content-center border border-black">
-                    <div className="text-center text-neutral-900 text-xl font-extrabold font-['Mulish'] leading-7">
+                    <div className="text-center text-neutral-900 text-xl font-extrabol leading-7">
                       Explore
                       <br />
                       Our Chat
@@ -157,31 +157,31 @@ export function FirstPage() {
           </div>
           <div className="flex flex-col md:flex-row gap-4 md:items-end justify-between mt-20 px-3 md:px-0">
             <div className="w-full md:max-w-[352px] grid place-content-center rounded-t-2xl bg-gradient-to-b dark:from-[#242424] from-[#F3F3F3] to-transparent min-h-[80px] md:min-h-[160px]">
-              <div className="text-neutral-700 font-[12px] font-['Mulish'] capitalize flex justify-between dark:text-white">
+              <div className="text-neutral-700 font-[12px capitalize flex justify-between dark:text-white">
                 <span className="items-center flex gap-4">Chat GPT</span>
                 <img src="/images/down-arrow.svg" className="w-8" />
               </div>
             </div>
             <div className="w-full md:max-w-[352px] grid place-content-center rounded-t-2xl bg-gradient-to-b dark:from-[#242424] from-[#F3F3F3] to-transparent min-h-[80px] md:min-h-[120px]">
-              <div className="text-neutral-700 font-[12px] font-['Mulish'] capitalize flex justify-between dark:text-white">
+              <div className="text-neutral-700 font-[12px capitalize flex justify-between dark:text-white">
                 <span className="items-center flex gap-4">Google Bard</span>
                 <img src="/images/down-arrow.svg" className="w-8" />
               </div>
             </div>
             <div className="w-full md:max-w-[352px] grid place-content-center rounded-t-2xl bg-gradient-to-b from-[#69A606] to-transparent min-h-[80px] md:min-h-[80px]">
-              <div className="text-neutral-700 font-[12px] font-['Mulish'] capitalize flex justify-between dark:text-white">
+              <div className="text-neutral-700 font-[12px capitalize flex justify-between dark:text-white">
                 <span className="items-center flex gap-4">QuikAsk Chat</span>
                 <img src="/images/down-arrow.svg" className="w-8" />
               </div>
             </div>
             <div className="w-full md:max-w-[352px] grid place-content-center rounded-t-2xl bg-gradient-to-b dark:from-[#242424] from-[#F3F3F3] to-transparent min-h-[80px] md:min-h-[120px]">
-              <div className="text-neutral-700 font-[12px] font-['Mulish'] capitalize flex justify-between dark:text-white">
+              <div className="text-neutral-700 font-[12px capitalize flex justify-between dark:text-white">
                 <span className="items-center flex gap-4">Duck Duck Go</span>
                 <img src="/images/down-arrow.svg" className="w-8" />
               </div>
             </div>
             <div className="w-full md:max-w-[352px] grid place-content-center rounded-t-2xl bg-gradient-to-b dark:from-[#242424] from-[#F3F3F3] to-transparent min-h-[80px] md:min-h-[160px]">
-              <div className="text-neutral-700 font-[12px] font-['Mulish'] capitalize flex justify-between dark:text-white">
+              <div className="text-neutral-700 font-[12px capitalize flex justify-between dark:text-white">
                 <span className="items-center flex gap-4">Anthropic Ai</span>
                 <img src="/images/down-arrow.svg" className="w-8" />
               </div>
@@ -189,7 +189,7 @@ export function FirstPage() {
           </div>
           <div className="flex justify-center pt-20 px-2">
             <div className="w-full max-w-5xl mx-auto space-y-4">
-              <div className="w-full flex justify-center text-center text-neutral-700 md:text-3xl text-2xl font-bold font-['Mulish'] capitalize leading-10 dark:text-white gap-2 sm:gap-4">
+              <div className="w-full flex justify-center text-center text-neutral-700 md:text-3xl text-2xl font-bol capitalize leading-10 dark:text-white gap-2 sm:gap-4">
                 <img
                   src="/images/spiral-arrow-left.svg"
                   className="w-32 hidden sm:block"
@@ -200,7 +200,7 @@ export function FirstPage() {
                   className="w-32 hidden sm:block"
                 />
               </div>
-              <div className="w-full left-0 text-center text-neutral-700 font-[12px] font-['Mulish'] leading-7 dark:text-[#B1B2B1]">
+              <div className="w-full left-0 text-center text-neutral-700 font-[12px leading-7 dark:text-[#B1B2B1]">
                 Introducing a revolutionary AI partner for creators across the
                 globe—a groundbreaking tool designed to transform the way we
                 bring our creative ideas to life. Unleash your artistic
@@ -218,10 +218,10 @@ export function FirstPage() {
                 <div className="w-20 h-20  bg-[#DADADA] dark:bg-[#3E3F3E] group-hover:bg-lime-600 rounded-2xl shadow grid place-content-center absolute -top-12 left-[45%] transition duration-100">
                   <img src="/images/chat-gpt.svg" className="w-11" />
                 </div>
-                <h1 className="text-center text-neutral-700 text-3xl font-semibold font-['Mulish'] capitalize leading-9 dark:text-white">
+                <h1 className="text-center text-neutral-700 text-3xl font-semibol capitalize leading-9 dark:text-white">
                   ChatGPT - 4
                 </h1>
-                <div className="max-w-md mx-auto text-center font-['Mulish'] leading-relaxed text-[#B1B2B1] group-hover:text-[#353535] dark:group-hover:text-white transition duration-300">
+                <div className="max-w-md mx-auto text-cente leading-relaxed text-[#B1B2B1] group-hover:text-[#353535] dark:group-hover:text-white transition duration-300">
                   The next-generation AI language model with even deeper
                   understanding and more human-like conversations.
                 </div>
@@ -240,10 +240,10 @@ export function FirstPage() {
                 <div className="w-20 h-20  bg-[#DADADA] dark:bg-[#3E3F3E] group-hover:bg-lime-600 rounded-2xl shadow grid place-content-center absolute -top-12 left-[45%] transition duration-100">
                   <img src="/images/google-white.svg" className="w-11" />
                 </div>
-                <h1 className="text-center text-neutral-700 text-3xl font-semibold font-['Mulish'] capitalize leading-9 dark:text-white">
+                <h1 className="text-center text-neutral-700 text-3xl font-semibol capitalize leading-9 dark:text-white">
                   Google Bard
                 </h1>
-                <div className="max-w-md mx-auto text-center font-['Mulish'] leading-relaxed text-[#B1B2B1] group-hover:text-[#353535] dark:group-hover:text-white transition duration-300">
+                <div className="max-w-md mx-auto text-cente leading-relaxed text-[#B1B2B1] group-hover:text-[#353535] dark:group-hover:text-white transition duration-300">
                   AI-powered chatbot tool designed by Google to simulate human
                   conversations using natural language processing and machine
                   learning.
@@ -266,10 +266,10 @@ export function FirstPage() {
                     className="w-11 translate-x-2"
                   />
                 </div>
-                <h1 className="text-center text-neutral-700 text-3xl font-semibold font-['Mulish'] capitalize leading-9 dark:text-white">
+                <h1 className="text-center text-neutral-700 text-3xl font-semibol capitalize leading-9 dark:text-white">
                   Anthropic Claude 2.0
                 </h1>
-                <div className="max-w-md mx-auto text-center font-['Mulish'] leading-relaxed text-[#B1B2B1] group-hover:text-[#353535] dark:group-hover:text-white transition duration-300">
+                <div className="max-w-md mx-auto text-cente leading-relaxed text-[#B1B2B1] group-hover:text-[#353535] dark:group-hover:text-white transition duration-300">
                   QuikAsk have integrated with claude it can do things like
                   create summaries, write code, translate text, and more.
                 </div>
@@ -288,10 +288,10 @@ export function FirstPage() {
                 <div className="w-20 h-20  bg-[#DADADA] dark:bg-[#3E3F3E] group-hover:bg-lime-600 rounded-2xl shadow grid place-content-center absolute -top-12 left-[45%] transition duration-100">
                   <img src="/images/duckduckgo-white.svg" className="w-11" />
                 </div>
-                <h1 className="text-center text-neutral-700 text-3xl font-semibold font-['Mulish'] capitalize leading-9 dark:text-white">
+                <h1 className="text-center text-neutral-700 text-3xl font-semibol capitalize leading-9 dark:text-white">
                   Duck Duck Go
                 </h1>
-                <div className="max-w-md mx-auto text-center font-['Mulish'] leading-relaxed text-[#B1B2B1] group-hover:text-[#353535] dark:group-hover:text-white transition duration-300">
+                <div className="max-w-md mx-auto text-cente leading-relaxed text-[#B1B2B1] group-hover:text-[#353535] dark:group-hover:text-white transition duration-300">
                   A privacy-focused search engine that prioritizes user
                   anonymity by not tracking or storing personal information.
                 </div>
@@ -314,12 +314,12 @@ export function FirstPage() {
             />
             <div className="flex flex-col md:flex-row justify-between gap-20 w-full mt-28 z-[1]">
               <div className="space-y-6">
-                <div className="text-neutral-700 text-3xl font-bold font-['Mulish'] capitalize leading-10 dark:text-white">
+                <div className="text-neutral-700 text-3xl font-bol capitalize leading-10 dark:text-white">
                   AI&apos;s Innovative Potential for
                   <br />
                   One-Click Content Generation
                 </div>
-                <div className="w-full pt-4 text-neutral-700 font-normal font-['Mulish'] leading-7 dark:text-neutral-400">
+                <div className="w-full pt-4 text-neutral-700 font-norma leading-7 dark:text-neutral-400">
                   Crafting influential content requires a deep understanding of
                   your target audience. Pinpoint your ideal demographic and
                   familiarise yourself with their needs, passions, and sources
@@ -332,7 +332,7 @@ export function FirstPage() {
                         <div className="w-3 h-3 bg-green-500"></div>
                       </div>
                     </div>
-                    <p className="w-full text-neutral-700 font-normal font-['Mulish'] leading-7 dark:text-white">
+                    <p className="w-full text-neutral-700 font-norma leading-7 dark:text-white">
                       Attract your audience with captivating facts in your
                       commercials
                     </p>
@@ -343,7 +343,7 @@ export function FirstPage() {
                         <div className="w-3 h-3 bg-green-500"></div>
                       </div>
                     </div>
-                    <p className="w-full text-neutral-700 font-normal font-['Mulish'] leading-7 dark:text-white">
+                    <p className="w-full text-neutral-700 font-norma leading-7 dark:text-white">
                       Let&apos;s engage with the customers effectively
                     </p>
                   </div>
@@ -353,7 +353,7 @@ export function FirstPage() {
                         <div className="w-3 h-3 bg-green-500"></div>
                       </div>
                     </div>
-                    <p className="w-full text-neutral-700 font-normal font-['Mulish'] leading-7 dark:text-white">
+                    <p className="w-full text-neutral-700 font-norma leading-7 dark:text-white">
                       Brighten up your content with appealing graphics:
                       pictures, clips, and graphs that will fascinate your
                       users!
@@ -370,11 +370,11 @@ export function FirstPage() {
                 <img src="/images/computerbot.png" className="w-96" />
               </div>
               <div className="w-full space-y-6">
-                <div className="text-neutral-700 text-3xl font-bold font-['Mulish'] capitalize leading-10 dark:text-white">
+                <div className="text-neutral-700 text-3xl font-bol capitalize leading-10 dark:text-white">
                   The key resource for First <br />
                   Page Content Optimization
                 </div>
-                <div className="w-full pt-4 text-neutral-700 font-normal font-['Mulish'] leading-7 dark:text-neutral-400">
+                <div className="w-full pt-4 text-neutral-700 font-norma leading-7 dark:text-neutral-400">
                   &quot;Unlock Content Magic: Tailor Your Message to Win Hearts!
                   Discover Your Ideal Audience, Understand Their Desires,
                   Tastes, and Challenges!&quot;
@@ -386,7 +386,7 @@ export function FirstPage() {
                         <div className="w-3 h-3 bg-green-500"></div>
                       </div>
                     </div>
-                    <p className="w-full text-neutral-700 font-normal font-['Mulish'] leading-7 dark:text-white">
+                    <p className="w-full text-neutral-700 font-norma leading-7 dark:text-white">
                       Gain valuable insights into their expectations,
                       preferences, and aspirations.
                     </p>
@@ -397,7 +397,7 @@ export function FirstPage() {
                         <div className="w-3 h-3 bg-green-500"></div>
                       </div>
                     </div>
-                    <p className="w-full text-neutral-700 font-normal font-['Mulish'] leading-7 dark:text-white">
+                    <p className="w-full text-neutral-700 font-norma leading-7 dark:text-white">
                       Create captivating content that speaks directly to their
                       hearts and minds.
                     </p>
@@ -408,7 +408,7 @@ export function FirstPage() {
                         <div className="w-3 h-3 bg-green-500"></div>
                       </div>
                     </div>
-                    <p className="text-neutral-700 font-normal font-['Mulish'] leading-7 dark:text-white">
+                    <p className="text-neutral-700 font-norma leading-7 dark:text-white">
                       Identify the precise pain points and challenges your
                       audience faces, and provide solutions through your
                       content.
@@ -419,12 +419,12 @@ export function FirstPage() {
             </div>
             <div className="flex  flex-col md:flex-row justify-between gap-20 mt-28 z-[1]">
               <div className="w-full space-y-6">
-                <div className="text-neutral-700 text-3xl font-bold font-['Mulish'] capitalize leading-10 dark:text-white">
+                <div className="text-neutral-700 text-3xl font-bol capitalize leading-10 dark:text-white">
                   QuikAsk: Your Companion for
                   <br />
                   Hashtags, Captions, and More!
                 </div>
-                <p className="w-full pt-4 text-neutral-700 font-normal font-['Mulish'] leading-7 dark:text-neutral-400">
+                <p className="w-full pt-4 text-neutral-700 font-norma leading-7 dark:text-neutral-400">
                   Experience the power of QUIKASK AI and revolutionise your
                   social media presence. Say goodbye to writer&apos;s block and
                   hello to compelling hashtags, captivating captions, and
@@ -437,7 +437,7 @@ export function FirstPage() {
                         <div className="w-3 h-3 bg-green-500"></div>
                       </div>
                     </div>
-                    <p className="w-full  text-neutral-700 text-lg font-normal font-['Mulish'] leading-7 dark:text-neutral-400">
+                    <p className="w-full  text-neutral-700 text-lg font-norma leading-7 dark:text-neutral-400">
                       Curate endless content possibilities that make your
                       website shine.
                     </p>
@@ -448,7 +448,7 @@ export function FirstPage() {
                         <div className="w-3 h-3 bg-green-500"></div>
                       </div>
                     </div>
-                    <p className="w-full text-neutral-700 text-lg font-normal font-['Mulish'] leading-7 dark:text-neutral-400">
+                    <p className="w-full text-neutral-700 text-lg font-norma leading-7 dark:text-neutral-400">
                       Generates compelling hashtags that skyrocket your reach
                     </p>
                   </div>
@@ -458,7 +458,7 @@ export function FirstPage() {
                         <div className="w-3 h-3 bg-green-500"></div>
                       </div>
                     </div>
-                    <p className="w-full text-neutral-700 text-lg font-normal font-['Mulish'] leading-7 dark:text-neutral-400">
+                    <p className="w-full text-neutral-700 text-lg font-norma leading-7 dark:text-neutral-400">
                       Unlock a world of unlimited content ideas that keep your
                       followers hooked.
                     </p>
@@ -473,8 +473,8 @@ export function FirstPage() {
           <div className="mt-40">
             <div className="w-[340px] h-[340px] absolute left-1/3 bg-gradient-to-br from-blue-600 via-teal-500/60 to-green-500 blur-[360px] z-[0]" />
             <div className="w-[440px] h-[440px] absolute right-40 bg-gradient-to-br from-blue-600 via-lime-500/60 to-orange-500 blur-[360px] z-[0]" />
-            <div className="w-full flex justify-center text-center text-neutral-700 md:text-3xl text-xl font-bold font-['Mulish'] capitalize leading-10 dark:text-white relative z-[1]">
-              <div className="w-full flex justify-center text-center text-neutral-700 md:text-3xl text-2xl font-bold font-['Mulish'] capitalize leading-10 dark:text-white gap-2 md:gap-4">
+            <div className="w-full flex justify-center text-center text-neutral-700 md:text-3xl text-xl font-bol capitalize leading-10 dark:text-white relative z-[1]">
+              <div className="w-full flex justify-center text-center text-neutral-700 md:text-3xl text-2xl font-bol capitalize leading-10 dark:text-white gap-2 md:gap-4">
                 <img
                   src="/images/spiral-arrow-left.svg"
                   className="w-32 hidden sm:block"
@@ -544,7 +544,7 @@ export function FirstPage() {
           <div className="w-full max-w-[1520px] mx-auto mt-28">
             <div className="flex justify-center px-2">
               <div className="w-full space-y-3">
-                <div className="w-full flex justify-center text-center text-neutral-700 md:text-3xl text-2xl font-['Mulish'] capitalize leading-10 dark:text-white gap-4">
+                <div className="w-full flex justify-center text-center text-neutral-700 md:text-3xl text-2x capitalize leading-10 dark:text-white gap-4">
                   <img
                     src="/images/spiral-arrow-left.svg"
                     className="w-32 hidden sm:block"
@@ -557,7 +557,7 @@ export function FirstPage() {
                     className="w-32 hidden sm:block"
                   />
                 </div>
-                <div className="text-center text-neutral-700 font-[12px] font-['Mulish'] leading-7 dark:text-neutral-400">
+                <div className="text-center text-neutral-700 font-[12px leading-7 dark:text-neutral-400">
                   Here, you can find some useful information about QuikAsk
                 </div>
               </div>
@@ -568,7 +568,7 @@ export function FirstPage() {
                   <div className="text-outline font-sans font-bold text-center align-middle text-3xl sm:text-5xl capitalize leading-10 text-transparent bg-clip-text">
                     01
                   </div>
-                  <div className="text-neutral-700 text-md sm:text-xl font-['Mulish'] capitalize sm:leading-10 dark:text-white">
+                  <div className="text-neutral-700 text-md sm:text-x capitalize sm:leading-10 dark:text-white">
                     Is the content unique?
                   </div>
                 </div>
@@ -585,7 +585,7 @@ export function FirstPage() {
                   <div className="text-outline font-sans font-bold text-center align-middle text-3xl sm:text-5xl capitalize leading-10 text-transparent bg-clip-text">
                     02
                   </div>
-                  <div className="text-neutral-700 text-md sm:text-xl font-['Mulish'] capitalize sm:leading-10 dark:text-white">
+                  <div className="text-neutral-700 text-md sm:text-x capitalize sm:leading-10 dark:text-white">
                     How can I boost traffic with Quik ASk?
                   </div>
                 </div>
@@ -603,7 +603,7 @@ export function FirstPage() {
                   <div className="text-outline font-sans font-bold text-center align-middle text-3xl sm:text-5xl capitalize leading-10 text-transparent bg-clip-text">
                     03
                   </div>
-                  <div className="text-neutral-700 text-md sm:text-xl font-['Mulish'] capitalize sm:leading-10 dark:text-white">
+                  <div className="text-neutral-700 text-md sm:text-x capitalize sm:leading-10 dark:text-white">
                     How long will it take to write an article with AI?
                   </div>
                 </div>
@@ -619,7 +619,7 @@ export function FirstPage() {
                   <div className="text-outline font-sans font-bold text-center align-middle text-3xl sm:text-5xl capitalize leading-10 text-transparent bg-clip-text">
                     04
                   </div>
-                  <div className="text-neutral-700 text-md sm:text-xl font-['Mulish'] capitalize sm:leading-10 dark:text-white">
+                  <div className="text-neutral-700 text-md sm:text-x capitalize sm:leading-10 dark:text-white">
                     Is there a limit to the amount of stuff that I can create?
                   </div>
                 </div>
@@ -635,7 +635,7 @@ export function FirstPage() {
                   <div className="text-outline font-sans font-bold text-center align-middle text-3xl sm:text-5xl capitalize leading-10 text-transparent bg-clip-text">
                     05
                   </div>
-                  <div className="text-neutral-700 text-md sm:text-xl font-['Mulish'] capitalize sm:leading-10 dark:text-white">
+                  <div className="text-neutral-700 text-md sm:text-x capitalize sm:leading-10 dark:text-white">
                     What languages do you support?
                   </div>
                 </div>
@@ -649,7 +649,7 @@ export function FirstPage() {
           <div className="w-full max-w-[1520px] mx-auto mt-28">
             <div className="w-[440px] h-[440px] absolute bg-gradient-to-br from-blue-600 via-teal-500/50 to-green-600 blur-[420px] z-[0]" />
 
-            <div className="text-neutral-700 text-4xl font-bold font-['Mulish'] capitalize pb-12 leading-10 dark:text-white px-4 relative z-[1]">
+            <div className="text-neutral-700 text-4xl font-bol capitalize pb-12 leading-10 dark:text-white px-4 relative z-[1]">
               Trusted By
             </div>
             <div className="border-y border-[#acacac] dark:border-neutral-600 bg-transparent relative z-[1]">
@@ -703,10 +703,10 @@ export function FirstPage() {
             </div>
           </div>
           <div className="mt-28 max-w-[1520px] mx-auto p-3 space-y-4">
-            <div className="text-4xl font-bold font-['Mulish'] text-center capitalize leading-10 text-neutral-700 dark:text-white">
+            <div className="text-4xl font-bol text-center capitalize leading-10 text-neutral-700 dark:text-white">
               Trade With Anyone
             </div>
-            <div className="font-['Mulish'] capitalize text-neutral-700 justify-center flex pt-3 dark:text-neutral-400">
+            <div className="capitalize text-neutral-700 justify-center flex pt-3 dark:text-neutral-400">
               <p className="max-w-[800px] text-sm sm:text-base w-full text-center">
                 Lorem ipsum dolor sit amet consectetur. Nisi risus at ac
                 vestibulum ut. Amet bibendum mi eu leo. Ut odio ipsum et quis id
@@ -726,13 +726,13 @@ export function FirstPage() {
           </div>
           <div className="mt-28 border-t border-white/10 py-10">
             <div className="max-w-[1520px] mx-auto h-8 flex justify-between flex-col sm:flex-row px-4">
-              <div className="text-neutral-700  font-normal font-['Mulish'] leading-loose dark:text-[#B1B2B1]">
+              <div className="text-neutral-700  font-norma leading-loose dark:text-[#B1B2B1]">
                 Contact Us: support@quikask.com
               </div>
-              <div className="text-neutral-700  font-normal font-['Mulish'] leading-loose dark:text-[#B1B2B1]">
+              <div className="text-neutral-700  font-norma leading-loose dark:text-[#B1B2B1]">
                 © 2023 QuikAsk
               </div>
-              <div className="text-neutral-700  font-normal font-['Mulish'] leading-loose dark:text-[#B1B2B1]">
+              <div className="text-neutral-700  font-norma leading-loose dark:text-[#B1B2B1]">
                 Privacy Policy
               </div>
             </div>
