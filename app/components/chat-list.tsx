@@ -17,6 +17,7 @@ import { Path } from "../constant";
 import { MaskAvatar } from "./mask";
 import { Mask } from "../store/mask";
 import { useRef, useEffect } from "react";
+import { useTheme } from "next-themes";
 
 export function ChatItem(props: {
   onClick?: () => void;
@@ -38,14 +39,16 @@ export function ChatItem(props: {
       });
     }
   }, [props.selected]);
+
+  const { theme } = useTheme();
   return (
     <Draggable draggableId={`${props.id}`} index={props.index}>
       {(provided) => (
         <div
           className={
             props.selected
-              ? "bg-white dark:bg-neutral-950 dark:neutral-950 border-black border-2 rounded-[10px] h-8 p-1 m-1"
-              : "h-8 p-1 m-1"
+              ? "bg-white dark:bg-[#0E0F13] dark:neutral-950 rounded-md flex items-center justify-center h-[48px] px-3"
+              : "h-[48px] px-3"
           }
           onClick={props.onClick}
           ref={(ele) => {
@@ -69,17 +72,21 @@ export function ChatItem(props: {
             </div>
           ) : (
             <div className="w-full">
-              <div className="flex items-center relative">
+              <div className="flex gap-2.5 items-center relative">
                 <img
-                  className="w-[16.84px] h-[16.83px] mr-[-7.01px] ml-[3px]"
+                  className="w-[30px] h-[30px]"
                   alt="Frame"
-                  src="/images/message.svg"
+                  src={
+                    theme === "dark"
+                      ? "/images/message-dark.svg"
+                      : "/images/message.svg"
+                  }
                 />
                 <span
-                  className="absolute left-[25px] [font-family:'Mulish-Bold',Helvetica] font-bold dark:text-white text-[12.8px] tracking-[0] leading-[normal]"
+                  className="dark:text-white text-[12.8px] tracking-[0] leading-[normal] w-full overflow-hidden text-ellipsis whitespace-nowrap"
                   title={props.title}
                 >
-                  {props.title.slice(0, 15) + "..."}
+                  {props.title}
                 </span>
               </div>
             </div>
