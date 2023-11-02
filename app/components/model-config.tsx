@@ -12,7 +12,7 @@ export function ModelConfigList(props: {
     <>
       <ListItem
         title={Locale.Settings.Model}
-        className="bg-white dark:bg-neutral-950 p-3 rounded-[10px] mt-2"
+        className="bg-white dark:bg-[#7d7d7d30] !px-10 !py-5 rounded-[10px] mt-2"
       >
         <Select
           value={props.modelConfig.model}
@@ -35,7 +35,7 @@ export function ModelConfigList(props: {
       <ListItem
         title={Locale.Settings.Temperature.Title}
         subTitle={Locale.Settings.Temperature.SubTitle}
-        className="bg-white dark:bg-neutral-950 p-3 rounded-[10px] mt-2"
+        className="bg-white dark:bg-[#7d7d7d30] !px-10 !py-5 rounded-[10px] mt-2"
       >
         <InputRange
           value={props.modelConfig.temperature?.toFixed(1)}
@@ -55,7 +55,7 @@ export function ModelConfigList(props: {
       <ListItem
         title={Locale.Settings.MaxTokens.Title}
         subTitle={Locale.Settings.MaxTokens.SubTitle}
-        className="bg-white dark:bg-neutral-950 p-3 rounded-[10px] mt-2"
+        className="bg-white dark:bg-[#7d7d7d30] !px-10 !py-5 rounded-[10px] mt-2"
       >
         <input
           type="number"
@@ -75,7 +75,7 @@ export function ModelConfigList(props: {
       <ListItem
         title={Locale.Settings.PresencePenalty.Title}
         subTitle={Locale.Settings.PresencePenalty.SubTitle}
-        className="bg-white dark:bg-neutral-950 p-3 rounded-[10px] mt-2"
+        className="bg-white dark:bg-[#7d7d7d30] !px-10 !py-5 rounded-[10px] mt-2"
       >
         <InputRange
           value={props.modelConfig.presence_penalty?.toFixed(1)}
@@ -97,7 +97,7 @@ export function ModelConfigList(props: {
       <ListItem
         title={Locale.Settings.HistoryCount.Title}
         subTitle={Locale.Settings.HistoryCount.SubTitle}
-        className="bg-white dark:bg-neutral-950 p-3 rounded-[10px] mt-2"
+        className="bg-white dark:bg-[#7d7d7d30] !px-10 !py-5 rounded-[10px] mt-2"
       >
         <InputRange
           title={props.modelConfig.historyMessageCount.toString()}
@@ -116,7 +116,7 @@ export function ModelConfigList(props: {
       <ListItem
         title={Locale.Settings.CompressThreshold.Title}
         subTitle={Locale.Settings.CompressThreshold.SubTitle}
-        className="bg-white dark:bg-neutral-950 p-3 rounded-[10px] mt-2"
+        className="bg-white dark:bg-[#7d7d7d30] !px-10 !py-5 rounded-[10px] mt-2"
       >
         <input
           type="number"
@@ -135,7 +135,7 @@ export function ModelConfigList(props: {
       <ListItem
         title={Locale.Memory.Title}
         subTitle={Locale.Memory.Send}
-        className="bg-white dark:bg-neutral-950 p-3 rounded-[10px] mt-2"
+        className="bg-white dark:bg-[#7d7d7d30] !px-10 !py-5 rounded-[10px] mt-2"
       >
         <input
           type="checkbox"

@@ -60,13 +60,13 @@ export function FirstPage() {
               </div>
               <div className="">
                 <div
-                  className="opacity-70  text-neutral-70 font-semibold w-full text-center cursor-pointer dark:text-[#B1B2B1]"
+                  className="opacity-70  text-neutral-70 font-semibold w-full text-center cursor-pointer dark:text-[#858585]"
                   onClick={() => navigate("chat")}
                 >
                   Chat
                 </div>
               </div>
-              <div className="h-full max-h-[30px] w-[2px] bg-gradient-to-b from-transparent via-white/50 to-transparent" />
+              <div className="h-full max-h-[30px] w-[2px] bg-gradient-to-b from-transparent via-[#6b6b6b] dark:via-white/50 to-transparent" />
               <div className="">
                 <div
                   className=" text-lime-600 font-semibol w-full text-center cursor-pointer"
@@ -126,7 +126,7 @@ export function FirstPage() {
                     <span className="text-lime-600 font-[13px leading-8">
                       QuikAsk
                     </span>
-                    <span className="text-[#B1B2B1] font-[13px leading-8 dark:text-neutral-300">
+                    <span className="text-[#858585] font-[13px leading-8 dark:text-neutral-300">
                       , have a natural conversation with AI that feels
                       surprisingly human. Interacting with artificial
                       intelligence used to feel difficult, overwhelming, and a
@@ -200,7 +200,7 @@ export function FirstPage() {
                   className="w-32 hidden sm:block"
                 />
               </div>
-              <div className="w-full left-0 text-center text-neutral-700 font-[12px leading-7 dark:text-[#B1B2B1]">
+              <div className="w-full left-0 text-center text-neutral-700 font-[12px leading-7 dark:text-[#858585]">
                 Introducing a revolutionary AI partner for creators across the
                 globe—a groundbreaking tool designed to transform the way we
                 bring our creative ideas to life. Unleash your artistic
@@ -221,7 +221,7 @@ export function FirstPage() {
                 <h1 className="text-center text-neutral-700 text-3xl font-semibol capitalize leading-9 dark:text-white">
                   ChatGPT - 4
                 </h1>
-                <div className="max-w-md mx-auto text-cente leading-relaxed text-[#B1B2B1] group-hover:text-[#353535] dark:group-hover:text-white transition duration-300">
+                <div className="max-w-md mx-auto text-center leading-relaxed text-[#858585] group-hover:text-[#353535] dark:group-hover:text-white transition duration-300">
                   The next-generation AI language model with even deeper
                   understanding and more human-like conversations.
                 </div>
@@ -243,7 +243,7 @@ export function FirstPage() {
                 <h1 className="text-center text-neutral-700 text-3xl font-semibol capitalize leading-9 dark:text-white">
                   Google Bard
                 </h1>
-                <div className="max-w-md mx-auto text-cente leading-relaxed text-[#B1B2B1] group-hover:text-[#353535] dark:group-hover:text-white transition duration-300">
+                <div className="max-w-md mx-auto text-center leading-relaxed text-[#858585] group-hover:text-[#353535] dark:group-hover:text-white transition duration-300">
                   AI-powered chatbot tool designed by Google to simulate human
                   conversations using natural language processing and machine
                   learning.
@@ -269,7 +269,7 @@ export function FirstPage() {
                 <h1 className="text-center text-neutral-700 text-3xl font-semibol capitalize leading-9 dark:text-white">
                   Anthropic Claude 2.0
                 </h1>
-                <div className="max-w-md mx-auto text-cente leading-relaxed text-[#B1B2B1] group-hover:text-[#353535] dark:group-hover:text-white transition duration-300">
+                <div className="max-w-md mx-auto text-center leading-relaxed text-[#858585] group-hover:text-[#353535] dark:group-hover:text-white transition duration-300">
                   QuikAsk have integrated with claude it can do things like
                   create summaries, write code, translate text, and more.
                 </div>
@@ -291,7 +291,7 @@ export function FirstPage() {
                 <h1 className="text-center text-neutral-700 text-3xl font-semibol capitalize leading-9 dark:text-white">
                   Duck Duck Go
                 </h1>
-                <div className="max-w-md mx-auto text-cente leading-relaxed text-[#B1B2B1] group-hover:text-[#353535] dark:group-hover:text-white transition duration-300">
+                <div className="max-w-md mx-auto text-center leading-relaxed text-[#858585] group-hover:text-[#353535] dark:group-hover:text-white transition duration-300">
                   A privacy-focused search engine that prioritizes user
                   anonymity by not tracking or storing personal information.
                 </div>
@@ -726,13 +726,13 @@ export function FirstPage() {
           </div>
           <div className="mt-28 border-t border-white/10 py-10">
             <div className="max-w-[1520px] mx-auto h-8 flex justify-between flex-col sm:flex-row px-4">
-              <div className="text-neutral-700  font-norma leading-loose dark:text-[#B1B2B1]">
+              <div className="text-neutral-700  font-norma leading-loose dark:text-[#858585]">
                 Contact Us: support@quikask.com
               </div>
-              <div className="text-neutral-700  font-norma leading-loose dark:text-[#B1B2B1]">
+              <div className="text-neutral-700  font-norma leading-loose dark:text-[#858585]">
                 © 2023 QuikAsk
               </div>
-              <div className="text-neutral-700  font-norma leading-loose dark:text-[#B1B2B1]">
+              <div className="text-neutral-700  font-norma leading-loose dark:text-[#858585]">
                 Privacy Policy
               </div>
             </div>
