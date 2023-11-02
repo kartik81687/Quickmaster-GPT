@@ -10,6 +10,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { showToast } from "../components/ui-lib";
 import { useMobileScreen } from "../utils";
 import Image from "next/image";
+import { useTheme } from "next-themes";
 
 // TODO: need change currentUrl
 // const currentUrl = "http://localhost:3000/#/login"
@@ -132,6 +133,11 @@ export function Login() {
       backgroundColor: "rgba(0, 0,0, .5)",
     },
   };
+  const { theme } = useTheme();
+  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+  const togglePasswordVisibility = () => {
+    setIsPasswordVisible((prev) => !prev);
+  };
 
   return (
     <ErrorBoundary>
@@ -148,27 +154,32 @@ export function Login() {
               />
             </div>
             <div className="space-y-1">
-              <div className="text-neutral-700 dark:text-white text-3xl font-black font-['Mulish'] uppercase">
+              <div className="text-neutral-700 dark:text-white text-3xl font-semibold uppercase">
                 LOGIN
               </div>
-              <div className="opacity-80 text-neutral-700 dark:text-white dark:texase font-medium font-['Mulish'] leading-relaxed">
+              <div className="opacity-80 text-neutral-700 dark:text-white dark:texase font-medium leading-relaxed">
                 After Logging in, you can communicate with AI
               </div>
             </div>
 
             <div className="space-y-1">
-              <label className="text-neutral-700 dark:text-white font-['Mulish'] leading-relaxed">
+              <label className="text-neutral-700 dark:text-white leading-relaxed">
                 Username / Email
               </label>
-              <div className="bg-[#c6c6c673] dark:bg-[#00000070] rounded-[10px] border border-[#ffffff3b] backdrop-blur-[20px] backdrop-brightness-[100%] [-webkit-backdrop-filter:blur(20px)_brightness(100%)] flex items-center pl-6 h-[60px] gap-4">
+              <div className="bg-[#c6c6c673] dark:bg-[#00000070] rounded-[10px] border border-[#ffffff3b] backdrop-blur-[20px] flex items-center pl-4 h-[60px] gap-3">
                 <img
-                  className="w-[15px] h-[19px]"
+                  className="w-[20px] h-[20px]"
                   alt="Group"
-                  src="/images/user.svg"
+                  draggable={false}
+                  src={
+                    theme === "dark"
+                      ? "/images/user-dark.svg"
+                      : "/images/user.svg"
+                  }
                 />
                 <input
                   className="flex-1 h-full outline-none bg-transparent font-normal dark:text-white text-[16px] tracking-[0] leading-[26px] whitespace-nowrap"
-                  placeholder="sherazahmedofficial@gmail.com"
+                  placeholder="Sheraz Ahmed"
                   value={email}
                   onChange={(e) => setEmail(e.currentTarget.value)}
                 />
@@ -176,26 +187,41 @@ export function Login() {
             </div>
 
             <div className="space-y-1">
-              <label className="text-neutral-700 dark:text-white font-['Mulish'] leading-relaxed">
+              <label className="text-neutral-700 dark:text-white leading-relaxed">
                 Password
               </label>
-              <div className="bg-[#c6c6c673] dark:bg-[#00000070] rounded-[10px] border border-[#ffffff3b] backdrop-blur-[20px] backdrop-brightness-[100%] [-webkit-backdrop-filter:blur(20px)_brightness(100%)] flex items-center px-6 h-[60px] gap-4">
+              <div className="bg-[#c6c6c673] dark:bg-[#00000070] rounded-[10px] border border-[#ffffff3b] backdrop-blur-[20px] flex items-center px-4 h-[60px] gap-4">
                 <img
-                  className="w-[15px] h-[19px]"
+                  className="w-[20px] h-[20px]"
                   alt="Group"
-                  src="/images/lock.svg"
+                  draggable={false}
+                  src={
+                    theme === "dark"
+                      ? "/images/lock-dark.svg"
+                      : "/images/lock.svg"
+                  }
                 />
                 <input
                   className="flex-1 h-full outline-none bg-transparent font-normal dark:text-white text-[16px] tracking-[0] leading-[26px] whitespace-nowrap"
                   placeholder="************"
-                  type="password"
+                  type={isPasswordVisible ? "text" : "password"}
                   value={password}
                   onChange={(e) => setPassword(e.currentTarget.value)}
                 />
                 <img
-                  className="w-[15px] h-[19px]"
+                  onClick={togglePasswordVisibility}
+                  className="w-[23px] h-[23px]"
                   alt="Eye-Off"
-                  src="/images/eye-off.svg"
+                  draggable={false}
+                  src={
+                    theme === "dark"
+                      ? isPasswordVisible
+                        ? "/images/eye-off-dark.svg"
+                        : "/images/eye-dark.svg"
+                      : !isPasswordVisible
+                      ? "/images/eye.svg"
+                      : "/images/eye-off.svg"
+                  }
                 />
               </div>
             </div>
@@ -206,12 +232,15 @@ export function Login() {
                   id="checkbox-1"
                   className="peer cursor-pointer relative h-5 w-5 shrink-0 appearance-none rounded-[4px] bg-transparent border border-[#a7a6a6] after:absolute after:left-0 after:top-0 after:h-full after:w-full checked:after:bg-[url('data:image/svg+xml;base64,PHN2ZyBoZWlnaHQ9JzMwMHB4JyB3aWR0aD0nMzAwcHgnICBmaWxsPSIjZmZmZmZmIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB2aWV3Qm94PSIwIDAgMTAwIDEwMCIgdmVyc2lvbj0iMS4xIiB4PSIwcHgiIHk9IjBweCI+PHRpdGxlPmljb25fYnlfUG9zaGx5YWtvdjEwPC90aXRsZT48ZGVzYz5DcmVhdGVkIHdpdGggU2tldGNoLjwvZGVzYz48ZyBzdHJva2U9Im5vbmUiIHN0cm9rZS13aWR0aD0iMSIgZmlsbD0ibm9uZSIgZmlsbC1ydWxlPSJldmVub2RkIj48ZyBmaWxsPSIjZmZmZmZmIj48ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSgyNi4wMDAwMDAsIDI2LjAwMDAwMCkiPjxwYXRoIGQ9Ik0xNy45OTk5ODc4LDMyLjQgTDEwLjk5OTk4NzgsMjUuNCBDMTAuMjI2Nzg5MSwyNC42MjY4MDE0IDguOTczMTg2NDQsMjQuNjI2ODAxNCA4LjE5OTk4Nzc5LDI1LjQgTDguMTk5OTg3NzksMjUuNCBDNy40MjY3ODkxNCwyNi4xNzMxOTg2IDcuNDI2Nzg5MTQsMjcuNDI2ODAxNCA4LjE5OTk4Nzc5LDI4LjIgTDE2LjU4NTc3NDIsMzYuNTg1Nzg2NCBDMTcuMzY2ODIyOCwzNy4zNjY4MzUgMTguNjMzMTUyOCwzNy4zNjY4MzUgMTkuNDE0MjAxNCwzNi41ODU3ODY0IEw0MC41OTk5ODc4LDE1LjQgQzQxLjM3MzE4NjQsMTQuNjI2ODAxNCA0MS4zNzMxODY0LDEzLjM3MzE5ODYgNDAuNTk5OTg3OCwxMi42IEw0MC41OTk5ODc4LDEyLjYgQzM5LjgyNjc4OTEsMTEuODI2ODAxNCAzOC41NzMxODY0LDExLjgyNjgwMTQgMzcuNzk5OTg3OCwxMi42IEwxNy45OTk5ODc4LDMyLjQgWiI+PC9wYXRoPjwvZz48L2c+PC9nPjwvc3ZnPg==')] after:bg-[length:40px] after:bg-center after:bg-no-repeat after:content-['']  hover:ring-1 hover:ring-[#2c2c2c69] transition duration-300 focus:outline-none"
                 />
-                <label htmlFor="checkbox-1" className="">
+                <label
+                  htmlFor="checkbox-1"
+                  className="text-[#505050] dark:text-white"
+                >
                   Remember me
                 </label>
               </div>
               <span
-                className="cursor-pointer"
+                className="cursor-pointer text-[#505050] dark:text-white"
                 onClick={() => {
                   navigate(Path.ForgetPassword);
                 }}
@@ -220,7 +249,7 @@ export function Login() {
               </span>
             </div>
             <button
-              className="h-[60px] w-full bg-[#69a506] rounded-[10px] [font-family:'Mulish-Bold',Helvetica] font-bold text-white text-center tracking-[0] leading-[normal]"
+              className="h-[60px] w-full bg-[#69a506] rounded-[10px] text-white text-center tracking-[0] leading-[normal]"
               onClick={() => {
                 if (authStore.session) logout();
                 else login();
@@ -228,22 +257,30 @@ export function Login() {
             >
               LOGIN
             </button>
-            <div>
+            <div className="flex gap-3 !mt-4">
               <button
-                className="h-[60px] w-full rounded-[10px] border border-solid border-[#353535] dark:border-white hover:bg-[#303c4b30] transition duration-300 uppercase [font-family:'Mulish-Bold',Helvetica] font-bold dark:text-white text-center tracking-[0] leading-[normal]"
+                className="h-[60px] w-full rounded-[10px] border border-solid border-[#353535] dark:border-white hover:bg-[#303c4b30] transition duration-300 uppercase dark:text-white text-center tracking-[0] leading-[normal]"
                 onClick={() => {
                   googleAuth();
                 }}
               >
-                GOOGLE LOGIN
+                Wechat Login
+              </button>
+              <button
+                className="h-[60px] w-full rounded-[10px] border border-solid border-[#353535] dark:border-white hover:bg-[#303c4b30] transition duration-300 uppercase dark:text-white text-center tracking-[0] leading-[normal]"
+                onClick={() => {
+                  googleAuth();
+                }}
+              >
+                Alipay login
               </button>
             </div>
             <div className="text-center">
-              <span className="text-sm font-medium dark:text-white text-center tracking-[0] leading-[26px] whitespace-nowrap">
+              <span className="text-sm dark:text-white text-center tracking-[0] leading-[26px] whitespace-nowrap">
                 DON’T HAVE AN ACCOUNT?{" "}
               </span>
               <span
-                className="text-sm font-bold text-[#69a506] cursor-pointer text-center tracking-[0] leading-[26px] whitespace-nowrap"
+                className="text-sm font-medium text-[#69a506] cursor-pointer text-center tracking-[0] leading-[26px] whitespace-nowrap"
                 onClick={() => navigate(Path.Register)}
               >
                 REGISTER

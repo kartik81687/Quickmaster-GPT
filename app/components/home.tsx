@@ -112,7 +112,8 @@ function Screen() {
   const location = useLocation();
   const isHome = location.pathname === Path.Home;
   const isMobileScreen = useMobileScreen();
-  const session = useAuthStore().session;
+  // const session = useAuthStore().session;
+  const session = true;
 
   useEffect(() => {
     loadAsyncGoogleFont();
