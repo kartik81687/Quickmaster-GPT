@@ -283,22 +283,29 @@ export function PromptHints(props: {
 
   if (noPrompts) return null;
   return (
-    <div className={styles["prompt-hints"]}>
-      {props.prompts.map((prompt, i) => (
-        <div
-          ref={i === selectIndex ? selectedRef : null}
-          className={
-            styles["prompt-hint"] +
-            ` ${i === selectIndex ? styles["prompt-hint-selected"] : ""}`
-          }
-          key={prompt.title + i.toString()}
-          onClick={() => props.onPromptSelect(prompt)}
-          onMouseEnter={() => setSelectIndex(i)}
-        >
-          <div className={styles["hint-title"]}>{prompt.title}</div>
-          <div className={styles["hint-content"]}>{prompt.content}</div>
+    <div className="fixed inset-0 z-[99999] bg-[#000000]/50 flex items-center justify-center">
+      <div className="w-full max-w-[1520px] bg-[#ffffff] dark:bg-[#303C4B30] backdrop-blur-lg px-10 pt-10 rounded-2xl ring-1 ring-[#18BB4E] relative">
+        <div className={styles["prompt-hints"]}>
+          {props.prompts.map((prompt, i) => (
+            <div
+              ref={i === selectIndex ? selectedRef : null}
+              className={
+                styles["prompt-hint"] +
+                ` ${i === selectIndex ? styles["prompt-hint-selected"] : ""}` +
+                "bg-[#7d7d7d30] hover:!bg-[#7d7d7d4d] !py-5 !px-8 !space-y-1"
+              }
+              key={prompt.title + i.toString()}
+              onClick={() => props.onPromptSelect(prompt)}
+              onMouseEnter={() => setSelectIndex(i)}
+            >
+              <div className={styles["hint-title"] + 'text-[#fff]'}>{prompt.title}</div>
+              <div className={styles["hint-content"] + 'text-[#ffffffb3]'}>{prompt.content}</div>
+            </div>
+          ))}
         </div>
-      ))}
+        <div className="h-14 absolute bottom-0 left-0 right-0 w-full bg-gradient-to-b from-transparent via-white/70 to-white dark:via-[#12171bf6] dark:to-[#12171b] z-[1] rounded-2xl"></div>
+        <div className="h-20 absolute bottom-0 left-0 right-0 w-full bg-gradient-to-b from-transparent via-white/70 to-white dark:via-[#12171bf6] dark:to-[#12171b] z-[1] rounded-2xl"></div>
+      </div>
     </div>
   );
 }

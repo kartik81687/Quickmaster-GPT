@@ -3,8 +3,9 @@ import { Path, SlotID } from "../constant";
 import { IconButton } from "./button";
 
 import LeftIcon from "../icons/left.svg";
-import LightningIcon from "../icons/lightning.svg";
+import LightningIcon from "../icons/thunder.svg";
 import EyeIcon from "../icons/eye.svg";
+import EyeIconDark from "../icons/eye-dark.svg";
 
 import { useLocation, useNavigate } from "react-router-dom";
 import { Mask, useMaskStore } from "../store/mask";
@@ -13,6 +14,7 @@ import { useAppConfig, useChatStore } from "../store";
 import { MaskAvatar } from "./mask";
 import { useCommand } from "../command";
 import { SideBar } from "./sidebar";
+import { useTheme } from "next-themes";
 
 function getIntersectionArea(aRect: DOMRect, bRect: DOMRect) {
   const xmin = Math.max(aRect.x, bRect.x);
@@ -113,68 +115,68 @@ export function NewChat() {
         (maskRef.current.scrollWidth - maskRef.current.clientWidth) / 2;
     }
   }, [groups]);
-
+  const { theme } = useTheme();
   return (
-    <div className="bg-[#ebebeb] dark:bg-neutral-800 flex flex-row justify-center w-full">
+    <div className="bg-[#ebebeb] dark:bg-[#202227] flex flex-row items-start justify-center w-full p-5 gap-6 h-screen">
       <SideBar />
-      <div className="w-4/5 p-[30px]">
-        <div className="rounded-[10px] bg-white dark:bg-neutral-950 flex flex-col items-center h-[600px]">
-          <div className="flex items-start w-full">
+      <div className="w-full">
+        <div className="rounded-[10px] bg-white dark:bg-[#0E0F13] p-8 height-container overflow-y-auto relative">
+          <div className="absolute top-0 left-0">
             <IconButton
               icon={<LeftIcon />}
               text={"Back"}
               onClick={() => navigate(Path.Home)}
             ></IconButton>
           </div>
-          <div>
-            <div className="w-[269px] h-[288px] pt-[100px]">
-              <div className="w-[269px] h-[148px] top-0 left-0">
-                <div className="relative h-[148px]">
-                  <div className="absolute w-[269px] h-[148px] top-0 left-0">
-                    <div className="relative h-[148px]">
-                      <div className="w-[84px] h-[110px] top-[29px] left-[13px] rotate-[-15.00deg] absolute bg-white dark:bg-neutral-950 rounded-[10px] border border-solid border-[#18bb4e78]" />
-                      <div className="w-[84px] h-[110px] top-[29px] left-[172px] rotate-[15.00deg] absolute bg-white dark:bg-neutral-950 rounded-[10px] border border-solid border-[#18bb4e78]" />
-                      <div className="w-[108px] h-[142px] top-0 left-[81px] absolute bg-white dark:bg-neutral-950 rounded-[10px] border border-solid border-[#18bb4e78]" />
-                    </div>
+          <div className="w-full h-full flex flex-col justify-center items-center">
+            <div className="w-[269px] h-[148px] top-0 left-0">
+              <div className="relative h-[148px]">
+                <div className="absolute w-[269px] h-[148px] top-0 left-0">
+                  <div className="relative h-[148px]">
+                    <div className="w-[84px] h-[110px] top-[29px] left-[13px] rotate-[-15.00deg] absolute bg-white dark:bg-neutral-950 rounded-[10px] border border-solid border-[#18bb4e78]" />
+                    <div className="w-[84px] h-[110px] top-[29px] left-[172px] rotate-[15.00deg] absolute bg-white dark:bg-neutral-950 rounded-[10px] border border-solid border-[#18bb4e78]" />
+                    <div className="w-[108px] h-[142px] top-0 left-[81px] absolute bg-white dark:bg-neutral-950 rounded-[10px] border border-solid border-[#18bb4e78]" />
                   </div>
-                  <img
-                    className="w-[64px] h-[64px] top-[39px] left-[103px] absolute object-cover"
-                    alt="Image"
-                    src="/images/mask (2).png"
-                  />
-                  <img
-                    className="w-[43px] h-[43px] top-[60px] left-[193px] absolute object-cover"
-                    alt="Image"
-                    src="/images/mask (3).png"
-                  />
-                  <img
-                    className="w-[40px] h-[40px] top-[60px] left-[35px] absolute object-cover"
-                    alt="Image"
-                    src="/images/mask (1).png"
-                  />
                 </div>
+                <img
+                  className="w-[64px] h-[64px] top-[39px] left-[103px] absolute object-cover"
+                  alt="Image"
+                  src="/images/mask (3).png"
+                />
+                <img
+                  className="w-[43px] h-[43px] top-[60px] left-[193px] absolute object-cover"
+                  src="/images/mask (1).png"
+                  alt="Image"
+                />
+                <img
+                  className="w-[40px] h-[40px] top-[60px] left-[35px] absolute object-cover"
+                  alt="Image"
+                  src="/images/mask (2).png"
+                />
               </div>
             </div>
 
-            <div className="[font-family:'Mulish-ExtraBold',Helvetica] font-extrabold dark:text-white text-[38px] tracking-[0] leading-[normal]">
+            <div className="font-extrabold dark:text-white text-[38px] tracking-[0] leading-[normal]">
               {Locale.NewChat.Title}
             </div>
-            <div className=" [font-family:'Mulish-ExtraBold',Helvetica] dark:text-white tracking-[0] leading-[normal]">
+            <div className=" dark:text-white tracking-[0] leading-[normal]">
               {Locale.NewChat.SubTitle}
             </div>
 
-            <div className="flex pt-5">
-              <IconButton
-                text={Locale.NewChat.More}
-                onClick={() => navigate(Path.Masks)}
-                icon={<EyeIcon />}
-                bordered
-                shadow
-              />
+            <div className="flex gap-4 pt-5 mt-5">
+              <div className="ring-1 ring-[#353535] rounded-lg ring-inset px-5">
+                <IconButton
+                  text={Locale.NewChat.More}
+                  onClick={() => navigate(Path.Masks)}
+                  icon={theme === "dark" ? <EyeIconDark /> : <EyeIcon />}
+                  bordered
+                  shadow
+                />
+              </div>
 
               <button
                 onClick={() => startChat()}
-                className="bg-[#69A606] text-white flex items-center p-2 rounded-[8px] pl-4 pr-4"
+                className="bg-[#69A606] text-white gap-2 flex items-center rounded-lg px-10"
               >
                 {<LightningIcon />}
                 {Locale.NewChat.Skip}

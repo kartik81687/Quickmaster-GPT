@@ -144,7 +144,7 @@ export function SideBar() {
     };
   }, []);
   return (
-    <div>
+    <div className="h-full">
       <div
         onClick={() => {
           if (isExpanded) {
@@ -183,7 +183,7 @@ export function SideBar() {
               className="select-none min-w-[120px]"
             />
             <div className="w-full !mt-6">
-              <div className="items-center p-3 bg-[#69a506] rounded-[10px] overflow-hidden">
+              <div className="items-center p-3 bg-[#69a506] rounded-lg overflow-hidden">
                 <button
                   className="relative w-full font-semibold text-white tracking-[0] leading-[normal] flex gap-3"
                   onClick={() => {
@@ -214,13 +214,13 @@ export function SideBar() {
               <span className="text-[#9A9A9A] dark:text-[14.4px] whitespace-nowrap">
                 Chat List
               </span>
-              <div className="w-full">
+              <div className="w-full pt-3">
                 <ChatList narrow={shouldNarrow} today={false} />
               </div>
             </div>
             <div className="h-[1px] bg-[#b3b3b3] dark:bg-neutral-700" />
-            <div className="w-full px-4 space-y-6 mt-6">
-              <div className="inline-flex items-center gap-[7.21px] relative">
+            <div className="w-full px-4 space-y-6 mt-6 flex flex-col">
+              <div className="inline-flex items-center gap-[7.21px] relative mt-2">
                 <img
                   className="relative w-[28.86px] h-[28.86px]"
                   alt="warning"
@@ -234,7 +234,7 @@ export function SideBar() {
                     }
                   }}
                 >
-                  Clear Conversation
+                  guide
                 </button>
               </div>
               <div className="inline-flex items-center gap-[7.21px] relative">

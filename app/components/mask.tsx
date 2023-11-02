@@ -11,6 +11,8 @@ import CloseIcon from "../icons/close.svg";
 import DeleteIcon from "../icons/delete.svg";
 import EyeIcon from "../icons/eye.svg";
 import CopyIcon from "../icons/copy.svg";
+import SearchIcon from "../icons/search.svg";
+import CirclePlus from '../icons/circle-plus.svg'
 
 import { DEFAULT_MASK_AVATAR, Mask, useMaskStore } from "../store/mask";
 import { ChatMessage, ModelConfig, useAppConfig, useChatStore } from "../store";
@@ -314,16 +316,16 @@ export function MaskPage() {
 
   return (
     <ErrorBoundary>
-      <div className="bg-[#ebebeb] dark:bg-neutral-800 flex flex-row justify-center w-full">
+      <div className="bg-[#ebebeb] dark:bg-[#202227] flex flex-row items-start justify-center w-full p-5 gap-6 h-screen">
         <SideBar />
-        <div className="w-4/5 p-3">
-          <div className="rounded-[10px] bg-white dark:bg-neutral-950">
+        <div className="w-full">
+          <div className="rounded-[10px] bg-white dark:bg-[#0E0F13] p-8 height-container overflow-y-auto">
             <div className="window-header">
-              <div className="window-header-title pt-5 pl-3">
-                <div className="text-neutral-700 text-[28px] font-extrabold font-['Mulish']">
+              <div className="window-header-title">
+                <div className="text-[#353535] dark:text-white text-[28px] font-extrabold font-['Mulish']">
                   {Locale.Mask.Page.Title}
                 </div>
-                <div className="text-neutral-700 text-base font-medium font-['Mulish'] leading-relaxed">
+                <div className="text-[#a3a3a3] text-base font-medium font-['Mulish'] leading-relaxed">
                   {Locale.Mask.Page.SubTitle(allMasks.length)}
                 </div>
               </div>
@@ -353,15 +355,18 @@ export function MaskPage() {
               </div> */}
             </div>
 
-            <div className="p-3">
-              <div className="flex justify-between">
-                <input
-                  type="text"
-                  className="w-3/4 bg-opacity-20 bg-zinc-500 rounded-[10px] backdrop-blur-[100px] pl-5"
-                  placeholder={Locale.Mask.Page.Search}
-                  autoFocus
-                  onInput={(e) => onSearch(e.currentTarget.value)}
-                />
+            <div className="mt-4">
+              <div className="flex gap-5">
+                <div className="w-full bg-[#7d7d7d30] rounded-[10px] pl-4 h-[50px] flex gap-3 items-center">
+                  <SearchIcon />
+                  <input
+                    type="text"
+                    className="w-full h-full outline-none bg-transparent"
+                    placeholder={Locale.Mask.Page.Search}
+                    autoFocus
+                    onInput={(e) => onSearch(e.currentTarget.value)}
+                  />
+                </div>
                 <Select
                   className="border rounded-[10px]"
                   value={filterLang ?? Locale.Settings.Lang.All}
@@ -385,23 +390,24 @@ export function MaskPage() {
                 </Select>
 
                 <button
-                  className="bg-lime-600 flex p-3 justify-center rounded-[10px] pl-5 pr-5"
+                  className="bg-lime-600 flex p-3 justify-center items-center gap-2 rounded-[10px] px-10"
                   onClick={() => {
                     const createdMask = maskStore.create();
                     setEditingMaskId(createdMask.id);
                   }}
                 >
+                  <CirclePlus/>
                   {Locale.Mask.Page.Create}
                 </button>
               </div>
 
-              <div>
+              <div className="mt-10 border-t pt-7 border-[#707070] rounded-lg space-y-3">
                 {masks.map((m) => (
-                  <div className="flex w-full p-5 rounded-[10px]" key={m.id}>
-                    <div className="bg-zinc-500 bg-opacity-20 flex w-full rounded-[10px]">
-                      <div className="flex w-4/5 rounded-[10px]">
+                  <div className="flex w-full rounded-[10px]" key={m.id}>
+                    <div className="bg-[#7d7d7d30] flex justify-between w-full rounded-[10px] px-5 py-3">
+                      <div className="flex w-full rounded-[10px]">
                         <div className="items-center content-center grid pr-3 pl-3">
-                          <div className="items-center justify-center bg-zinc-500 bg-opacity-20 p-2 rounded-[8px]">
+                          <div className="items-center justify-center bg-zinc-500 bg-opacity-20 p-3 rounded-[8px]">
                             <MaskAvatar mask={m} />
                           </div>
                         </div>
@@ -414,7 +420,7 @@ export function MaskPage() {
                           </div>
                         </div>
                       </div>
-                      <div className="flex bg-zinc-500 w-1/5 rounded-[10px] bg-opacity-0 p-3">
+                      <div className="flex bg-zinc-500 rounded-[10px] bg-opacity-0 p-3">
                         <div className="border-lime-600 border rounded-[10px] grid content-center">
                           <IconButton
                             icon={<AddIcon />}
