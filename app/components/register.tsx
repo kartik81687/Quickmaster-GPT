@@ -17,6 +17,7 @@ import { useNavigate } from "react-router-dom";
 import { showToast } from "../components/ui-lib";
 import { useMobileScreen } from "../utils";
 import Image from "next/image";
+import { useTheme } from "next-themes";
 
 export function Register() {
   const config = useAppConfig();
@@ -155,11 +156,17 @@ export function Register() {
     getRegisterCaptcha(captchaId);
   }, [captchaId]);
 
+  const { theme } = useTheme();
+  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+  const togglePasswordVisibility = () => {
+    setIsPasswordVisible((prev) => !prev);
+  };
+
   return (
     <ErrorBoundary>
       <div className="flex justify-center items-center bg-[url('/images/background.png')] w-full h-full min-h-screen bg-cover">
         <div className="bg-white dark:bg-[#303c4b30] dark:backdrop-blur-2xl w-full h-fit max-w-[690px] border-[2px] border-green-700 rounded-[30px] py-10 px-5">
-          <div className="w-full max-w-[500px] mx-auto space-y-7">
+          <div className="w-full max-w-[500px] mx-auto space-y-4">
             <div className="flex justify-center">
               <Image
                 src="/logo.svg"
@@ -169,23 +176,28 @@ export function Register() {
                 draggable={false}
               />
             </div>
-            <div className="space-y-3">
-              <div className="text-neutral-700 dark:text-white text-3xl font-black font-['Mulish'] uppercase">
+            <div className="space-y-1">
+              <div className="text-neutral-700 dark:text-white text-3xl font-semibold uppercase">
                 REGISTER
               </div>
-              <div className="opacity-80 text-neutral-700 dark:text-white dark:texase font-medium font-['Mulish'] leading-relaxed">
+              <div className="opacity-80 text-neutral-700 dark:text-white dark:texase font-medium leading-relaxed">
                 Free quota after registeration
               </div>
             </div>
-            <div className="space-y-3">
-              <label className="text-neutral-700 dark:text-white font-['Mulish'] leading-relaxed">
+            <div className="space-y-1.5">
+              <label className="text-neutral-700 dark:text-white leading-relaxed">
                 Full Name
               </label>
-              <div className="bg-[#c6c6c673] dark:bg-[#00000070] rounded-[10px] border border-[#ffffff3b] backdrop-blur-[20px] backdrop-brightness-[100%] [-webkit-backdrop-filter:blur(20px)_brightness(100%)] flex items-center pl-6 h-[60px] gap-4">
+              <div className="bg-[#c6c6c673] dark:bg-[#00000070] rounded-[10px] border border-[#ffffff3b] backdrop-blur-[20px] flex items-center pl-4 h-[60px] gap-3">
                 <img
-                  className="w-[15px] h-[19px]"
+                  className="w-[20px] h-[20px]"
                   alt="Group"
-                  src="/images/user.svg"
+                  draggable={false}
+                  src={
+                    theme === "dark"
+                      ? "/images/user-dark.svg"
+                      : "/images/user.svg"
+                  }
                 />
                 <input
                   className="flex-1 h-full outline-none bg-transparent [font-family:'Mulish-Regular',Helvetica] font-normal dark:text-white text-[16px] tracking-[0] leading-[26px] whitespace-nowrap"
@@ -195,15 +207,41 @@ export function Register() {
                 />
               </div>
             </div>
-            <div className="space-y-3">
-              <label className="text-neutral-700 dark:text-white font-['Mulish'] leading-relaxed">
+            <div className="space-y-1.5">
+              <label className="text-neutral-700 dark:text-white leading-relaxed">
+                User Name
+              </label>
+              <div className="bg-[#c6c6c673] dark:bg-[#00000070] rounded-[10px] border border-[#ffffff3b] backdrop-blur-[20px] flex items-center pl-4 h-[60px] gap-3">
+                <img
+                  className="w-[20px] h-[20px]"
+                  alt="Group"
+                  draggable={false}
+                  src={
+                    theme === "dark"
+                      ? "/images/user-dark.svg"
+                      : "/images/user.svg"
+                  }
+                />
+                <input
+                  className="flex-1 h-full outline-none bg-transparent font-normal dark:text-white text-[16px] tracking-[0] leading-[26px] whitespace-nowrap"
+                  placeholder="Please enter your user name"
+                />
+              </div>
+            </div>
+            <div className="space-y-1.5">
+              <label className="text-neutral-700 dark:text-white leading-relaxed">
                 Email Address
               </label>
-              <div className="bg-[#c6c6c673] dark:bg-[#00000070] rounded-[10px] border border-[#ffffff3b] backdrop-blur-[20px] backdrop-brightness-[100%] [-webkit-backdrop-filter:blur(20px)_brightness(100%)] flex items-center pl-6 h-[60px] gap-4">
+              <div className="bg-[#c6c6c673] dark:bg-[#00000070] rounded-[10px] border border-[#ffffff3b] backdrop-blur-[20px] flex items-center pl-4 h-[60px] gap-3">
                 <img
-                  className="w-[15px] h-[19px]"
+                  className="w-[20px] h-[20px]"
                   alt="Group"
-                  src="/images/user.svg"
+                  draggable={false}
+                  src={
+                    theme === "dark"
+                      ? "/images/email-dark.svg"
+                      : "/images/email.svg"
+                  }
                 />
                 <input
                   className="flex-1 h-full outline-none bg-transparent font-family:'Mulish-Regular',Helvetica] font-normal dark:text-white text-[16px] tracking-[0] leading-[26px] whitespace-nowrap"
@@ -213,40 +251,56 @@ export function Register() {
                 />
               </div>
             </div>
-            <div className="space-y-3">
+
+            <div className="space-y-1.5">
               <label className="text-neutral-700 dark:text-white font-['Mulish'] leading-relaxed">
                 Password
               </label>
-              <div className="bg-[#c6c6c673] dark:bg-[#00000070] rounded-[10px] border border-[#ffffff3b] backdrop-blur-[20px] backdrop-brightness-[100%] [-webkit-backdrop-filter:blur(20px)_brightness(100%)] flex items-center px-6 h-[60px] gap-4">
+              <div className="bg-[#c6c6c673] dark:bg-[#00000070] rounded-[10px] border border-[#ffffff3b] backdrop-blur-[20px] flex items-center px-6 h-[60px] gap-4">
                 <img
-                  className="w-[15px] h-[19px]"
+                  className="w-[20px] h-[20px]"
                   alt="Group"
-                  src="/images/lock.svg"
+                  draggable={false}
+                  src={
+                    theme === "dark"
+                      ? "/images/lock-dark.svg"
+                      : "/images/lock.svg"
+                  }
                 />
                 <input
                   className="flex-1 h-full outline-none bg-transparent font-family:'Mulish-Regular',Helvetica] font-normal dark:text-white text-[16px] tracking-[0] leading-[26px] whitespace-nowrap"
                   placeholder="Please enter your password"
-                  type="password"
+                  type={isPasswordVisible ? "text" : "password"}
                   value={password}
                   onChange={(e) => setPassword(e.currentTarget.value)}
                 />
                 <img
-                  className="w-[15px] h-[19px]"
+                  onClick={togglePasswordVisibility}
+                  className="w-[22px] h-[22px]"
                   alt="Eye-Off"
-                  src="/images/eye-off.svg"
+                  draggable={false}
+                  src={
+                    theme === "dark"
+                      ? isPasswordVisible
+                        ? "/images/eye-off-dark.svg"
+                        : "/images/eye-dark.svg"
+                      : !isPasswordVisible
+                      ? "/images/eye.svg"
+                      : "/images/eye-off.svg"
+                  }
                 />
               </div>
             </div>
-            <div className="space-y-6">
+            <div className="space-y-6 !mt-7">
               <button
-                className="h-[60px] w-full bg-[#69a506] rounded-[10px] font-bold text-white text-center tracking-[0] leading-[normal]"
+                className="h-[60px] w-full bg-[#69a506] rounded-[10px] text-white text-center tracking-[0] leading-[normal]"
                 onClick={() => register()}
               >
                 REGISTER
               </button>
-              <div className="flex gap-3">
+              <div className="flex gap-3 !mt-4">
                 <button
-                  className="h-[60px] w-full rounded-[10px] border border-solid border-[#353535] dark:border-white hover:bg-[#303c4b30] transition duration-300 uppercase font-bold dark:text-white text-center tracking-[0] leading-[normal]"
+                  className="h-[60px] w-full rounded-[10px] border border-solid border-[#353535] dark:border-white hover:bg-[#303c4b30] transition duration-300 uppercase dark:text-white text-center tracking-[0] leading-[normal]"
                   onClick={() => {
                     googleAuth();
                   }}
@@ -254,7 +308,7 @@ export function Register() {
                   Wechat Login
                 </button>
                 <button
-                  className="h-[60px] w-full rounded-[10px] border border-solid border-[#353535] dark:border-white hover:bg-[#303c4b30] transition duration-300 uppercase font-bold dark:text-white text-center tracking-[0] leading-[normal]"
+                  className="h-[60px] w-full rounded-[10px] border border-solid border-[#353535] dark:border-white hover:bg-[#303c4b30] transition duration-300 uppercase dark:text-white text-center tracking-[0] leading-[normal]"
                   onClick={() => {
                     googleAuth();
                   }}
@@ -264,16 +318,16 @@ export function Register() {
               </div>
             </div>
             <div
-              className="text-center"
+              className="text-center !mt-8"
               // onClick={() => {
               //   window.location.href = alipayLoginUrl;
               // }}
             >
-              <span className="text-sm font-medium dark:text-white text-center tracking-[0] leading-[26px] whitespace-nowrap">
+              <span className="text-sm dark:text-white text-center tracking-[0] leading-[26px] whitespace-nowrap">
                 ALREADY HAVE AN ACCOUNT?{" "}
               </span>
               <span
-                className="text-sm font-bold text-[#69a506] text-center tracking-[0] leading-[26px] whitespace-nowrap cursor-pointer"
+                className="text-sm text-[#69a506] text-center tracking-[0] leading-[26px] whitespace-nowrap cursor-pointer"
                 onClick={() => navigate(Path.Login)}
               >
                 LOGIN
