@@ -91,7 +91,7 @@ import { IconButton } from "./button";
 import styles from "./home.module.scss";
 import chatStyle from "./chat.module.scss";
 
-import { ListItem, Modal, Select, showToast } from "./ui-lib";
+import { ListItem, Modal, showToast } from "./ui-lib";
 import { useLocation, useNavigate } from "react-router-dom";
 import { LAST_INPUT_KEY, Path, REQUEST_TIMEOUT_MS } from "../constant";
 import { Avatar } from "./emoji";
@@ -103,6 +103,13 @@ import { ExportMessageModal } from "./exporter";
 import SubAlertModal from "./subAlertModal";
 import { BUILTIN_MASK_STORE } from "../masks";
 import { useTheme } from "next-themes";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 const Markdown = dynamic(async () => (await import("./markdown")).Markdown, {
   loading: () => <LoadingIcon />,
@@ -298,8 +305,12 @@ export function PromptHints(props: {
               onClick={() => props.onPromptSelect(prompt)}
               onMouseEnter={() => setSelectIndex(i)}
             >
-              <div className={styles["hint-title"] + 'text-[#fff]'}>{prompt.title}</div>
-              <div className={styles["hint-content"] + 'text-[#ffffffb3]'}>{prompt.content}</div>
+              <div className={styles["hint-title"] + "text-[#fff]"}>
+                {prompt.title}
+              </div>
+              <div className={styles["hint-content"] + "text-[#ffffffb3]"}>
+                {prompt.content}
+              </div>
             </div>
           ))}
         </div>
@@ -436,7 +447,7 @@ export function ChatActions(props: {
       <Toaster />
       {couldStop && (
         <div
-          className="w-[62px] h-[54px] flex justify-center items-center font-[12px] rounded-xl bg-transparent ring-1 ring-[#b6b6b6] dark:ring-[#585858] cursor-pointer"
+          className="w-[58px] h-[50px] flex justify-center items-center font-[12px] rounded-xl bg-transparent ring-1 ring-[#b6b6b6] dark:ring-[#585858] cursor-pointer"
           onClick={stopAll}
         >
           <StopIcon />
@@ -444,7 +455,7 @@ export function ChatActions(props: {
       )}
       {!props.hitBottom && (
         <div
-          className="w-[62px] h-[54px] flex justify-center items-center font-[12px] rounded-xl bg-transparent ring-1 ring-[#b6b6b6] dark:ring-[#585858] cursor-pointer"
+          className="w-[58px] h-[50px] flex justify-center items-center font-[12px] rounded-xl bg-transparent ring-1 ring-[#b6b6b6] dark:ring-[#585858] cursor-pointer"
           onClick={props.scrollToBottom}
         >
           <BottomIcon />
@@ -452,7 +463,7 @@ export function ChatActions(props: {
       )}
       {/* {props.hitBottom && (
         <div
-          className="w-[62px] h-[54px] p-3 mb-3 items-center font-[12px] rounded-[20px] bg-white inline-flex shadow-slate-500 shadow cursor-pointer dark:bg-neutral-800 dark:shadow-slate-200"
+          className="w-[58px] h-[50px] p-3 mb-3 items-center font-[12px] rounded-[20px] bg-white inline-flex shadow-slate-500 shadow cursor-pointer dark:bg-neutral-800 dark:shadow-slate-200"
           onClick={props.showPromptModal}
         >
           <SettingsIcon />
@@ -460,7 +471,7 @@ export function ChatActions(props: {
       )} */}
 
       {/* <div
-        className="w-[62px] h-[54px] p-3 mb-3 items-center font-[12px] rounded-[20px] bg-white inline-flex shadow-slate-500 shadow cursor-pointer dark:bg-neutral-800 dark:shadow-slate-200"
+        className="w-[58px] h-[50px] p-3 mb-3 items-center font-[12px] rounded-[20px] bg-white inline-flex shadow-slate-500 shadow cursor-pointer dark:bg-neutral-800 dark:shadow-slate-200"
         onClick={nextTheme}
       >
         {theme === Theme.Auto ? (
@@ -473,14 +484,14 @@ export function ChatActions(props: {
       </div> */}
 
       <div
-        className="w-[62px] h-[54px] flex justify-center items-center font-[12px] rounded-xl bg-transparent ring-1 ring-[#b6b6b6] dark:ring-[#585858] cursor-pointer"
+        className="w-[58px] h-[50px] flex justify-center items-center font-[12px] rounded-xl bg-transparent ring-1 ring-[#b6b6b6] dark:ring-[#585858] cursor-pointer"
         onClick={props.showPromptHints}
       >
         {currentTheme === Theme.Dark ? <PromptIconDark /> : <PromptIconLight />}
       </div>
 
       <div
-        className="w-[62px] h-[54px] flex justify-center items-center font-[12px] rounded-xl bg-transparent ring-1 ring-[#b6b6b6] dark:ring-[#585858] cursor-pointer"
+        className="w-[58px] h-[50px] flex justify-center items-center font-[12px] rounded-xl bg-transparent ring-1 ring-[#b6b6b6] dark:ring-[#585858] cursor-pointer"
         onClick={() => {
           navigate(Path.Masks);
         }}
@@ -489,7 +500,7 @@ export function ChatActions(props: {
       </div>
 
       <div
-        className="w-[62px] h-[54px] flex justify-center items-center font-[12px] rounded-xl bg-transparent ring-1 ring-[#b6b6b6] dark:ring-[#585858] cursor-pointer"
+        className="w-[58px] h-[50px] flex justify-center items-center font-[12px] rounded-xl bg-transparent ring-1 ring-[#b6b6b6] dark:ring-[#585858] cursor-pointer"
         onClick={() => {
           chatStore.updateCurrentSession((session) => {
             if (session.clearContextIndex === session.messages.length) {
@@ -505,7 +516,7 @@ export function ChatActions(props: {
       </div>
 
       <div
-        className="w-[62px] h-[54px] flex justify-center items-center font-[12px] rounded-xl bg-transparent ring-1 ring-[#b6b6b6] dark:ring-[#585858] cursor-pointer"
+        className="w-[58px] h-[50px] flex justify-center items-center font-[12px] rounded-xl bg-transparent ring-1 ring-[#b6b6b6] dark:ring-[#585858] cursor-pointer"
         onClick={props.onSpeechStart}
       >
         {currentTheme === Theme.Dark ? (
@@ -522,7 +533,7 @@ export function ChatActions(props: {
       </div>
 
       <div
-        className="w-[62px] h-[54px] flex justify-center items-center font-[12px] rounded-xl bg-transparent ring-1 ring-[#b6b6b6] dark:ring-[#585858] cursor-pointer"
+        className="w-[58px] h-[50px] flex justify-center items-center font-[12px] rounded-xl bg-transparent ring-1 ring-[#b6b6b6] dark:ring-[#585858] cursor-pointer"
         onClick={props.onBarding}
       >
         {currentTheme === Theme.Dark ? (
@@ -539,7 +550,7 @@ export function ChatActions(props: {
       </div>
 
       <div
-        className="w-[62px] h-[54px] flex justify-center items-center font-[12px] rounded-xl bg-transparent ring-1 ring-[#b6b6b6] dark:ring-[#585858] cursor-pointer"
+        className="w-[58px] h-[50px] flex justify-center items-center font-[12px] rounded-xl bg-transparent ring-1 ring-[#b6b6b6] dark:ring-[#585858] cursor-pointer"
         onClick={props.onClauding}
       >
         {props.clauding ? (
@@ -550,48 +561,44 @@ export function ChatActions(props: {
       </div>
 
       <div
-        className="w-[62px] h-[54px] flex justify-center items-center font-[12px] rounded-xl bg-transparent ring-1 ring-[#b6b6b6] dark:ring-[#585858] cursor-pointer"
+        className="w-[58px] h-[50px] flex justify-center items-center font-[12px] rounded-xl bg-transparent ring-1 ring-[#b6b6b6] dark:ring-[#585858] cursor-pointer"
         onClick={props.onDuckDuckGo}
       >
         {props.duckduckgoing ? <DuckDuckGoIcon /> : <DuckDuckGoOffIcon />}
       </div>
 
       <div className="">
-        <ListItem className="dark:text-[#B6B7B8] text-[#353535] !p-0">
+        <ListItem className="dark:text-[#B6B7B8] text-[#353535] !p-0 h-[50px]">
           <Select
-            value={editingMask?.modelConfig.model}
-            className="h-[54px] items-center font-[12px] rounded-xl bg-transparent ring-1 ring-[#b6b6b6] dark:ring-[#585858] inline-flex px-4"
-            onChange={(e) => {
+            defaultValue={editingMask?.modelConfig.model}
+            onValueChange={(e) => {
               updateConfig(
-                (config) =>
-                  (config.model = ModalConfigValidator.model(
-                    e.currentTarget.value,
-                  )),
+                (config) => (config.model = ModalConfigValidator.model(e)),
               );
             }}
           >
-            {ALL_MODELS.map((v) => (
-              <option
-                className="!]"
-                value={v.name}
-                key={v.name}
-                disabled={!v.available}
-              >
-                {v.name}
-              </option>
-            ))}
+            <SelectTrigger className="w-[180px]">
+              <SelectValue placeholder="Submit Key" />
+            </SelectTrigger>
+            <SelectContent>
+              {ALL_MODELS.map((v) => (
+                <SelectItem value={v.name} key={v.name} disabled={!v.available}>
+                  {v.name}
+                </SelectItem>
+              ))}
+            </SelectContent>
           </Select>
         </ListItem>
       </div>
 
       {/* <div
-        className="w-[62px] h-[54px] flex justify-center items-center font-[12px] rounded-xl bg-transparent ring-1 ring-[#b6b6b6] dark:ring-[#585858] cursor-pointer"
+        className="w-[58px] h-[50px] flex justify-center items-center font-[12px] rounded-xl bg-transparent ring-1 ring-[#b6b6b6] dark:ring-[#585858] cursor-pointer"
         onClick={props.onChinese}
       >
         {props.chinese ? <ChineseIcon /> : <EnglishIcon />}
       </div> */}
 
-      {/* <div className="w-[62px] h-[54px] flex justify-center items-center font-[12px] rounded-xl bg-transparent ring-1 ring-[#b6b6b6] dark:ring-[#585858] cursor-pointer">
+      {/* <div className="w-[58px] h-[50px] flex justify-center items-center font-[12px] rounded-xl bg-transparent ring-1 ring-[#b6b6b6] dark:ring-[#585858] cursor-pointer">
         {props.speaking ? (
           <PlayerStopIcon onClick={stopVoiceOfAnswer} />
         ) : (
@@ -1124,8 +1131,8 @@ export function Chat() {
               setShowModal={setShowPromptModal}
             />
           </div> */}
-          <div className="flex-1 h-full flex flex-col">
-            <div className="flex-1 h-full w-full">
+          <div className="h-full flex flex-col">
+            <div className="flex-1 h-full w-full overflow-auto">
               <div
                 className={styles["chat-body"]}
                 ref={scrollRef}

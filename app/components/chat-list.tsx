@@ -45,11 +45,10 @@ export function ChatItem(props: {
     <Draggable draggableId={`${props.id}`} index={props.index}>
       {(provided) => (
         <div
-          className={
-            props.selected
-              ? "bg-white dark:bg-[#0E0F13] dark:neutral-950 rounded-md flex items-center justify-center h-[48px] px-3"
-              : "h-[48px] px-3"
-          }
+          className={`!h-[48px] px-3 flex items-center justify-center mb-2 ${
+            props.selected &&
+            "bg-white dark:bg-[#0E0F13] dark:neutral-950 rounded-md"
+          }`}
           onClick={props.onClick}
           ref={(ele) => {
             draggableRef.current = ele;

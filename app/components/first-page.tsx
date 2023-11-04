@@ -104,10 +104,10 @@ export function FirstPage() {
         </nav>
         <section className="w-full mt-40 relative z-[1]">
           <div className="relative">
-            <div className="h-fit w-full mx-auto px-2">
+            <div className="h-fit w-full mx-auto">
               <div className="flex flex-col lg:flex-row justify-between w-full gap-10">
                 <div className="w-full flex lg:justify-end">
-                  <div className="w-full max-w-[732px]">
+                  <div className="w-full max-w-[732px] px-2 xl:px-0">
                     <h1 className="w-full max-w-2xl md:max-w-5xl pt-14 text-5xl md:text-7xl capitalize leading-normal md:leading-[1.5] font-black">
                       <span className="text-neutral-700 dark:text-white">
                         Use QuikAsk to
@@ -615,7 +615,7 @@ export function FirstPage() {
               </div>
             </div>
             <div className="mt-20">
-              <div className="flex border-t border-[#acacac] dark:border-neutral-700  items-center justify-between px-4 sm:px-8">
+              <div className="flex border-t border-[#b4b4b433] dark:border-neutral-700  items-center justify-between px-4 sm:px-8">
                 <div className="flex items-center py-4 sm:py-6 gap-3 sm:gap-6">
                   <div className="text-outline font-sans font-bold text-center align-middle text-3xl sm:text-5xl capitalize leading-10 text-transparent bg-clip-text">
                     01
@@ -632,7 +632,7 @@ export function FirstPage() {
             </div>
 
             <div className="">
-              <div className="flex border-t border-[#acacac] dark:border-neutral-700 items-center justify-between px-4 sm:px-8">
+              <div className="flex border-t border-[#b4b4b433] dark:border-neutral-700 items-center justify-between px-4 sm:px-8">
                 <div className="flex items-center py-4 sm:py-6 gap-3 sm:sm:gap-6">
                   <div className="text-outline font-sans font-bold text-center align-middle text-3xl sm:text-5xl capitalize leading-10 text-transparent bg-clip-text">
                     02
@@ -650,7 +650,7 @@ export function FirstPage() {
             <div className="w-[440px] h-[440px] absolute right-1/3 bg-gradient-to-br from-orange-400/40 via-lime-500/40 to-green-600/40 blur-[380px] z-[0]" />
 
             <div className="">
-              <div className="flex border-t border-[#acacac] dark:border-neutral-700 items-center justify-between px-4 sm:px-8">
+              <div className="flex border-t border-[#b4b4b433] dark:border-neutral-700 items-center justify-between px-4 sm:px-8">
                 <div className="flex items-center py-4 sm:py-6 gap-3 sm:sm:gap-6">
                   <div className="text-outline font-sans font-bold text-center align-middle text-3xl sm:text-5xl capitalize leading-10 text-transparent bg-clip-text">
                     03
@@ -666,7 +666,7 @@ export function FirstPage() {
               </div>
             </div>
             <div className="">
-              <div className="flex border-t border-[#acacac] dark:border-neutral-700 items-center justify-between px-4 sm:px-8">
+              <div className="flex border-t border-[#b4b4b433] dark:border-neutral-700 items-center justify-between px-4 sm:px-8">
                 <div className="flex items-center py-4 sm:py-6 gap-3 sm:gap-6">
                   <div className="text-outline font-sans font-bold text-center align-middle text-3xl sm:text-5xl capitalize leading-10 text-transparent bg-clip-text">
                     04
@@ -682,7 +682,7 @@ export function FirstPage() {
               </div>
             </div>
             <div className="">
-              <div className="flex border-t border-[#acacac] dark:border-neutral-700 items-center justify-between px-4 sm:px-8">
+              <div className="flex border-t border-[#b4b4b433] dark:border-neutral-700 items-center justify-between px-4 sm:px-8">
                 <div className="flex items-center py-4 sm:py-6 gap-3 sm:gap-6">
                   <div className="text-outline font-sans font-bold text-center align-middle text-3xl sm:text-5xl capitalize leading-10 text-transparent bg-clip-text">
                     05
@@ -703,7 +703,7 @@ export function FirstPage() {
             <div className="text-neutral-700 text-3xl font-bold capitalize pb-12 leading-10 dark:text-white px-4 relative z-[1]">
               Trusted By
             </div>
-            <div className="border-y border-[#acacac] dark:border-white/10 bg-transparent relative z-[1] py-4">
+            <div className="border-y border-[#b4b4b433] dark:border-white/10 bg-transparent relative z-[1] py-4">
               <div className="p-3 flex items-center gap-2 flex-wrap justify-between ">
                 <div className="w-32">
                   <img

@@ -1,1 +1,12 @@
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="16" height="16" fill="none" viewBox="0 0 16 16"><defs><rect id="path_0" width="16" height="16" x="0" y="0"/></defs><g opacity="1" transform="translate(0 0) rotate(0 8 8)"><mask id="bg-mask-0" fill="#fff"><use xlink:href="#path_0"/></mask><g mask="url(#bg-mask-0)"><path id="路径 1" style="stroke:#333;stroke-width:1.3333333333333333;stroke-opacity:1;stroke-dasharray:0 0" d="M0,2.48L0,0.94C0,0.42 0.42,0 0.94,0L9.06,0C9.58,0 10,0.42 10,0.94L10,9.06C10,9.58 9.58,10 9.06,10L7.51,10" transform="translate(4.333333333333333 1.6666666666666665) rotate(0 5 5)"/><path id="路径 2" style="stroke:#333;stroke-width:1.3333333333333333;stroke-opacity:1;stroke-dasharray:0 0" d="M0.94,0C0.42,0 0,0.42 0,0.94L0,9.06C0,9.58 0.42,10 0.94,10L9.06,10C9.58,10 10,9.58 10,9.06L10,0.94C10,0.42 9.58,0 9.06,0L0.94,0Z" transform="translate(1.6666666666666665 4.333333333333333) rotate(0 5 5)"/></g></g></svg>
+<svg width="24" height="24" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="copy" opacity="0.7">
+<g id="Rectangle">
+<rect x="8" y="8.67548" width="12" height="12" rx="2" stroke="#353535" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
+<rect x="8" y="8.67548" width="12" height="12" rx="2" stroke="white" stroke-opacity="0.2" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="Path">
+<path d="M16 8.67548V6.67548C16 5.57091 15.1046 4.67548 14 4.67548H6C4.89543 4.67548 4 5.57091 4 6.67548V14.6755C4 15.78 4.89543 16.6755 6 16.6755H8" stroke="#353535" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M16 8.67548V6.67548C16 5.57091 15.1046 4.67548 14 4.67548H6C4.89543 4.67548 4 5.57091 4 6.67548V14.6755C4 15.78 4.89543 16.6755 6 16.6755H8" stroke="white" stroke-opacity="0.2" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+</svg>

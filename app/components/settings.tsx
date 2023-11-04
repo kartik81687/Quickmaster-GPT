@@ -3,22 +3,20 @@ import { useState, useEffect, useMemo, HTMLProps, useRef } from "react";
 import styles from "./settings.module.scss";
 
 import ResetIcon from "../icons/reload.svg";
+import ResetIconDark from "../icons/reload-dark.svg";
 import AddIcon from "../icons/add.svg";
 import CloseIcon from "../icons/close.svg";
 import CopyIcon from "../icons/copy.svg";
+import CopyIconDark from "../icons/copy-dark.svg";
 import ClearIcon from "../icons/clear.svg";
 import LoadingIcon from "../icons/three-dots.svg";
+import CirclePlus from "../icons/circle-plus.svg";
 import EditIcon from "../icons/edit.svg";
-import EyeIcon from "../icons/eye.svg";
-import {
-  Input,
-  List,
-  ListItem,
-  Modal,
-  PasswordInput,
-  Popover,
-  Select,
-} from "./ui-lib";
+import EditIconDark from "../icons/edit-dark.svg";
+import EyeIcon from "../icons/eye-lg.svg";
+import EyeIconDark from "../icons/eye-lg-dark.svg";
+import SearchIcon from "../icons/search.svg";
+import { Input, List, ListItem, Modal, PasswordInput, Popover } from "./ui-lib";
 import { ModelConfigList } from "./model-config";
 
 import { IconButton } from "./button";
@@ -46,19 +44,35 @@ import { InputRange } from "./input-range";
 import { useNavigate } from "react-router-dom";
 import { Avatar, AvatarPicker } from "./emoji";
 import { SideBar } from "./sidebar";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { Slider } from "@/components/ui/slider";
+import { useTheme } from "next-themes";
 
 function EditPromptModal(props: { id: number; onClose: () => void }) {
   const promptStore = usePromptStore();
   const prompt = promptStore.get(props.id);
   return prompt ? (
-    <div className="fixed top-0 left-0 h-screen w-screen bg-black bg-opacity-50 flex items-center justify-center z-50">
-      <div className="fixed bg-white dark:bg-[#7d7d7d30] h-[400px] w-[800px] rounded-[10px]">
+    <div
+      onClick={props.onClose}
+      className="fixed top-0 left-0 h-screen w-screen bg-black bg-opacity-80 flex items-center justify-center z-[9999999]"
+    >
+      <div
+        onClick={(e) => e.stopPropagation()}
+        className="fixed bg-white dark:bg-[#7d7d7d30] backdrop-blur-2xl w-full max-w-[800px] rounded-[10px] py-5"
+      >
         <Modal
           title={Locale.Settings.Prompt.EditModal.Title}
           onClose={props.onClose}
           actions={[
             <IconButton
               key=""
+              className="!mr-10"
               onClick={props.onClose}
               text={Locale.UI.Confirm}
               bordered
@@ -70,7 +84,10 @@ function EditPromptModal(props: { id: number; onClose: () => void }) {
               type="text"
               value={prompt.title}
               readOnly={!prompt.isUser}
-              className={styles["edit-prompt-title"]}
+              className={
+                styles["edit-prompt-title"] +
+                " bg-[#aaaaaa44] outline-none focus-within:ring-1"
+              }
               onInput={(e) =>
                 promptStore.update(
                   props.id,
@@ -81,7 +98,10 @@ function EditPromptModal(props: { id: number; onClose: () => void }) {
             <Input
               value={prompt.content}
               readOnly={!prompt.isUser}
-              className={styles["edit-prompt-content"]}
+              className={
+                styles["edit-prompt-content"] +
+                " !bg-[#aaaaaa44] outline-none focus-within:ring-1 !rounded-none px-4 py-2"
+              }
               rows={10}
               onInput={(e) =>
                 promptStore.update(
@@ -117,91 +137,114 @@ function UserPromptModal(props: { onClose?: () => void }) {
     }
   }, [searchInput]);
 
+  const { theme } = useTheme();
+
   return (
-    <div className="fixed top-0 left-0 h-screen w-screen bg-black bg-opacity-50 flex items-center justify-center z-50">
-      <div className="fixed bg-white dark:bg-[#7d7d7d30] h-[400px] w-[800px] rounded-[10px]">
-        <Modal
-          title={Locale.Settings.Prompt.Modal.Title}
-          onClose={() => props.onClose?.()}
-          actions={[
-            <IconButton
-              key="add"
-              onClick={() =>
-                promptStore.add({
-                  title: "Empty Prompt",
-                  content: "Empty Prompt Content",
-                })
-              }
-              icon={<AddIcon />}
-              bordered
-              text={Locale.Settings.Prompt.Modal.Add}
-            />,
-          ]}
-        >
-          <div className={styles["user-prompt-modal"]}>
-            <input
-              type="text"
-              className={styles["user-prompt-search"]}
-              placeholder={Locale.Settings.Prompt.Modal.Search}
-              value={searchInput}
-              onInput={(e) => setSearchInput(e.currentTarget.value)}
-            ></input>
-
-            <div className={styles["user-prompt-list"]}>
-              {prompts.map((v, _) => (
-                <div
-                  className={styles["user-prompt-item"]}
-                  key={v.id ?? v.title}
-                >
-                  <div className={styles["user-prompt-header"]}>
-                    <div className={styles["user-prompt-title"]}>{v.title}</div>
-                    <div
-                      className={styles["user-prompt-content"] + " one-line"}
-                    >
-                      {v.content}
-                    </div>
-                  </div>
-
-                  <div className={styles["user-prompt-buttons"]}>
-                    {v.isUser && (
-                      <IconButton
-                        icon={<ClearIcon />}
-                        className={styles["user-prompt-button"]}
-                        onClick={() => promptStore.remove(v.id!)}
-                      />
-                    )}
-                    {v.isUser ? (
-                      <IconButton
-                        icon={<EditIcon />}
-                        className={styles["user-prompt-button"]}
-                        onClick={() => setEditingPromptId(v.id)}
-                      />
-                    ) : (
-                      <IconButton
-                        icon={<EyeIcon />}
-                        className={styles["user-prompt-button"]}
-                        onClick={() => setEditingPromptId(v.id)}
-                      />
-                    )}
-                    <IconButton
-                      icon={<CopyIcon />}
-                      className={styles["user-prompt-button"]}
-                      onClick={() => copyToClipboard(v.content)}
-                    />
-                  </div>
+    <div
+      className="fixed inset-0 h-screen w-screen bg-black bg-opacity-80 flex items-center justify-center z-[99999]"
+      onClick={props.onClose}
+    >
+      <div onClick={(e) => e.stopPropagation()}>
+        <div className="w-full max-w-[1520px] bg-[#ffffff] dark:bg-[#303C4B30] backdrop-blur-2xl pt-10 rounded-2xl ring-1 ring-[#18BB4E] relative">
+          <Modal
+            title={Locale.Settings.Prompt.Modal.Title}
+            onClose={() => props.onClose?.()}
+            actions={[
+              <IconButton
+                key="add"
+                onClick={() =>
+                  promptStore.add({
+                    title: "Empty Prompt",
+                    content: "Empty Prompt Content",
+                  })
+                }
+                icon={<AddIcon />}
+                bordered
+                text={Locale.Settings.Prompt.Modal.Add}
+              />,
+            ]}
+          >
+            <div className={styles["user-prompt-modal"]}>
+              <div className="flex gap-3 items-center px-10 mt-5">
+                <div className="bg-[#7d7d7d30] w-full h-[54px] px-3 rounded-xl flex items-center gap-3">
+                  <SearchIcon />
+                  <input
+                    type="text"
+                    className="outline-none w-full h-full bg-transparent"
+                    placeholder={Locale.Settings.Prompt.Modal.Search}
+                    value={searchInput}
+                    onInput={(e) => setSearchInput(e.currentTarget.value)}
+                  ></input>
                 </div>
-              ))}
-            </div>
-          </div>
-        </Modal>
-      </div>
+                <button className="bg-[#69A606] flex gap-2 items-center px-4 h-[54px] rounded-lg w-full max-w-fit">
+                  <CirclePlus />
+                  <span className="whitespace-nowrap text-white">Add One</span>
+                </button>
+              </div>
+              <div className="border-t border-[#707070] rounded-2xl px-10 pt-8 mt-10">
+                <div className={styles["user-prompt-list"]}>
+                  {prompts.map((v, _) => (
+                    <div
+                      className={styles["user-prompt-item"]}
+                      key={v.id ?? v.title}
+                    >
+                      <div className={styles["user-prompt-header"]}>
+                        <div className={styles["user-prompt-title"]}>
+                          {v.title}
+                        </div>
+                        <div className={styles["user-prompt-content"]}>
+                          {v.content}
+                        </div>
+                      </div>
 
-      {editingPromptId !== undefined && (
-        <EditPromptModal
-          id={editingPromptId!}
-          onClose={() => setEditingPromptId(undefined)}
-        />
-      )}
+                      <div className={styles["user-prompt-buttons"]}>
+                        {v.isUser && (
+                          <IconButton
+                            icon={<ClearIcon />}
+                            className={styles["user-prompt-button"]}
+                            onClick={() => promptStore.remove(v.id!)}
+                          />
+                        )}
+                        {v.isUser ? (
+                          <IconButton
+                            icon={<EditIcon />}
+                            className={styles["user-prompt-button"]}
+                            onClick={() => setEditingPromptId(v.id)}
+                          />
+                        ) : (
+                          <IconButton
+                            icon={
+                              theme === "dark" ? <EyeIconDark /> : <EyeIcon />
+                            }
+                            className={styles["user-prompt-button"]}
+                            onClick={() => setEditingPromptId(v.id)}
+                          />
+                        )}
+                        <IconButton
+                          icon={
+                            theme === "dark" ? <CopyIconDark /> : <CopyIcon />
+                          }
+                          className={styles["user-prompt-button"]}
+                          onClick={() => copyToClipboard(v.content)}
+                        />
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </Modal>
+          <div className="h-14 absolute bottom-0 left-0 right-0 w-full bg-gradient-to-b from-transparent via-white/70 to-white dark:via-[#111418ea] dark:to-[#111418] z-[1] rounded-2xl"></div>
+          <div className="h-20 absolute bottom-0 left-0 right-0 w-full bg-gradient-to-b from-transparent via-white/70 to-white dark:via-[#111418ea] dark:to-[#111418] z-[1] rounded-2xl"></div>
+        </div>
+
+        {editingPromptId !== undefined && (
+          <EditPromptModal
+            id={editingPromptId!}
+            onClose={() => setEditingPromptId(undefined)}
+          />
+        )}
+      </div>
     </div>
   );
 }
@@ -272,6 +315,7 @@ export function Settings() {
   const builtinCount = SearchService.count.builtin;
   const customCount = promptStore.getUserPrompts().length ?? 0;
   const [shouldShowPromptModal, setShowPromptModal] = useState(false);
+  const { theme } = useTheme();
 
   const showUsage = accessStore.isAuthorized();
   useEffect(() => {
@@ -293,7 +337,6 @@ export function Settings() {
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
   return (
     <ErrorBoundary>
       <div className="bg-[#ebebeb] dark:bg-[#202227] flex flex-row items-start justify-center w-full p-5 gap-6 h-screen">
@@ -374,7 +417,7 @@ export function Settings() {
               <List>
                 <ListItem
                   title={Locale.Settings.Avatar}
-                  className="bg-white dark:bg-[#7d7d7d30] !px-10 !py-5 rounded-[10px] mt-2"
+                  className="bg-white dark:bg-[#7d7d7d30] !px-10 !py-3 rounded-[10px] mt-2"
                 >
                   <Popover
                     onClose={() => setShowEmojiPicker(false)}
@@ -389,10 +432,12 @@ export function Settings() {
                     open={showEmojiPicker}
                   >
                     <div
-                      className={styles.avatar}
+                      className="bg-[#7d7d7d30] backdrop-blur-xl p-3 rounded-lg cursor-pointer transition hover:bg-[#7d7d7da8]"
                       onClick={() => setShowEmojiPicker(true)}
                     >
-                      <Avatar avatar={config.avatar} />
+                      <div className={styles.avatar}>
+                        <Avatar avatar={config.avatar} />
+                      </div>
                     </div>
                   </Popover>
                 </ListItem>
@@ -402,20 +447,23 @@ export function Settings() {
                   className="bg-white dark:bg-[#7d7d7d30] !px-10 !py-5 rounded-[10px] mt-2"
                 >
                   <Select
-                    value={config.submitKey}
-                    onChange={(e) => {
+                    defaultValue="Enter"
+                    onValueChange={(e) => {
                       updateConfig(
-                        (config) =>
-                          (config.submitKey = e.target
-                            .value as any as SubmitKey),
+                        (config) => (config.submitKey = e as any as SubmitKey),
                       );
                     }}
                   >
-                    {Object.values(SubmitKey).map((v) => (
-                      <option value={v} key={v}>
-                        {v}
-                      </option>
-                    ))}
+                    <SelectTrigger className="w-[180px]">
+                      <SelectValue placeholder="Submit Key" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {Object.values(SubmitKey).map((v) => (
+                        <SelectItem value={v} key={v}>
+                          {v}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
                   </Select>
                 </ListItem>
 
@@ -424,19 +472,23 @@ export function Settings() {
                   className="bg-white dark:bg-[#7d7d7d30] !px-10 !py-5 rounded-[10px] mt-2"
                 >
                   <Select
-                    value={config.theme}
-                    onChange={(e) => {
+                    defaultValue={config.theme}
+                    onValueChange={(e) => {
                       updateConfig(
-                        (config) =>
-                          (config.theme = e.target.value as any as Theme),
+                        (config) => (config.theme = e as any as Theme),
                       );
                     }}
                   >
-                    {Object.values(Theme).map((v) => (
-                      <option value={v} key={v}>
-                        {v}
-                      </option>
-                    ))}
+                    <SelectTrigger className="w-[180px]">
+                      <SelectValue placeholder="Theme" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {Object.values(Theme).map((v) => (
+                        <SelectItem value={v} key={v}>
+                          {v}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
                   </Select>
                 </ListItem>
 
@@ -445,16 +497,21 @@ export function Settings() {
                   className="bg-white dark:bg-[#7d7d7d30] !px-10 !py-5 rounded-[10px] mt-2"
                 >
                   <Select
-                    value={getLang()}
-                    onChange={(e) => {
-                      changeLang(e.target.value as any);
+                    defaultValue={getLang()}
+                    onValueChange={(e) => {
+                      changeLang(e as any);
                     }}
                   >
-                    {AllLangs.map((lang) => (
-                      <option value={lang} key={lang}>
-                        {ALL_LANG_OPTIONS[lang]}
-                      </option>
-                    ))}
+                    <SelectTrigger className="w-[180px]">
+                      <SelectValue placeholder="Language" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {AllLangs.map((lang) => (
+                        <SelectItem value={lang} key={lang}>
+                          {ALL_LANG_OPTIONS[lang]}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
                   </Select>
                 </ListItem>
 
@@ -463,21 +520,23 @@ export function Settings() {
                   subTitle={Locale.Settings.FontSize.SubTitle}
                   className="bg-white dark:bg-[#7d7d7d30] !px-10 !py-5 rounded-[10px] mt-2"
                 >
-                  <InputRange
-                    title={`${config.fontSize ?? 16}px`}
-                    value={config.fontSize}
-                    min="1"
-                    max="18"
-                    step="1"
-                    onChange={(e) =>
-                      updateConfig(
-                        (config) =>
-                          (config.fontSize = Number.parseInt(
-                            e.currentTarget.value,
-                          )),
-                      )
-                    }
-                  ></InputRange>
+                  <div className="ring-1 ring-[#69A606] rounded-lg w-full max-w-[348px] py-3 px-6 flex gap-4 items-center">
+                    <span className="whitespace-nowrap text-sm text-neutral-700 dark:text-neutral-300">
+                      {config.fontSize} px
+                    </span>
+                    <Slider
+                      defaultValue={[config.fontSize]}
+                      min={1}
+                      max={18}
+                      step={1}
+                      onValueChange={(e) => {
+                        updateConfig(
+                          (config) =>
+                            (config.fontSize = Number.parseInt(e as any)),
+                        );
+                      }}
+                    />
+                  </div>
                 </ListItem>
 
                 <ListItem
@@ -487,6 +546,7 @@ export function Settings() {
                 >
                   <input
                     type="checkbox"
+                    className="peer cursor-pointer relative h-10 w-10 p-4 shrink-0 appearance-none rounded-lg bg-transparent border border-[#69A606] after:absolute after:left-0 after:top-0 after:h-full after:w-full checked:after:bg-[url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABYAAAAWCAYAAADEtGw7AAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAETSURBVHgB7ZU9TsNAEIXfW8s/0GBu4HR0NByAG0RIFJFpkgpT4SNwA0IRAVVEQaiQyAkQPQU3AE6A6cJa9rBrIcSfUH6czl8xmllpn0ZTvEf8QTpEmHvBGqbA1ZPXfg/Zz3d+HfYv3UNFpqaNMAMCPBFydBrnF7+Ek5F7S3AbC1ACN+ex3rG9Y8vByD02oh0siNlyY2uXuL8u75gMEdH3HlEXIpmv85ZyVrxN1AkZvvluWxWFrGMJKCyJRrgRboT/Eyad+gzoA6E8V35sbPPFuEeIGrCmfxbrVnUKpdhFTTiCtNK0ZdDRY4qNJMkwN/avdAd7emynb5mXXAWRsGir0kQUpzyNMXYhHoLJ6km/l30u9g5sm0xb/aISiAAAAABJRU5ErkJggg==')] after:bg-[length:19px] after:bg-center after:bg-no-repeat after:content-[''] focus:outline-none"
                     checked={config.sendPreviewBubble}
                     onChange={(e) =>
                       updateConfig(
@@ -504,6 +564,7 @@ export function Settings() {
                 >
                   <input
                     type="checkbox"
+                    className="peer cursor-pointer relative h-10 w-10 p-4 shrink-0 appearance-none rounded-lg bg-transparent border border-[#69A606] after:absolute after:left-0 after:top-0 after:h-full after:w-full checked:after:bg-[url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABYAAAAWCAYAAADEtGw7AAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAETSURBVHgB7ZU9TsNAEIXfW8s/0GBu4HR0NByAG0RIFJFpkgpT4SNwA0IRAVVEQaiQyAkQPQU3AE6A6cJa9rBrIcSfUH6czl8xmllpn0ZTvEf8QTpEmHvBGqbA1ZPXfg/Zz3d+HfYv3UNFpqaNMAMCPBFydBrnF7+Ek5F7S3AbC1ACN+ex3rG9Y8vByD02oh0siNlyY2uXuL8u75gMEdH3HlEXIpmv85ZyVrxN1AkZvvluWxWFrGMJKCyJRrgRboT/Eyad+gzoA6E8V35sbPPFuEeIGrCmfxbrVnUKpdhFTTiCtNK0ZdDRY4qNJMkwN/avdAd7emynb5mXXAWRsGir0kQUpzyNMXYhHoLJ6km/l30u9g5sm0xb/aISiAAAAABJRU5ErkJggg==')] after:bg-[length:19px] after:bg-center after:bg-no-repeat after:content-[''] focus:outline-none"
                     checked={!config.dontShowMaskSplashScreen}
                     onChange={(e) =>
                       updateConfig(
@@ -571,7 +632,9 @@ export function Settings() {
                     <div />
                   ) : (
                     <IconButton
-                      icon={<ResetIcon></ResetIcon>}
+                      icon={
+                        theme === "dark" ? <ResetIconDark /> : <ResetIcon />
+                      }
                       text={Locale.Settings.Usage.Check}
                       onClick={() => checkUsage(true)}
                     />
@@ -581,23 +644,6 @@ export function Settings() {
 
               <List>
                 <ListItem
-                  title={Locale.Settings.Prompt.Disable.Title}
-                  subTitle={Locale.Settings.Prompt.Disable.SubTitle}
-                  className="bg-white dark:bg-[#7d7d7d30] !px-10 !py-5 rounded-[10px] mt-2"
-                >
-                  <input
-                    type="checkbox"
-                    checked={config.disablePromptHint}
-                    onChange={(e) =>
-                      updateConfig(
-                        (config) =>
-                          (config.disablePromptHint = e.currentTarget.checked),
-                      )
-                    }
-                  ></input>
-                </ListItem>
-
-                <ListItem
                   title={Locale.Settings.Prompt.List}
                   subTitle={Locale.Settings.Prompt.ListCount(
                     builtinCount,
@@ -606,10 +652,27 @@ export function Settings() {
                   className="bg-white dark:bg-[#7d7d7d30] !px-10 !py-5 rounded-[10px] mt-2"
                 >
                   <IconButton
-                    icon={<EditIcon />}
+                    icon={theme === "dark" ? <EditIconDark /> : <EditIcon />}
                     text={Locale.Settings.Prompt.Edit}
                     onClick={() => setShowPromptModal(true)}
                   />
+                </ListItem>
+                <ListItem
+                  title={Locale.Settings.Prompt.Disable.Title}
+                  subTitle={Locale.Settings.Prompt.Disable.SubTitle}
+                  className="bg-white dark:bg-[#7d7d7d30] !px-10 !py-5 rounded-[10px] mt-2"
+                >
+                  <input
+                    type="checkbox"
+                    className="peer cursor-pointer relative h-10 w-10 p-4 shrink-0 appearance-none rounded-lg bg-transparent border border-[#69A606] after:absolute after:left-0 after:top-0 after:h-full after:w-full checked:after:bg-[url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABYAAAAWCAYAAADEtGw7AAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAETSURBVHgB7ZU9TsNAEIXfW8s/0GBu4HR0NByAG0RIFJFpkgpT4SNwA0IRAVVEQaiQyAkQPQU3AE6A6cJa9rBrIcSfUH6czl8xmllpn0ZTvEf8QTpEmHvBGqbA1ZPXfg/Zz3d+HfYv3UNFpqaNMAMCPBFydBrnF7+Ek5F7S3AbC1ACN+ex3rG9Y8vByD02oh0siNlyY2uXuL8u75gMEdH3HlEXIpmv85ZyVrxN1AkZvvluWxWFrGMJKCyJRrgRboT/Eyad+gzoA6E8V35sbPPFuEeIGrCmfxbrVnUKpdhFTTiCtNK0ZdDRY4qNJMkwN/avdAd7emynb5mXXAWRsGir0kQUpzyNMXYhHoLJ6km/l30u9g5sm0xb/aISiAAAAABJRU5ErkJggg==')] after:bg-[length:19px] after:bg-center after:bg-no-repeat after:content-[''] focus:outline-none"
+                    checked={config.disablePromptHint}
+                    onChange={(e) =>
+                      updateConfig(
+                        (config) =>
+                          (config.disablePromptHint = e.currentTarget.checked),
+                      )
+                    }
+                  ></input>
                 </ListItem>
               </List>
             </div>

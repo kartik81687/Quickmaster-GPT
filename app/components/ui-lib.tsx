@@ -1,6 +1,6 @@
 import styles from "./ui-lib.module.scss";
 import LoadingIcon from "../icons/three-dots.svg";
-import CloseIcon from "../icons/close.svg";
+import CloseIcon from "../icons/circle-x.svg";
 import EyeIcon from "../icons/eye.svg";
 import EyeOffIcon from "../icons/eye-off.svg";
 import DownIcon from "../icons/down.svg";
@@ -8,6 +8,7 @@ import DownIcon from "../icons/down.svg";
 import { createRoot } from "react-dom/client";
 import React, { HTMLProps, useEffect, useState } from "react";
 import { IconButton } from "./button";
+import { useTheme } from "next-themes";
 
 export function Popover(props: {
   children: JSX.Element;
@@ -112,7 +113,13 @@ export function Modal(props: ModalProps) {
       <div className={styles["modal-header"]}>
         <div className={styles["modal-title"]}>{props.title}</div>
 
-        <div className={styles["modal-close-btn"]} onClick={props.onClose}>
+        <div
+          className={
+            styles["modal-close-btn"] +
+            " bg-[#EDEDED] dark:bg-[#1C1C1C] ring-1 ring-[#ececec] dark:ring-[#585858] rounded-xl p-3 "
+          }
+          onClick={props.onClose}
+        >
           <CloseIcon />
         </div>
       </div>
@@ -134,7 +141,8 @@ export function Modal(props: ModalProps) {
 
 export function showModal(props: ModalProps) {
   const div = document.createElement("div");
-  div.className = "fixed top-0 left-0 h-screen w-screen bg-black bg-opacity-50 flex items-center justify-center z-50";
+  div.className =
+    "fixed top-0 left-0 h-screen w-screen bg-black bg-opacity-50 flex items-center justify-center z-50";
   document.body.appendChild(div);
 
   const root = createRoot(div);
@@ -257,17 +265,33 @@ export function PasswordInput(props: HTMLProps<HTMLInputElement>) {
     setVisible(!visible);
   }
 
+  const { theme } = useTheme();
+
   return (
-    <div className={"password-input-container"}>
-      <IconButton
-        icon={visible ? <EyeIcon /> : <EyeOffIcon />}
-        onClick={changeVisibility}
-        className={"password-eye"}
-      />
+    <div
+      className={
+        "flex gap-2 ring-1 ring-[#69A606] rounded-lg w-full max-w-[348px] py-2.5 px-3 items-center"
+      }
+    >
       <input
         {...props}
         type={visible ? "text" : "password"}
-        className={"password-input"}
+        className={"outline-none bg-transparent h-full w-full"}
+      />
+      <img
+        onClick={changeVisibility}
+        className="w-[23px] h-[23px]"
+        alt="Eye-Off"
+        draggable={false}
+        src={
+          theme === "dark"
+            ? visible
+              ? "/images/eye-off-dark.svg"
+              : "/images/eye-dark.svg"
+            : !visible
+            ? "/images/eye.svg"
+            : "/images/eye-off.svg"
+        }
       />
     </div>
   );
