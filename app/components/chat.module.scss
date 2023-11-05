@@ -70,9 +70,10 @@
 .context-prompt {
   .context-prompt-row {
     display: flex;
-    justify-content: center;
+    justify-content: end;
     width: 100%;
     margin-bottom: 10px;
+    gap: 20px;
 
     .context-role {
       margin-right: 10px;
@@ -83,14 +84,14 @@
       max-width: 100%;
       text-align: left;
     }
-
-    .context-delete-button {
-      margin-left: 10px;
-    }
   }
 
   .context-prompt-button {
-    flex: 1;
+    background-color: #69A606;
+    color: white;
+    height: 50px;
+    padding: 0px 20px;
+    width: fit-content;
   }
 }
 

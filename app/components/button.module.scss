@@ -5,10 +5,10 @@
   align-items: center;
   justify-content: center;
   padding: 10px;
-  gap: 10px;
-
+  gap: 8px;
+  font-size: 14px;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: all 0.1s ease;
   overflow: hidden;
   user-select: none;
   outline: none;
@@ -52,8 +52,6 @@
 }
 
 .icon-button-icon {
-  width: 16px;
-  height: 16px;
   display: flex;
   justify-content: center;
   align-items: center;
