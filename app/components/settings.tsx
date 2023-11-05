@@ -413,7 +413,7 @@ export function Settings() {
                 </div>
               </div> */}
             </div>
-            <div className="p-3 md:p-3 md:p-6 bg-[#afafaf30] dark:bg-[#303c4b30] rounded-xl">
+            <div className="p-3 md:p-3 lg:p-6 bg-[#afafaf30] dark:bg-[#303c4b30] rounded-xl">
               <List>
                 <ListItem
                   title={Locale.Settings.Avatar}
