@@ -1049,17 +1049,17 @@ export function Chat() {
   });
 
   return (
-    <div className="bg-[#ebebeb] dark:bg-[#202227] flex justify-center w-full h-screen min-h-fit p-6 lg:gap-6">
+    <div className="bg-[#ebebeb] dark:bg-[#202227] flex justify-center w-full h-screen min-h-fit p-3 md:p-6 lg:gap-6">
       <SideBar />
       <div className="w-full flex-1 h-full">
-        <div className="rounded-[10px] bg-white dark:bg-[#0E0F13] p-4 h-full flex flex-col">
+        <div className="rounded-[10px] bg-white dark:bg-[#0E0F13] p-3 md:p-4 h-full flex flex-col overflow-auto">
           <SubAlertModal
             modalState={modalState}
             setModalState={setModalState}
           />
-          <div className="pt-5 pl-3">
+          <div className="pt-8 px-3 md:p-4">
             <div
-              className="top-0 left-0 [font-family:'Mulish-ExtraBold',Helvetica] font-bold dark:text-white text-[28px] tracking-[0] leading-[normal]"
+              className="font-bold dark:text-white text-[28px] tracking-[0] leading-[normal]"
               onClickCapture={renameSession}
             >
               {!session.topic ? DEFAULT_TOPIC : session.topic}
@@ -1131,186 +1131,180 @@ export function Chat() {
               setShowModal={setShowPromptModal}
             />
           </div> */}
-          <div className="h-full flex flex-col">
-            <div className="flex-1 h-full w-full overflow-auto">
-              <div
-                className={styles["chat-body"]}
-                ref={scrollRef}
-                onScroll={(e) => onChatBodyScroll(e.currentTarget)}
-                onMouseDown={() => inputRef.current?.blur()}
-                onWheel={(e) => setAutoScroll(hitBottom && e.deltaY > 0)}
-                onTouchStart={() => {
-                  inputRef.current?.blur();
-                  setAutoScroll(false);
-                }}
-              >
-                {messages.map((message, i) => {
-                  const isUser = message.role === "user";
-                  const showActions =
-                    !isUser &&
-                    i > 0 &&
-                    !(message.preview || message.content.length === 0);
-                  const showTyping = message.preview || message.streaming;
+          <div className="flex-1 w-full overflow-auto">
+            <div
+              className="h-full"
+              ref={scrollRef}
+              onScroll={(e) => onChatBodyScroll(e.currentTarget)}
+              onMouseDown={() => inputRef.current?.blur()}
+              onWheel={(e) => setAutoScroll(hitBottom && e.deltaY > 0)}
+              onTouchStart={() => {
+                inputRef.current?.blur();
+                setAutoScroll(false);
+              }}
+            >
+              {messages.map((message, i) => {
+                const isUser = message.role === "user";
+                const showActions =
+                  !isUser &&
+                  i > 0 &&
+                  !(message.preview || message.content.length === 0);
+                const showTyping = message.preview || message.streaming;
 
-                  const shouldShowClearContextDivider: boolean =
-                    i === clearContextIndex - 1;
+                const shouldShowClearContextDivider: boolean =
+                  i === clearContextIndex - 1;
 
-                  return (
-                    <>
-                      <div key={i}>
-                        <div className="flex items-start w-full mt-4">
-                          <div>
-                            {message.role === "user" ? (
-                              <Avatar avatar={config.avatar} />
-                            ) : (
-                              <MaskAvatar mask={session.mask} />
-                            )}
-                          </div>
-                          {showTyping && (
-                            <div className="font-[12px] mt-[5px]">
-                              {Locale.Chat.Typing}
-                            </div>
+                return (
+                  <>
+                    <div key={i}>
+                      <div className="flex items-start w-full mt-4 gap-4">
+                        <div>
+                          {message.role === "user" ? (
+                            <Avatar avatar={config.avatar} />
+                          ) : (
+                            <MaskAvatar mask={session.mask} />
                           )}
-                          <div
-                            className={
-                              message.role === "user"
-                                ? "w-full max-w-6xl dark:text-white bg-[#EEEEEE] dark:bg-[#202227] py-3 px-4 rounded-lg"
-                                : "w-full max-w-6xl dark:text-white bg-[#EEEEEE] dark:bg-[#1A1D15] py-3 px-4 rounded-lg"
-                            }
-                          >
-                            {showActions && (
-                              <div className="flex flex-row-reverse w-full pt-[5px] box-border">
-                                {message.streaming ? (
-                                  <div
-                                    className="flex flex-wrap mt-3 mb-0"
-                                    onClick={() => onUserStop(message.id ?? i)}
-                                  >
-                                    {Locale.Chat.Actions.Stop}
-                                  </div>
-                                ) : (
-                                  <>
-                                    {/* <div
+                        </div>
+                        {showTyping && (
+                          <div className="font-[12px] mt-[5px]">
+                            {Locale.Chat.Typing}
+                          </div>
+                        )}
+                        <div
+                          className={
+                            message.role === "user"
+                              ? "w-full max-w-6xl dark:text-white bg-[#EEEEEE] dark:bg-[#202227] py-3 px-4 rounded-lg"
+                              : "w-full max-w-6xl dark:text-white bg-[#EEEEEE] dark:bg-[#1A1D15] py-3 px-4 rounded-lg"
+                          }
+                        >
+                          {showActions && (
+                            <div className="flex flex-row-reverse w-full pt-[5px] box-border">
+                              {message.streaming ? (
+                                <div
+                                  className="flex flex-wrap mt-3 mb-0"
+                                  onClick={() => onUserStop(message.id ?? i)}
+                                >
+                                  {Locale.Chat.Actions.Stop}
+                                </div>
+                              ) : (
+                                <>
+                                  {/* <div
                                   className=""
                                   onClick={() => onDelete(message.id ?? i)}
                                 >
                                   {Locale.Chat.Actions.Delete}
                                 </div> */}
-                                    {/* <div
+                                  {/* <div
                                   className=""
                                   onClick={() => onResend(message.id ?? i)}
                                 >
                                   {Locale.Chat.Actions.Retry}
                                 </div> */}
-                                  </>
-                                )}
+                                </>
+                              )}
 
-                                <div
-                                  className=""
-                                  onClick={() =>
-                                    copyToClipboard(message.content)
-                                  }
-                                >
-                                  <img src="/images/copy.svg" />
-                                </div>
+                              <div
+                                className=""
+                                onClick={() => copyToClipboard(message.content)}
+                              >
+                                <img src="/images/copy.svg" />
                               </div>
-                            )}
-                            <Markdown
-                              content={message.content}
-                              loading={
-                                (message.preview ||
-                                  message.content.length === 0) &&
-                                !isUser
-                              }
-                              onContextMenu={(e: any) =>
-                                onRightClick(e, message)
-                              }
-                              onDoubleClickCapture={() => {
-                                if (!isMobileScreen) return;
-                                setUserInput(message.content);
-                              }}
-                              fontSize={fontSize}
-                              parentRef={scrollRef}
-                              color={"text-white"}
-                              defaultShow={i >= messages.length - 10}
-                            />
+                            </div>
+                          )}
+                          <Markdown
+                            content={message.content}
+                            loading={
+                              (message.preview ||
+                                message.content.length === 0) &&
+                              !isUser
+                            }
+                            onContextMenu={(e: any) => onRightClick(e, message)}
+                            onDoubleClickCapture={() => {
+                              if (!isMobileScreen) return;
+                              setUserInput(message.content);
+                            }}
+                            fontSize={fontSize}
+                            parentRef={scrollRef}
+                            color={"text-white"}
+                            defaultShow={i >= messages.length - 10}
+                          />
+                        </div>
+                      </div>
+                      {!isUser && !message.preview && (
+                        <div className="flex justify-end box-border font-[12px]">
+                          <div className="text-[#aaa] text-sm">
+                            {message.date.toLocaleString()}
                           </div>
                         </div>
-                        {!isUser && !message.preview && (
-                          <div className="flex justify-end box-border font-[12px]">
-                            <div className="text-[#aaa] text-sm">
-                              {message.date.toLocaleString()}
-                            </div>
-                          </div>
-                        )}
-                      </div>
-                      {shouldShowClearContextDivider && <ClearContextDivider />}
-                    </>
-                  );
-                })}
-              </div>
+                      )}
+                    </div>
+                    {shouldShowClearContextDivider && <ClearContextDivider />}
+                  </>
+                );
+              })}
             </div>
-            <div className="border-t border-[#a1a1a1] dark:border-[#444444] rounded-2xl p-4">
-              <div className={styles["chat-input-panel"]}>
-                <PromptHints
-                  prompts={promptHints}
-                  onPromptSelect={onPromptSelect}
-                />
+          </div>
+          <div className="border-t border-[#a1a1a1] dark:border-[#444444] rounded-2xl pt-4 px-2 md:p-4 ">
+            <div>
+              <PromptHints
+                prompts={promptHints}
+                onPromptSelect={onPromptSelect}
+              />
 
-                <ChatActions
-                  showPromptModal={() => setShowPromptModal(true)}
-                  scrollToBottom={scrollToBottom}
-                  hitBottom={hitBottom}
-                  recording={recording}
-                  barding={barding}
-                  clauding={clauding}
-                  chinese={chinese}
-                  speaking={speaking}
-                  duckduckgoing={duckduckgo}
-                  showPromptHints={() => {
-                    // Click again to close
-                    if (promptHints.length > 0) {
-                      setPromptHints([]);
-                      return;
-                    }
+              <ChatActions
+                showPromptModal={() => setShowPromptModal(true)}
+                scrollToBottom={scrollToBottom}
+                hitBottom={hitBottom}
+                recording={recording}
+                barding={barding}
+                clauding={clauding}
+                chinese={chinese}
+                speaking={speaking}
+                duckduckgoing={duckduckgo}
+                showPromptHints={() => {
+                  // Click again to close
+                  if (promptHints.length > 0) {
+                    setPromptHints([]);
+                    return;
+                  }
 
-                    inputRef.current?.focus();
-                    setUserInput("/");
-                    onSearch("");
-                  }}
-                  onSpeechStart={onSpeechStart}
-                  onBarding={() => {
-                    setClauding(false);
-                    setBarding(!barding);
-                  }}
-                  onChinese={() => setChinese(!chinese)}
-                  onClauding={() => {
-                    setClauding(!clauding);
-                    setBarding(false);
-                  }}
-                  onDuckDuckGo={() => setDuckDuckGo(!duckduckgo)}
-                  setSpeaking={setSpeaking}
-                />
-                <div className={styles["chat-input-panel-inner" + "w-full"]}>
-                  <div className="ring-1 ring-[#a1a1a1] dark:ring-[#33363E] flex items-start gap-3 p-2 rounded-xl">
-                    <textarea
-                      ref={inputRef}
-                      className="h-full w-full  bg-white dark:bg-[#0E0F13] p-2 outline-none min-h-[90px] 2ax-h-[254px]"
-                      placeholder={Locale.Chat.Input(submitKey)}
-                      onInput={(e) => onInput(e.currentTarget.value)}
-                      value={userInput}
-                      onKeyDown={onInputKeyDown}
-                      onFocus={() => setAutoScroll(true)}
-                      onBlur={() => setAutoScroll(false)}
-                      rows={inputRows}
-                      autoFocus={autoFocus}
+                  inputRef.current?.focus();
+                  setUserInput("/");
+                  onSearch("");
+                }}
+                onSpeechStart={onSpeechStart}
+                onBarding={() => {
+                  setClauding(false);
+                  setBarding(!barding);
+                }}
+                onChinese={() => setChinese(!chinese)}
+                onClauding={() => {
+                  setClauding(!clauding);
+                  setBarding(false);
+                }}
+                onDuckDuckGo={() => setDuckDuckGo(!duckduckgo)}
+                setSpeaking={setSpeaking}
+              />
+              <div className={styles["chat-input-panel-inner" + "w-full"]}>
+                <div className="ring-1 ring-[#a1a1a1] dark:ring-[#33363E] flex items-start gap-3 p-2 rounded-xl">
+                  <textarea
+                    ref={inputRef}
+                    className="h-full w-full  bg-white dark:bg-[#0E0F13] p-2 outline-none min-h-[90px] max-h-[200px]"
+                    placeholder={Locale.Chat.Input(submitKey)}
+                    onInput={(e) => onInput(e.currentTarget.value)}
+                    value={userInput}
+                    onKeyDown={onInputKeyDown}
+                    onFocus={() => setAutoScroll(true)}
+                    onBlur={() => setAutoScroll(false)}
+                    rows={inputRows}
+                    autoFocus={autoFocus}
+                  />
+                  <button onClick={() => doSubmit(userInput, false)}>
+                    <img
+                      src="/images/send.svg"
+                      className="m-2 w-[28px] h-[28px]"
                     />
-                    <button onClick={() => doSubmit(userInput, false)}>
-                      <img
-                        src="/images/send.svg"
-                        className="m-2 w-[28px] h-[28px]"
-                      />
-                    </button>
-                  </div>
+                  </button>
                 </div>
               </div>
             </div>

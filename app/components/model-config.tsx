@@ -23,7 +23,7 @@ export function ModelConfigList(props: {
         title={Locale.Settings.Model}
         className={`${
           props.isColorInverted ? "bg-[#7D7D7D30]" : "bg-white "
-        } dark:bg-[#7d7d7d30] !px-10 !py-5 rounded-[10px] mt-2`}
+        } dark:bg-[#7d7d7d30]  !px-4 md:!px-10 !py-5 rounded-[10px] mt-2`}
       >
         <Select
           value={props.modelConfig.model}
@@ -50,7 +50,7 @@ export function ModelConfigList(props: {
         subTitle={Locale.Settings.Temperature.SubTitle}
         className={`${
           props.isColorInverted ? "bg-[#7D7D7D30]" : "bg-white "
-        } dark:bg-[#7d7d7d30] !px-10 !py-5 rounded-[10px] mt-2`}
+        } dark:bg-[#7d7d7d30]  !px-4 md:!px-10 !py-5 rounded-[10px] mt-2`}
       >
         <div className="ring-1 ring-[#69A606] rounded-lg w-full max-w-[348px] py-3 px-6 flex gap-4 items-center">
           <span className="whitespace-nowrap text-sm text-neutral-700 dark:text-neutral-300">
@@ -77,7 +77,7 @@ export function ModelConfigList(props: {
         subTitle={Locale.Settings.MaxTokens.SubTitle}
         className={`${
           props.isColorInverted ? "bg-[#7D7D7D30]" : "bg-white "
-        } dark:bg-[#7d7d7d30] !px-10 !py-5 rounded-[10px] mt-2`}
+        } dark:bg-[#7d7d7d30]  !px-4 md:!px-10 !py-5 rounded-[10px] mt-2`}
       >
         <input
           type="number"
@@ -100,7 +100,7 @@ export function ModelConfigList(props: {
         subTitle={Locale.Settings.PresencePenalty.SubTitle}
         className={`${
           props.isColorInverted ? "bg-[#7D7D7D30]" : "bg-white "
-        } dark:bg-[#7d7d7d30] !px-10 !py-5 rounded-[10px] mt-2`}
+        } dark:bg-[#7d7d7d30]  !px-4 md:!px-10 !py-5 rounded-[10px] mt-2`}
       >
         <div className="ring-1 ring-[#69A606] rounded-lg w-full max-w-[348px] py-3 px-6 flex gap-4 items-center">
           <span className="whitespace-nowrap text-sm text-neutral-700 dark:text-neutral-300">
@@ -129,7 +129,7 @@ export function ModelConfigList(props: {
         subTitle={Locale.Settings.HistoryCount.SubTitle}
         className={`${
           props.isColorInverted ? "bg-[#7D7D7D30]" : "bg-white "
-        } dark:bg-[#7d7d7d30] !px-10 !py-5 rounded-[10px] mt-2`}
+        } dark:bg-[#7d7d7d30]  !px-4 md:!px-10 !py-5 rounded-[10px] mt-2`}
       >
         <div className="ring-1 ring-[#69A606] rounded-lg w-full max-w-[348px] py-3 px-6 flex gap-4 items-center">
           <span className="whitespace-nowrap text-sm text-neutral-700 dark:text-neutral-300">
@@ -154,7 +154,7 @@ export function ModelConfigList(props: {
         subTitle={Locale.Settings.CompressThreshold.SubTitle}
         className={`${
           props.isColorInverted ? "bg-[#7D7D7D30]" : "bg-white "
-        } dark:bg-[#7d7d7d30] !px-10 !py-5 rounded-[10px] mt-2`}
+        } dark:bg-[#7d7d7d30]  !px-4 md:!px-10 !py-5 rounded-[10px] mt-2`}
       >
         <input
           type="number"
@@ -176,7 +176,7 @@ export function ModelConfigList(props: {
         subTitle={Locale.Memory.Send}
         className={`${
           props.isColorInverted ? "bg-[#7D7D7D30]" : "bg-white "
-        } dark:bg-[#7d7d7d30] !px-10 !py-5 rounded-[10px] mt-2`}
+        } dark:bg-[#7d7d7d30]  !px-4 md:!px-10 !py-5 rounded-[10px] mt-2`}
       >
         <input
           type="checkbox"

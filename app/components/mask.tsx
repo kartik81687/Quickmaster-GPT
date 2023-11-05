@@ -81,8 +81,8 @@ export function MaskConfig(props: {
           props.updateMask((mask) => (mask.context = context));
         }}
       />
-      <div className="px-7">
-        <div className="mt-10 border-t pt-3 px-5 border-[#D2D2D2] dark:border-[#474747] rounded-2xl space-y-3">
+      <div className="md:px-2 lg:px-7">
+        <div className="mt-10 border-t pt-3 px-2 md:px-5 border-[#D2D2D2] dark:border-[#474747] rounded-2xl space-y-3">
           <List>
             <ListItem
               title={Locale.Mask.Config.Avatar}
@@ -164,7 +164,7 @@ export function MaskConfig(props: {
             ) : null}
           </List>
         </div>
-        <div className="mt-10 border-t pt-3 px-5  border-[#D2D2D2] dark:border-[#474747] rounded-2xl space-y-3">
+        <div className="mt-10 border-t pt-3 px-2 md:px-5  border-[#D2D2D2] dark:border-[#474747] rounded-2xl space-y-3">
           <List>
             <ModelConfigList
               isColorInverted={true}
@@ -187,7 +187,7 @@ function ContextPromptItem(props: {
   const [focusingInput, setFocusingInput] = useState(false);
   const { theme } = useTheme();
   return (
-    <div className={chatStyle["context-prompt-row"]}>
+    <div className={chatStyle["context-prompt-row"] + " flex-col sm:flex-row"}>
       <Select
         value={props.prompt.role}
         onValueChange={(e) =>
@@ -260,12 +260,13 @@ export function ContextPrompts(props: {
     props.updateContext((context) => (context[i] = prompt));
   };
 
-  const { theme } = useTheme();
-
   return (
     <>
       <div
-        className={chatStyle["context-prompt"] + " px-10 mt-10"}
+        className={
+          chatStyle["context-prompt"] +
+          " min-[600px]:px-2 md:px-6 lg:px-10 mt-5 md:mt-10"
+        }
         style={{ marginBottom: 20 }}
       >
         {context.map((c, i) => (
@@ -356,10 +357,10 @@ export function MaskPage() {
 
   return (
     <ErrorBoundary>
-      <div className="bg-[#ebebeb] dark:bg-[#202227] flex flex-row items-start justify-center w-full p-5 gap-6 h-screen">
+      <div className="bg-[#ebebeb] dark:bg-[#202227] flex flex-row items-start justify-center w-full p-2 md:p-5 lg:gap-6 h-screen">
         <SideBar />
         <div className="w-full">
-          <div className="rounded-[10px] bg-white dark:bg-[#0E0F13] p-8 height-container overflow-y-auto">
+          <div className="rounded-[10px] bg-white dark:bg-[#0E0F13] pt-14 p-3 xl:p-8 height-container overflow-y-auto">
             <div className="window-header">
               <div className="window-header-title">
                 <div className="text-[#353535] dark:text-white text-[28px] font-extrabold font-['Mulish']">
@@ -396,7 +397,7 @@ export function MaskPage() {
             </div>
 
             <div className="mt-4">
-              <div className="flex gap-5">
+              <div className="flex flex-col md:flex-row gap-5">
                 <div className="w-full bg-[#7d7d7d30] rounded-[10px] pl-4 h-[50px] flex gap-3 items-center">
                   <SearchIcon />
                   <input
@@ -407,49 +408,50 @@ export function MaskPage() {
                     onInput={(e) => onSearch(e.currentTarget.value)}
                   />
                 </div>
-
-                <Select
-                  value={filterLang ?? Locale.Settings.Lang.All}
-                  onValueChange={(e) => {
-                    const value = e;
-                    if (value === Locale.Settings.Lang.All) {
-                      setFilterLang(undefined);
-                    } else {
-                      setFilterLang(value as Lang);
-                    }
-                  }}
-                >
-                  <SelectTrigger className="w-full h-[50px]">
-                    <SelectValue placeholder="Submit Key" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem key="all" value={Locale.Settings.Lang.All}>
-                      {Locale.Settings.Lang.All}
-                    </SelectItem>
-                    {AllLangs.map((lang) => (
-                      <SelectItem value={lang} key={lang}>
-                        {ALL_LANG_OPTIONS[lang]}
+                <div className="flex gap-5">
+                  <Select
+                    value={filterLang ?? Locale.Settings.Lang.All}
+                    onValueChange={(e) => {
+                      const value = e;
+                      if (value === Locale.Settings.Lang.All) {
+                        setFilterLang(undefined);
+                      } else {
+                        setFilterLang(value as Lang);
+                      }
+                    }}
+                  >
+                    <SelectTrigger className="w-full h-[50px]">
+                      <SelectValue placeholder="Submit Key" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem key="all" value={Locale.Settings.Lang.All}>
+                        {Locale.Settings.Lang.All}
                       </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
+                      {AllLangs.map((lang) => (
+                        <SelectItem value={lang} key={lang}>
+                          {ALL_LANG_OPTIONS[lang]}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
 
-                <button
-                  className="bg-lime-600 flex p-3 justify-center items-center gap-2 rounded-[10px] px-10 text-white"
-                  onClick={() => {
-                    const createdMask = maskStore.create();
-                    setEditingMaskId(createdMask.id);
-                  }}
-                >
-                  <CirclePlus />
-                  {Locale.Mask.Page.Create}
-                </button>
+                  <button
+                    className="bg-lime-600 flex p-3 justify-center items-center gap-2 rounded-[10px] px-10 text-white"
+                    onClick={() => {
+                      const createdMask = maskStore.create();
+                      setEditingMaskId(createdMask.id);
+                    }}
+                  >
+                    <CirclePlus />
+                    {Locale.Mask.Page.Create}
+                  </button>
+                </div>
               </div>
 
-              <div className="mt-10 border-t pt-5 px-5 border-[#D2D2D2] dark:border-[#474747] rounded-2xl space-y-3">
+              <div className="mt-10 border-t pt-5 px-2 xl:px-5 border-[#D2D2D2] dark:border-[#474747] rounded-2xl space-y-3">
                 {masks.map((m) => (
                   <div className="flex w-full rounded-[10px]" key={m.id}>
-                    <div className="bg-[#7d7d7d30] flex items-center justify-between w-full rounded-[10px] px-5 py-3">
+                    <div className="bg-[#7d7d7d30] flex-col md:flex-row flex items-end md:items-center gap-5 justify-between w-full rounded-[10px] px-5 py-3">
                       <div className="flex w-full rounded-[10px]">
                         <div className="items-center content-center grid pr-3 pl-3">
                           <div className="items-center justify-center bg-zinc-500 bg-opacity-20 rounded-[8px] w-[50px] h-[50px] grid place-content-center">
@@ -537,7 +539,7 @@ export function MaskPage() {
         >
           <div
             onClick={(e) => e.stopPropagation()}
-            className="w-full max-w-[1520px] bg-white dark:bg-[#303C4B30] backdrop-blur-2xl py-10 rounded-2xl ring-1 ring-[#18BB4E] relative overflow-auto h-full max-h-[90vh]"
+            className="w-full max-w-[1520px] bg-white dark:bg-[#303C4B30] backdrop-blur-2xl py-5 md:py-10 rounded-2xl ring-1 ring-[#18BB4E] relative overflow-y-auto h-full max-h-[90vh]"
           >
             <Modal
               title={Locale.Mask.EditModal.Title(editingMask?.builtin)}

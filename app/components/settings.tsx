@@ -339,10 +339,10 @@ export function Settings() {
   }, []);
   return (
     <ErrorBoundary>
-      <div className="bg-[#ebebeb] dark:bg-[#202227] flex flex-row items-start justify-center w-full p-5 gap-6 h-screen">
+      <div className="bg-[#ebebeb] dark:bg-[#202227] flex flex-row items-start justify-center w-full p-3 md:p-5 lg:gap-6 h-screen">
         <SideBar />
         <div className="w-full">
-          <div className="rounded-[10px] bg-white dark:bg-[#0E0F13] p-8 height-container overflow-y-auto">
+          <div className="rounded-[10px] bg-white dark:bg-[#0E0F13] p-3 md:p-8 height-container overflow-y-auto">
             <div className="window-header">
               <div className="pt-5 pl-3">
                 <div className="flex justify-between mb-3">
@@ -413,11 +413,11 @@ export function Settings() {
                 </div>
               </div> */}
             </div>
-            <div className="p-6 bg-[#afafaf30] dark:bg-[#303c4b30] rounded-xl">
+            <div className="p-3 md:p-3 md:p-6 bg-[#afafaf30] dark:bg-[#303c4b30] rounded-xl">
               <List>
                 <ListItem
                   title={Locale.Settings.Avatar}
-                  className="bg-white dark:bg-[#7d7d7d30] !px-10 !py-3 rounded-[10px] mt-2"
+                  className="bg-white dark:bg-[#7d7d7d30] !px-4 md:!px-10 !py-3 rounded-[10px] mt-2"
                 >
                   <Popover
                     onClose={() => setShowEmojiPicker(false)}
@@ -444,7 +444,7 @@ export function Settings() {
 
                 <ListItem
                   title={Locale.Settings.SendKey}
-                  className="bg-white dark:bg-[#7d7d7d30] !px-10 !py-5 rounded-[10px] mt-2"
+                  className="bg-white dark:bg-[#7d7d7d30] !px-4 md:!px-10 !py-5 rounded-[10px] mt-2"
                 >
                   <Select
                     defaultValue="Enter"
@@ -469,7 +469,7 @@ export function Settings() {
 
                 <ListItem
                   title={Locale.Settings.Theme}
-                  className="bg-white dark:bg-[#7d7d7d30] !px-10 !py-5 rounded-[10px] mt-2"
+                  className="bg-white dark:bg-[#7d7d7d30] !px-4 md:!px-10 !py-5 rounded-[10px] mt-2"
                 >
                   <Select
                     defaultValue={config.theme}
@@ -494,7 +494,7 @@ export function Settings() {
 
                 <ListItem
                   title={Locale.Settings.Lang.Name}
-                  className="bg-white dark:bg-[#7d7d7d30] !px-10 !py-5 rounded-[10px] mt-2"
+                  className="bg-white dark:bg-[#7d7d7d30] !px-4 md:!px-10 !py-5 rounded-[10px] mt-2"
                 >
                   <Select
                     defaultValue={getLang()}
@@ -518,7 +518,7 @@ export function Settings() {
                 <ListItem
                   title={Locale.Settings.FontSize.Title}
                   subTitle={Locale.Settings.FontSize.SubTitle}
-                  className="bg-white dark:bg-[#7d7d7d30] !px-10 !py-5 rounded-[10px] mt-2"
+                  className="bg-white dark:bg-[#7d7d7d30] !px-4 md:!px-10 !py-5 rounded-[10px] mt-2"
                 >
                   <div className="ring-1 ring-[#69A606] rounded-lg w-full max-w-[348px] py-3 px-6 flex gap-4 items-center">
                     <span className="whitespace-nowrap text-sm text-neutral-700 dark:text-neutral-300">
@@ -542,7 +542,7 @@ export function Settings() {
                 <ListItem
                   title={Locale.Settings.SendPreviewBubble.Title}
                   subTitle={Locale.Settings.SendPreviewBubble.SubTitle}
-                  className="bg-white dark:bg-[#7d7d7d30] !px-10 !py-5 rounded-[10px] mt-2"
+                  className="bg-white dark:bg-[#7d7d7d30] !px-4 md:!px-10 !py-5 rounded-[10px] mt-2"
                 >
                   <input
                     type="checkbox"
@@ -560,7 +560,7 @@ export function Settings() {
                 <ListItem
                   title={Locale.Settings.Mask.Title}
                   subTitle={Locale.Settings.Mask.SubTitle}
-                  className="bg-white dark:bg-[#7d7d7d30] !px-10 !py-5 rounded-[10px] mt-2"
+                  className="bg-white dark:bg-[#7d7d7d30] !px-4 md:!px-10 !py-5 rounded-[10px] mt-2"
                 >
                   <input
                     type="checkbox"
@@ -582,7 +582,7 @@ export function Settings() {
                   <ListItem
                     title={Locale.Settings.AccessCode.Title}
                     subTitle={Locale.Settings.AccessCode.SubTitle}
-                    className="bg-white dark:bg-[#7d7d7d30] !px-10 !py-5 rounded-[10px] mt-2"
+                    className="bg-white dark:bg-[#7d7d7d30] !px-4 md:!px-10 !py-5 rounded-[10px] mt-2"
                   >
                     <PasswordInput
                       value={accessStore.accessCode}
@@ -601,7 +601,7 @@ export function Settings() {
                   <ListItem
                     title={Locale.Settings.Token.Title}
                     subTitle={Locale.Settings.Token.SubTitle}
-                    className="bg-white dark:bg-[#7d7d7d30] !px-10 !py-5 rounded-[10px] mt-2"
+                    className="bg-white dark:bg-[#7d7d7d30] !px-4 md:!px-10 !py-5 rounded-[10px] mt-2"
                   >
                     <PasswordInput
                       value={accessStore.token}
@@ -626,7 +626,7 @@ export function Settings() {
                           )
                       : Locale.Settings.Usage.NoAccess
                   }
-                  className="bg-white dark:bg-[#7d7d7d30] !px-10 !py-5 rounded-[10px] mt-2"
+                  className="bg-white dark:bg-[#7d7d7d30] !px-4 md:!px-10 !py-5 rounded-[10px] mt-2"
                 >
                   {!showUsage || loadingUsage ? (
                     <div />
@@ -649,7 +649,7 @@ export function Settings() {
                     builtinCount,
                     customCount,
                   )}
-                  className="bg-white dark:bg-[#7d7d7d30] !px-10 !py-5 rounded-[10px] mt-2"
+                  className="bg-white dark:bg-[#7d7d7d30] !px-4 md:!px-10 !py-5 rounded-[10px] mt-2"
                 >
                   <IconButton
                     icon={theme === "dark" ? <EditIconDark /> : <EditIcon />}
@@ -660,7 +660,7 @@ export function Settings() {
                 <ListItem
                   title={Locale.Settings.Prompt.Disable.Title}
                   subTitle={Locale.Settings.Prompt.Disable.SubTitle}
-                  className="bg-white dark:bg-[#7d7d7d30] !px-10 !py-5 rounded-[10px] mt-2"
+                  className="bg-white dark:bg-[#7d7d7d30] !px-4 md:!px-10 !py-5 rounded-[10px] mt-2"
                 >
                   <input
                     type="checkbox"
@@ -676,7 +676,7 @@ export function Settings() {
                 </ListItem>
               </List>
             </div>
-            <div className="p-6 bg-[#afafaf30] dark:bg-[#303c4b30] mt-10 rounded-xl">
+            <div className="p-3 md:p-6 bg-[#afafaf30] dark:bg-[#303c4b30] mt-10 rounded-xl">
               <List>
                 <ModelConfigList
                   modelConfig={config.modelConfig}
