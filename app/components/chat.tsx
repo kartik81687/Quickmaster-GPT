@@ -252,6 +252,9 @@ export function PromptHints(props: {
 
   useEffect(() => {
     const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        return props.onPromptSelect(null as any);
+      }
       if (noPrompts) return;
       if (e.metaKey || e.altKey || e.ctrlKey) {
         return;
@@ -290,8 +293,14 @@ export function PromptHints(props: {
 
   if (noPrompts) return null;
   return (
-    <div className="fixed inset-0 z-[99999] bg-[#000000]/50 flex items-center justify-center">
-      <div className="w-full max-w-[1520px] bg-[#ffffff] dark:bg-[#303C4B30] backdrop-blur-lg px-10 pt-10 rounded-2xl ring-1 ring-[#18BB4E] relative">
+    <div
+      onClick={() => props.onPromptSelect(null as any)}
+      className="fixed inset-0 z-[99999] bg-[#000000]/50 flex items-center justify-center"
+    >
+      <div
+        onClick={(e) => e.stopPropagation()}
+        className="w-full max-w-[1520px] bg-[#ffffff] dark:bg-[#303C4B30] backdrop-blur-lg px-10 pt-10 rounded-2xl ring-1 ring-[#18BB4E] relative"
+      >
         <div className={styles["prompt-hints"]}>
           {props.prompts.map((prompt, i) => (
             <div
@@ -681,14 +690,11 @@ export function Chat() {
   }, []);
 
   // auto grow input
-  const [inputRows, setInputRows] = useState(2);
+  const [inputRows, setInputRows] = useState(1);
   const measure = useDebouncedCallback(
     () => {
       const rows = inputRef.current ? autoGrowTextArea(inputRef.current) : 1;
-      const inputRows = Math.min(
-        20,
-        Math.max(2 + Number(!isMobileScreen), rows),
-      );
+      const inputRows = Math.min(20, Math.max(Number(!isMobileScreen), rows));
       setInputRows(inputRows);
     },
     100,
@@ -1289,7 +1295,7 @@ export function Chat() {
                 <div className="ring-1 ring-[#a1a1a1] dark:ring-[#33363E] flex items-start gap-3 p-2 rounded-xl">
                   <textarea
                     ref={inputRef}
-                    className="h-full w-full  bg-white dark:bg-[#0E0F13] p-2 outline-none min-h-[90px] max-h-[200px]"
+                    className="h-full w-full  bg-white dark:bg-[#0E0F13] p-2 outline-none max-h-[200px] overflow-y-scroll resize-none"
                     placeholder={Locale.Chat.Input(submitKey)}
                     onInput={(e) => onInput(e.currentTarget.value)}
                     value={userInput}
