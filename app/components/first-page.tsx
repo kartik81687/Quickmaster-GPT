@@ -16,6 +16,7 @@ import "swiper/css/effect-coverflow";
 import Image from "next/image";
 import "aos/dist/aos.css";
 import AOS from "aos";
+import FaqItem from "./faq";
 const platforms = [
   "Chat GPT",
   "Google Bard",
@@ -24,6 +25,38 @@ const platforms = [
   "Anthropic Ai",
 ];
 export function FirstPage() {
+  const faqData = [
+    {
+      number: "1",
+      question: "Is the content unique?",
+      answer:
+        "Yes! QuikAsk generates 100% unique content using advanced AI algorithms that ensure originality and avoid plagiarism. Each piece of content is carefully crafted to be distinct and tailored to your needs.",
+    },
+    {
+      number: "2",
+      question: "How can I boost traffic with QuikAsk?",
+      answer:
+        "QuikAsk helps boost traffic by creating high-quality, SEO-optimized content that attracts search engines and readers. Our AI generates engaging articles, blog posts, and website content that can improve your site's visibility and attract more organic traffic.",
+    },
+    {
+      number: "3",
+      question: "How long will it take to write an article with AI?",
+      answer:
+        "With QuikAsk, you can generate a comprehensive article in just minutes. Depending on the length and complexity, most articles can be created in 3-10 minutes, saving you hours of writing time and allowing you to focus on other important tasks.",
+    },
+    {
+      number: "4",
+      question: "Is there a limit to the amount of stuff that I can create?",
+      answer:
+        "QuikAsk offers flexible plans to suit different needs. Our pricing models range from limited free tier to unlimited content creation for professional and enterprise users. You can choose a plan that matches your content production requirements.",
+    },
+    {
+      number: "5",
+      question: "What languages do you support?",
+      answer:
+        "QuikAsk supports multiple languages including English, Spanish, French, German, Portuguese, Italian, and more. Our AI is trained on diverse linguistic datasets to provide high-quality content across various languages.",
+    },
+  ];
   const navigate = useNavigate();
   const authStore = useAuthStore();
   const authSign = () => {
@@ -624,7 +657,7 @@ export function FirstPage() {
                 data-aos="zoom-in"
                 data-aos-delay="1100"
               >
-                <img src="/images/socialmedia.png" className="w-96" />
+                <img src="/images/littlebot.png" className="w-96" />
               </div>
             </div>
           </div>
@@ -768,7 +801,21 @@ export function FirstPage() {
                 </div>
               </div>
             </div>
-            <div className="mt-20">
+            <div className="relative mt-20 w-full mx-auto bg-white dark:bg-neutral-900 rounded-xl shadow-lg overflow-hidden">
+              <div className="absolute inset-0 bg-gradient-to-br from-orange-400/20 via-lime-500/20 to-green-600/20 blur-[200px] z-[-1]" />
+
+              <div className="relative z-10">
+                {faqData.map((faq) => (
+                  <FaqItem
+                    key={faq.number}
+                    number={faq.number}
+                    question={faq.question}
+                    answer={faq.answer}
+                  />
+                ))}
+              </div>
+            </div>
+            {/* <div className="mt-20">
               <div className="flex border-t border-[#b4b4b433] dark:border-neutral-700 items-center justify-between px-4 sm:px-8">
                 <div
                   className="flex items-center py-4 sm:py-6 gap-3 sm:gap-6"
@@ -865,7 +912,7 @@ export function FirstPage() {
                   className="w-6 cursor-pointer"
                 />
               </div>
-            </div>
+            </div> */}
           </div>
           <div className="w-full max-w-[1520px] mx-auto mt-28">
             <div
