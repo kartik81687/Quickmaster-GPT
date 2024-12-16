@@ -257,24 +257,7 @@ export function Login() {
             >
               LOGIN
             </button>
-            <div className="flex gap-3 !mt-4">
-              <button
-                className="h-[60px] w-full rounded-[10px] border border-solid border-[#353535] dark:border-white hover:bg-[#303c4b30] transition duration-300 uppercase dark:text-white text-center tracking-[0] leading-[normal]"
-                onClick={() => {
-                  googleAuth();
-                }}
-              >
-                Wechat Login
-              </button>
-              <button
-                className="h-[60px] w-full rounded-[10px] border border-solid border-[#353535] dark:border-white hover:bg-[#303c4b30] transition duration-300 uppercase dark:text-white text-center tracking-[0] leading-[normal]"
-                onClick={() => {
-                  googleAuth();
-                }}
-              >
-                Alipay login
-              </button>
-            </div>
+
             <div className="text-center">
               <span className="text-sm dark:text-white text-center tracking-[0] leading-[26px] whitespace-nowrap">
                 DON’T HAVE AN ACCOUNT?{" "}
