@@ -89,31 +89,14 @@ import Locale from "../locales";
 
 import { IconButton } from "./button";
 import styles from "./home.module.scss";
-import chatStyle from "./chat.module.scss";
 
-import { ListItem, Modal, showToast } from "./ui-lib";
+import { ListItem, Modal } from "./ui-lib";
 import { useLocation, useNavigate } from "react-router-dom";
 import { LAST_INPUT_KEY, Path, REQUEST_TIMEOUT_MS } from "../constant";
-import { Avatar } from "./emoji";
-import { MaskAvatar, MaskConfig } from "./mask";
+import { MaskConfig } from "./mask";
 import { useMaskStore } from "../store/mask";
 import { useCommand } from "../command";
 import { prettyObject } from "../utils/format";
-import { ExportMessageModal } from "./exporter";
-import SubAlertModal from "./subAlertModal";
-import { BUILTIN_MASK_STORE } from "../masks";
-import { useTheme } from "next-themes";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-
-const Markdown = dynamic(async () => (await import("./markdown")).Markdown, {
-  loading: () => <LoadingIcon />,
-});
 
 export function SessionConfigModel(props: { onClose: () => void }) {
   const chatStore = useChatStore();
@@ -178,36 +161,6 @@ export function SessionConfigModel(props: { onClose: () => void }) {
           ></MaskConfig>
         </Modal>
       </div>
-    </div>
-  );
-}
-
-function PromptToast(props: {
-  showToast?: boolean;
-  showModal?: boolean;
-  setShowModal: (_: boolean) => void;
-}) {
-  const chatStore = useChatStore();
-  const session = chatStore.currentSession();
-  const context = session.mask.context;
-
-  return (
-    <div className={chatStyle["prompt-toast"]} key="prompt-toast">
-      {props.showToast && (
-        <div
-          className={chatStyle["prompt-toast-inner"] + " clickable"}
-          role="button"
-          onClick={() => props.setShowModal(true)}
-        >
-          <BrainIcon />
-          <span className={chatStyle["prompt-toast-content"]}>
-            {Locale.Context.Toast(context.length)}
-          </span>
-        </div>
-      )}
-      {props.showModal && (
-        <SessionConfigModel onClose={() => props.setShowModal(false)} />
-      )}
     </div>
   );
 }
@@ -330,28 +283,6 @@ export function PromptHints(props: {
   );
 }
 
-function ClearContextDivider() {
-  const chatStore = useChatStore();
-
-  return (
-    <div
-      className={chatStyle["clear-context"]}
-      onClick={() =>
-        chatStore.updateCurrentSession(
-          (session) => (session.clearContextIndex = -1),
-        )
-      }
-    >
-      <div className={chatStyle["clear-context-tips"]}>
-        {Locale.Context.Clear}
-      </div>
-      <div className={chatStyle["clear-context-revert-btn"]}>
-        {Locale.Context.Revert}
-      </div>
-    </div>
-  );
-}
-
 function useScrollToBottom() {
   // for auto-scroll
   const scrollRef = useRef<HTMLDivElement>(null);
@@ -374,248 +305,6 @@ function useScrollToBottom() {
     setAutoScroll,
     scrollToBottom,
   };
-}
-
-export function ChatActions(props: {
-  showPromptModal: () => void;
-  scrollToBottom: () => void;
-  showPromptHints: () => void;
-  onSpeechStart: () => void;
-  onBarding: () => void;
-  onClauding: () => void;
-  onChinese: () => void;
-  onDuckDuckGo: () => void;
-  setSpeaking: (param: boolean) => void;
-  hitBottom: boolean;
-  recording: boolean;
-  barding: boolean;
-  clauding: boolean;
-  chinese: boolean;
-  speaking: boolean;
-  duckduckgoing: boolean;
-}) {
-  const config = useAppConfig();
-  const navigate = useNavigate();
-  const chatStore = useChatStore();
-
-  // switch themes
-  const theme = config.theme;
-  function nextTheme() {
-    const themes = [Theme.Auto, Theme.Light, Theme.Dark];
-    const themeIndex = themes.indexOf(theme);
-    const nextIndex = (themeIndex + 1) % themes.length;
-    const nextTheme = themes[nextIndex];
-    config.update((config) => (config.theme = nextTheme));
-  }
-
-  // stop all responses
-  const couldStop = ChatControllerPool.hasPending();
-  const stopAll = () => ChatControllerPool.stopAll();
-  const maskStore = useMaskStore();
-
-  const playVoiceOfAnswer = () => {
-    if ("speechSynthesis" in window) {
-      props.setSpeaking(true);
-      doSpeechSynthesis(
-        chatStore.currentSession().messages[
-          chatStore.currentSession().messages.length - 1
-        ].content,
-        () => {
-          props.setSpeaking(false);
-        },
-      );
-    } else {
-      toast.error("Does not support speechSynthesis");
-    }
-  };
-
-  const stopVoiceOfAnswer = () => {
-    stopSpeechSysthesis();
-    props.setSpeaking(false);
-  };
-
-  const [editingMaskId, setEditingMaskId] = useState<number | undefined>();
-  const editingMask =
-    maskStore.get(editingMaskId) ?? BUILTIN_MASK_STORE.get(editingMaskId);
-
-  const updateConfig = (updater: (config: ModelConfig) => void) => {
-    const config = { ...editingMask?.modelConfig };
-    if (config) updater(config as ModelConfig);
-    maskStore.update(editingMaskId!, (mask: any) => {
-      mask.modelConfig = config;
-      // if user changed current session mask, it will disable auto sync
-      mask.syncGlobalConfig = false;
-    });
-  };
-
-  const themeData = useTheme();
-  const currentTheme = themeData.theme;
-
-  return (
-    <div className="flex flex-wrap gap-3 mb-4">
-      <Toaster />
-      {couldStop && (
-        <div
-          className="w-[58px] h-[50px] flex justify-center items-center font-[12px] rounded-xl bg-transparent ring-1 ring-[#b6b6b6] dark:ring-[#585858] cursor-pointer"
-          onClick={stopAll}
-        >
-          <StopIcon />
-        </div>
-      )}
-      {!props.hitBottom && (
-        <div
-          className="w-[58px] h-[50px] flex justify-center items-center font-[12px] rounded-xl bg-transparent ring-1 ring-[#b6b6b6] dark:ring-[#585858] cursor-pointer"
-          onClick={props.scrollToBottom}
-        >
-          <BottomIcon />
-        </div>
-      )}
-      {/* {props.hitBottom && (
-        <div
-          className="w-[58px] h-[50px] p-3 mb-3 items-center font-[12px] rounded-[20px] bg-white inline-flex shadow-slate-500 shadow cursor-pointer dark:bg-neutral-800 dark:shadow-slate-200"
-          onClick={props.showPromptModal}
-        >
-          <SettingsIcon />
-        </div>
-      )} */}
-
-      {/* <div
-        className="w-[58px] h-[50px] p-3 mb-3 items-center font-[12px] rounded-[20px] bg-white inline-flex shadow-slate-500 shadow cursor-pointer dark:bg-neutral-800 dark:shadow-slate-200"
-        onClick={nextTheme}
-      >
-        {theme === Theme.Auto ? (
-          <AutoIcon />
-        ) : theme === Theme.Light ? (
-          <LightIcon />
-        ) : theme === Theme.Dark ? (
-          <DarkIcon />
-        ) : null}
-      </div> */}
-
-      <div
-        className="w-[58px] h-[50px] flex justify-center items-center font-[12px] rounded-xl bg-transparent ring-1 ring-[#b6b6b6] dark:ring-[#585858] cursor-pointer"
-        onClick={props.showPromptHints}
-      >
-        {currentTheme === Theme.Dark ? <PromptIconDark /> : <PromptIconLight />}
-      </div>
-
-      <div
-        className="w-[58px] h-[50px] flex justify-center items-center font-[12px] rounded-xl bg-transparent ring-1 ring-[#b6b6b6] dark:ring-[#585858] cursor-pointer"
-        onClick={() => {
-          navigate(Path.Masks);
-        }}
-      >
-        {currentTheme === Theme.Dark ? <MaskIconDark /> : <MaskIconLight />}
-      </div>
-
-      <div
-        className="w-[58px] h-[50px] flex justify-center items-center font-[12px] rounded-xl bg-transparent ring-1 ring-[#b6b6b6] dark:ring-[#585858] cursor-pointer"
-        onClick={() => {
-          chatStore.updateCurrentSession((session) => {
-            if (session.clearContextIndex === session.messages.length) {
-              session.clearContextIndex = -1;
-            } else {
-              session.clearContextIndex = session.messages.length;
-              session.memoryPrompt = ""; // will clear memory
-            }
-          });
-        }}
-      >
-        {currentTheme === Theme.Dark ? <BreakIconDark /> : <BreakIconLight />}
-      </div>
-
-      <div
-        className="w-[58px] h-[50px] flex justify-center items-center font-[12px] rounded-xl bg-transparent ring-1 ring-[#b6b6b6] dark:ring-[#585858] cursor-pointer"
-        onClick={props.onSpeechStart}
-      >
-        {currentTheme === Theme.Dark ? (
-          props.recording ? (
-            <MicrophoneIconDark />
-          ) : (
-            <MicrophoneOffIconDark />
-          )
-        ) : props.recording ? (
-          <MicrophoneIconLight />
-        ) : (
-          <MicrophoneOffIconLight />
-        )}
-      </div>
-
-      <div
-        className="w-[58px] h-[50px] flex justify-center items-center font-[12px] rounded-xl bg-transparent ring-1 ring-[#b6b6b6] dark:ring-[#585858] cursor-pointer"
-        onClick={props.onBarding}
-      >
-        {currentTheme === Theme.Dark ? (
-          props.barding ? (
-            <GoogleBardIconDark />
-          ) : (
-            <GoogleBardOffIconDark />
-          )
-        ) : props.barding ? (
-          <GoogleBardIconLight />
-        ) : (
-          <GoogleBardOffIconLight />
-        )}
-      </div>
-
-      <div
-        className="w-[58px] h-[50px] flex justify-center items-center font-[12px] rounded-xl bg-transparent ring-1 ring-[#b6b6b6] dark:ring-[#585858] cursor-pointer"
-        onClick={props.onClauding}
-      >
-        {props.clauding ? (
-          <ClaudeIcon className="w-[16px]" />
-        ) : (
-          <ClaudeOffIcon className="w-[16px]" />
-        )}
-      </div>
-
-      <div
-        className="w-[58px] h-[50px] flex justify-center items-center font-[12px] rounded-xl bg-transparent ring-1 ring-[#b6b6b6] dark:ring-[#585858] cursor-pointer"
-        onClick={props.onDuckDuckGo}
-      >
-        {props.duckduckgoing ? <DuckDuckGoIcon /> : <DuckDuckGoOffIcon />}
-      </div>
-
-      <div className="">
-        <ListItem className="dark:text-[#B6B7B8] text-[#353535] !p-0 h-[50px]">
-          <Select
-            defaultValue={editingMask?.modelConfig.model}
-            onValueChange={(e) => {
-              updateConfig(
-                (config) => (config.model = ModalConfigValidator.model(e)),
-              );
-            }}
-          >
-            <SelectTrigger className="w-[180px]">
-              <SelectValue placeholder="Submit Key" />
-            </SelectTrigger>
-            <SelectContent>
-              {ALL_MODELS.map((v) => (
-                <SelectItem value={v.name} key={v.name} disabled={!v.available}>
-                  {v.name}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
-        </ListItem>
-      </div>
-
-      {/* <div
-        className="w-[58px] h-[50px] flex justify-center items-center font-[12px] rounded-xl bg-transparent ring-1 ring-[#b6b6b6] dark:ring-[#585858] cursor-pointer"
-        onClick={props.onChinese}
-      >
-        {props.chinese ? <ChineseIcon /> : <EnglishIcon />}
-      </div> */}
-
-      {/* <div className="w-[58px] h-[50px] flex justify-center items-center font-[12px] rounded-xl bg-transparent ring-1 ring-[#b6b6b6] dark:ring-[#585858] cursor-pointer">
-        {props.speaking ? (
-          <PlayerStopIcon onClick={stopVoiceOfAnswer} />
-        ) : (
-          <PlayerIcon onClick={playVoiceOfAnswer} />
-        )}
-      </div> */}
-    </div>
-  );
 }
 
 export function Chat() {
@@ -826,12 +515,6 @@ export function Chat() {
       e.preventDefault();
     }
   };
-  const onRightClick = (e: any, message: ChatMessage) => {
-    // copy to clipboard
-    if (selectOrCopy(e.currentTarget, message.content)) {
-      e.preventDefault();
-    }
-  };
 
   //recording
 
@@ -957,32 +640,6 @@ export function Chat() {
     return lastUserMessageIndex;
   };
 
-  const deleteMessage = (userIndex: number) => {
-    chatStore.updateCurrentSession((session) =>
-      session.messages.splice(userIndex, 2),
-    );
-  };
-
-  const onDelete = (botMessageId: number) => {
-    const userIndex = findLastUserIndex(botMessageId);
-    if (userIndex === null) return;
-    deleteMessage(userIndex);
-  };
-
-  const onResend = (botMessageId: number) => {
-    // find last user input message and resend
-    const userIndex = findLastUserIndex(botMessageId);
-    if (userIndex === null) return;
-
-    setIsLoading(true);
-    const content = session.messages[userIndex].content;
-    deleteMessage(userIndex);
-    chatStore
-      .onUserInput(content, false, barding, clauding, duckduckgo, onSpeechStart)
-      .then(() => setIsLoading(false));
-    inputRef.current?.focus();
-  };
-
   const context: RenderMessage[] = session.mask.hideContext
     ? []
     : session.mask.context.slice();
@@ -1036,13 +693,6 @@ export function Chat() {
         : [],
     );
 
-  const renameSession = () => {
-    const newTopic = prompt(Locale.Chat.Rename, session.topic);
-    if (newTopic && newTopic !== session.topic) {
-      chatStore.updateCurrentSession((session) => (session.topic = newTopic!));
-    }
-  };
-
   const location = useLocation();
   const isChat = location.pathname === Path.Chat;
   const autoFocus = !isMobileScreen || isChat; // only focus in chat page
@@ -1055,272 +705,15 @@ export function Chat() {
   });
 
   return (
-    <div className="bg-[#ebebeb] dark:bg-[#202227] flex justify-center w-full h-screen min-h-fit p-3 md:p-6 lg:gap-6">
-      <SideBar />
-      <div className="w-full flex-1 h-full">
-        <div className="rounded-[10px] bg-white dark:bg-[#0E0F13] p-3 md:p-4 h-full flex flex-col overflow-auto">
-          <SubAlertModal
-            modalState={modalState}
-            setModalState={setModalState}
-          />
-          <div className="pt-8 px-3 md:p-4">
-            <div
-              className="font-bold dark:text-white text-[28px] tracking-[0] leading-[normal]"
-              onClickCapture={renameSession}
-            >
-              {!session.topic ? DEFAULT_TOPIC : session.topic}
-            </div>
-            <div className="left-0  font-medium text-[#808080] dark:text-white text-sm tracking-[0] leading-[26px] whitespace-nowrap">
-              {Locale.Chat.SubTitle(session.messages.length)}
-            </div>
-          </div>
-          {/* <div className="window-header">
-            <div className="window-header-title">
-              <div
-                className={`window-header-main-title " ${styles["chat-body-title"]}`}
-                onClickCapture={renameSession}
-              >
-                {!session.topic ? DEFAULT_TOPIC : session.topic}
-              </div>
-            </div>
-            <div className="window-actions">
-              <div className={"window-action-button" + " " + styles.mobile}>
-                <IconButton
-                  icon={<ReturnIcon />}
-                  bordered
-                  title={Locale.Chat.Actions.ChatList}
-                  onClick={() => navigate(Path.Home)}
-                />
-              </div>
-              <div className="window-action-button">
-                <IconButton
-                  icon={<RenameIcon />}
-                  bordered
-                  onClick={renameSession}
-                />
-              </div>
-              <div className="window-action-button">
-                <IconButton
-                  icon={<ExportIcon />}
-                  bordered
-                  title={Locale.Chat.Actions.Export}
-                  onClick={() => {
-                    setShowExport(true);
-                  }}
-                />
-              </div>
-              {!isMobileScreen && (
-                <div className="window-action-button">
-                  <IconButton
-                    icon={config.tightBorder ? <MinIcon /> : <MaxIcon />}
-                    bordered
-                    onClick={() => {
-                      config.update(
-                        (config) => (config.tightBorder = !config.tightBorder),
-                      );
-                    }}
-                  />
-                </div>
-              )}
-              <IconButton
-                text={Locale.Chat.Actions.Logout}
-                onClick={() => {
-                  localStorage.clear();
-                  navigate(Path.Login);
-                }}
-              />
-            </div>
-
-            <PromptToast
-              showToast={!hitBottom}
-              showModal={showPromptModal}
-              setShowModal={setShowPromptModal}
-            />
-          </div> */}
-          <div className="flex-1 w-full overflow-auto">
-            <div
-              className="h-full"
-              ref={scrollRef}
-              onScroll={(e) => onChatBodyScroll(e.currentTarget)}
-              onMouseDown={() => inputRef.current?.blur()}
-              onWheel={(e) => setAutoScroll(hitBottom && e.deltaY > 0)}
-              onTouchStart={() => {
-                inputRef.current?.blur();
-                setAutoScroll(false);
-              }}
-            >
-              {messages.map((message, i) => {
-                const isUser = message.role === "user";
-                const showActions =
-                  !isUser &&
-                  i > 0 &&
-                  !(message.preview || message.content.length === 0);
-                const showTyping = message.preview || message.streaming;
-
-                const shouldShowClearContextDivider: boolean =
-                  i === clearContextIndex - 1;
-
-                return (
-                  <>
-                    <div key={i}>
-                      <div className="flex items-start w-full mt-4 gap-4">
-                        <div>
-                          {message.role === "user" ? (
-                            <Avatar avatar={config.avatar} />
-                          ) : (
-                            <MaskAvatar mask={session.mask} />
-                          )}
-                        </div>
-                        {showTyping && (
-                          <div className="font-[12px] mt-[5px]">
-                            {Locale.Chat.Typing}
-                          </div>
-                        )}
-                        <div
-                          className={
-                            message.role === "user"
-                              ? "w-full max-w-6xl dark:text-white bg-[#EEEEEE] dark:bg-[#202227] py-3 px-4 rounded-lg"
-                              : "w-full max-w-6xl dark:text-white bg-[#EEEEEE] dark:bg-[#1A1D15] py-3 px-4 rounded-lg"
-                          }
-                        >
-                          {showActions && (
-                            <div className="flex flex-row-reverse w-full pt-[5px] box-border">
-                              {message.streaming ? (
-                                <div
-                                  className="flex flex-wrap mt-3 mb-0"
-                                  onClick={() => onUserStop(message.id ?? i)}
-                                >
-                                  {Locale.Chat.Actions.Stop}
-                                </div>
-                              ) : (
-                                <>
-                                  {/* <div
-                                  className=""
-                                  onClick={() => onDelete(message.id ?? i)}
-                                >
-                                  {Locale.Chat.Actions.Delete}
-                                </div> */}
-                                  {/* <div
-                                  className=""
-                                  onClick={() => onResend(message.id ?? i)}
-                                >
-                                  {Locale.Chat.Actions.Retry}
-                                </div> */}
-                                </>
-                              )}
-
-                              <div
-                                className=""
-                                onClick={() => copyToClipboard(message.content)}
-                              >
-                                <img src="/images/copy.svg" />
-                              </div>
-                            </div>
-                          )}
-                          <Markdown
-                            content={message.content}
-                            loading={
-                              (message.preview ||
-                                message.content.length === 0) &&
-                              !isUser
-                            }
-                            onContextMenu={(e: any) => onRightClick(e, message)}
-                            onDoubleClickCapture={() => {
-                              if (!isMobileScreen) return;
-                              setUserInput(message.content);
-                            }}
-                            fontSize={fontSize}
-                            parentRef={scrollRef}
-                            color={"text-white"}
-                            defaultShow={i >= messages.length - 10}
-                          />
-                        </div>
-                      </div>
-                      {!isUser && !message.preview && (
-                        <div className="flex justify-end box-border font-[12px]">
-                          <div className="text-[#aaa] text-sm">
-                            {message.date.toLocaleString()}
-                          </div>
-                        </div>
-                      )}
-                    </div>
-                    {shouldShowClearContextDivider && <ClearContextDivider />}
-                  </>
-                );
-              })}
-            </div>
-          </div>
-          <div className="border-t border-[#a1a1a1] dark:border-[#444444] rounded-2xl pt-4 px-2 md:p-4 ">
-            <div>
-              <PromptHints
-                prompts={promptHints}
-                onPromptSelect={onPromptSelect}
-              />
-
-              <ChatActions
-                showPromptModal={() => setShowPromptModal(true)}
-                scrollToBottom={scrollToBottom}
-                hitBottom={hitBottom}
-                recording={recording}
-                barding={barding}
-                clauding={clauding}
-                chinese={chinese}
-                speaking={speaking}
-                duckduckgoing={duckduckgo}
-                showPromptHints={() => {
-                  // Click again to close
-                  if (promptHints.length > 0) {
-                    setPromptHints([]);
-                    return;
-                  }
-
-                  inputRef.current?.focus();
-                  setUserInput("/");
-                  onSearch("");
-                }}
-                onSpeechStart={onSpeechStart}
-                onBarding={() => {
-                  setClauding(false);
-                  setBarding(!barding);
-                }}
-                onChinese={() => setChinese(!chinese)}
-                onClauding={() => {
-                  setClauding(!clauding);
-                  setBarding(false);
-                }}
-                onDuckDuckGo={() => setDuckDuckGo(!duckduckgo)}
-                setSpeaking={setSpeaking}
-              />
-              <div className={styles["chat-input-panel-inner" + "w-full"]}>
-                <div className="ring-1 ring-[#a1a1a1] dark:ring-[#33363E] flex items-start gap-3 p-2 rounded-xl">
-                  <textarea
-                    ref={inputRef}
-                    className="h-full w-full  bg-white dark:bg-[#0E0F13] p-2 outline-none max-h-[200px] overflow-y-scroll resize-none"
-                    placeholder={Locale.Chat.Input(submitKey)}
-                    onInput={(e) => onInput(e.currentTarget.value)}
-                    value={userInput}
-                    onKeyDown={onInputKeyDown}
-                    onFocus={() => setAutoScroll(true)}
-                    onBlur={() => setAutoScroll(false)}
-                    rows={inputRows}
-                    autoFocus={autoFocus}
-                  />
-                  <button onClick={() => doSubmit(userInput, false)}>
-                    <img
-                      src="/images/send.svg"
-                      className="m-2 w-[28px] h-[28px]"
-                    />
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {showExport && (
-            <ExportMessageModal onClose={() => setShowExport(false)} />
-          )}
-        </div>
-      </div>
+    <div className="bg-[#ebebeb] dark:bg-[#202227] flex justify-center w-full h-screen min-h-fit   lg:gap-6">
+      <iframe
+        src="https://koolgpt-replica.vercel.app/"
+        className="w-full h-full border-0"
+        title="Embedded Vercel Link"
+      ></iframe>
+      <noscript>
+        <p>Unable to load the page. Please check the URL or deployment.</p>
+      </noscript>
     </div>
   );
 }
