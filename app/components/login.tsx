@@ -14,8 +14,8 @@ import { useTheme } from "next-themes";
 
 // TODO: need change currentUrl
 // const currentUrl = "http://localhost:3000/#/login"
-const currentUrl = "http://chat.dogai.com/#/login";
-const serverUrl = "http://my.dogai.com";
+const currentUrl = "https://quik-ask.vercel.app/#/login";
+const serverUrl = "https://quik-ask.vercel.app/";
 const wechatRedirectUrl = encodeURIComponent(
   serverUrl + "/3rd-login?client_url=" + encodeURIComponent(currentUrl),
 );
