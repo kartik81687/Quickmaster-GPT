@@ -987,19 +987,9 @@ export function FirstPage() {
               className="text-4xl md:text-5xl font-semibold text-center capitalize leading-10 text-neutral-700 dark:text-white"
               data-aos="fade-up"
             >
-              Trade With Anyone
+              Chat with Quickask
             </div>
-            <div
-              className="text-neutral-700 justify-center flex pt-3 dark:text-neutral-400"
-              data-aos="fade-up"
-            >
-              <p className="max-w-[700px] text-sm sm:text-base w-full text-center">
-                Lorem ipsum dolor sit amet consectetur. Nisi risus at ac
-                vestibulum ut. Amet bibendum mi eu leo. Ut odio ipsum et quis id
-                ridiculus commodo tincidunt ridiculus. Lacus ut sit vestibulum
-                at.
-              </p>
-            </div>
+           
             <div
               className="flex flex-wrap justify-center pt-3 gap-3"
               data-aos="fade-up"
